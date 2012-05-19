@@ -1,5 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.lang.String" errorPage="" %>
 <%@ page import="unlp.info.ingenieriaii.modelo.SucursalUno" %>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
 <body style="font-family:Sans-serif; color:white">
 <table width="100%">
 <tr>
@@ -21,45 +25,35 @@
 <tr>
 <td>
 
-<table border="1" align="center" width="80%">
+<table border="0" align="center" width="80%">
 	<tr>
 		<td width="15%"></td>
-		<td width="85%">
-		<table border="0" width="80%">
-			<tr bgcolor="#4AA">
-				<td><b>PRODUCTO</b></td>
-				<td><b>MARCA</b></td>
-				<td><b>TIPO DE PRODUCTO</b></td>
-			</tr>
-			<tr style="font-family:Sans-serif; color:#3B5998; font-size:12px">
-				<td><b><u>Buscar</u></b></td>
-				<td><b><u>Agregar</u></b></td>
-			</tr>
-		</table>
+		<td width="85%" style="font-variant: small-caps;">
+			<span style="display: inline-block; background-color:#4AA; padding: 1ex; margin-right: 1em; border-top: 4px solid #255;">Producto</span>
+			<span style="display: inline-block; background-color:#4AA; padding: 1ex; margin-right: 1em;">Marca</span>
+			<span style="display: inline-block; background-color:#4AA; padding: 1ex; margin-right: 1em;">Tipo de producto</span>
 		</td>
 	</tr>
 	<tr>
 		<td valign="top" width="15%">
-		<table align="center" border="1">
-			<tr bgcolor="#4AA"><td height="30"><b>Gestion de producto</b></td></tr>
-			<tr><td height="10"></td></tr>
-			<tr bgcolor="#4AA"><td height="30"><b>Venta</b></td></tr>
-			<tr><td height="10"></td></tr>
-			<tr bgcolor="#4AA"><td height="30"><b>Cliente</b></td></tr>	
-			<tr><td height="10"></td></tr>
-		</table>
+		<div style="font-variant: small-caps;">
+			<div style="background-color:#4AA; padding: 1ex; margin-right: 1em; margin: 4px; margin-right: 0px; border-left: 8px solid #255;">Gestión de productos</div>
+			<div style="background-color:#4AA; padding: 1ex; margin-right: 1em; margin: 4px; margin-right: 0px; border-left: 8px solid #4AA;">Ventas</div>
+			<div style="background-color:#4AA; padding: 1ex; margin-right: 1em; margin: 4px; margin-right: 0px; border-left: 8px solid #4AA;">Administración de clientes</div>
+			<div style="background-color:#4AA; padding: 1ex; margin-right: 1em; margin: 4px; margin-right: 0px; border-left: 8px solid #4AA;">Reportes</div>
+		</div>
 		</td>
 		<td width="85%">
-			<table width="100%" border="0" align="center">
-				<tr height="300">
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td align="right"><button type="button">Aceptar</button></td>
-					<td><button type="button">Cancelar</button></td>
-				</tr>
-			</table>
+			<div style="border: 1px solid #CCC; border-top: 4px solid #CCC; height:300px; position: relative; top: -4px; left: -4px;">
+				<div style="font-family:Sans-serif; color:Black; font-size:12px; font-weight:bold;">
+					<span style="display: inline-block; margin-left: 1ex; padding:1ex; border-left: 1px solid #AAA;border-right: 1px solid #AAA;border-bottom: 4px solid #AAA;">Buscar</span>
+					<span style="display: inline-block; margin-left: 1ex; padding:1ex; border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc;">Agregar</span>
+				</div>			
+			</div>
+				<div style="border: 1px solid #CCC; text-align: center; padding: 3px; position: relative; left: -4px;">
+					<button type="button">Aceptar</button>&nbsp;&nbsp;&nbsp;
+					<button type="button">Cancelar</button>
+				</div>
 		</td>
 	<tr>
 </table>
@@ -68,3 +62,4 @@
 </tr>
 </table>
 </body>
+</html>
