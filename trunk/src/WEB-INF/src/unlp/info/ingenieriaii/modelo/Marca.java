@@ -1,5 +1,5 @@
 package unlp.info.ingenieriaii.modelo;
 
-public class Marca {
+public class Marca extends ObjetoPersistente{
 
 }

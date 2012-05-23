@@ -1,6 +1,7 @@
 package unlp.info.ingenieriaii.modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class SucursalUno {
@@ -61,7 +62,12 @@ public class SucursalUno {
 		agregarAlHistorialObjetoPersistente(TipoDeAccion.EDICION, tipoDeProducto);
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	public static ArrayList<TipoDeProducto> tiposDeProductosOrdenadosPorFecha (){
+		ArrayList<TipoDeProducto> lista = (ArrayList<TipoDeProducto>) instance.getTiposDeProducto().clone();
+		Collections.sort(lista, new ComparableFechaCreacion());
+		return lista;
+	}
 	
 	
 	/* ------------ variables de instancia ---------------*/

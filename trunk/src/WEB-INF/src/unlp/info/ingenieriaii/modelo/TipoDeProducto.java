@@ -11,6 +11,17 @@ public class TipoDeProducto extends ObjetoPersistente{
 		return super.esValidoParaCrear() && Validador.esValidoTipoDeProducto(this, this.getErrores());
 	}
 	
+	@Override
+	public boolean esValidoParaModificar() {
+		return super.esValidoParaModificar() && Validador.esValidoTipoDeProducto(this, this.getErrores());
+	}
+	
+	@Override
+	public boolean esValidoParaEliminar() {
+		// AGREGAR TODAS LAS VALIDACIONES DE DATOS REFERENCIALES
+		return super.esValidoParaEliminar();
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

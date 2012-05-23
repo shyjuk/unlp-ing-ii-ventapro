@@ -28,11 +28,19 @@ public abstract class ObjetoPersistente {
 	
 	public boolean esValidoParaModificar() {
 		errores.clear();
+		if (this.getId() == -1) {
+			errores.put(Validador.ERROR_GENERICO, "Ha ocurrido un error. Por favor intente nuevamente.");
+			return false;
+		}
 		return true;
 	}
 	
 	public boolean esValidoParaEliminar() {
 		errores.clear();
+		if (this.getId() == -1) {
+			errores.put(Validador.ERROR_GENERICO, "Ha ocurrido un error. Por favor intente nuevamente.");
+			return false;
+		}
 		return true;
 	}
 
