@@ -1,65 +1,66 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" import="java.lang.String" errorPage="" %>
+<?xml version="1.0" encoding="UTF-8" ?>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="unlp.info.ingenieriaii.modelo.SucursalUno" %>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Venta Pro - [NOMBRE DE FUNCIONALIDAD ACÁ]</title>
+
+	<link rel="stylesheet" type="text/css" href="basico.css" />
 </head>
-<body style="font-family:Sans-serif; color:white">
-<table width="100%">
-<tr>
-<td>
-
-<table border="0" align="center" width="80%" bgcolor="#3B5998">
-	<tr>
-		<td><b><%=SucursalUno.getSingleInstance().getNombre()%></b></td>
-		<td align="right"><b>Rodolfo Perez&nbsp</b></td>
-		<td align="right" width="15%"><button type="button">Cerrar Sesion</button></td>
-	</tr>
-</table>
-
-</td>
-</tr>
-<tr>
-	<td height="20"></td>
-</tr>	
-<tr>
-<td>
-
-<table border="0" align="center" width="80%">
-	<tr>
-		<td width="15%"></td>
-		<td width="85%" style="font-variant: small-caps;">
-			<span style="display: inline-block; background-color:#4AA; padding: 1ex; margin-right: 1em; border-top: 4px solid #255;">Producto</span>
-			<span style="display: inline-block; background-color:#4AA; padding: 1ex; margin-right: 1em;">Marca</span>
-			<span style="display: inline-block; background-color:#4AA; padding: 1ex; margin-right: 1em;">Tipo de producto</span>
-		</td>
-	</tr>
-	<tr>
-		<td valign="top" width="15%">
-		<div style="font-variant: small-caps;">
-			<div style="background-color:#4AA; padding: 1ex; margin-right: 1em; margin: 4px; margin-right: 0px; border-left: 8px solid #255;">Gestión de productos</div>
-			<div style="background-color:#4AA; padding: 1ex; margin-right: 1em; margin: 4px; margin-right: 0px; border-left: 8px solid #4AA;">Ventas</div>
-			<div style="background-color:#4AA; padding: 1ex; margin-right: 1em; margin: 4px; margin-right: 0px; border-left: 8px solid #4AA;">Administración de clientes</div>
-			<div style="background-color:#4AA; padding: 1ex; margin-right: 1em; margin: 4px; margin-right: 0px; border-left: 8px solid #4AA;">Reportes</div>
+<body>
+	<form method="post">
+	<div class="header">
+		<div class="nombreSucursal"><%=SucursalUno.getSingleInstance().getNombre()%></div>
+		<div class="nombreUsuario">
+			<%=("Rodolfo Perez")%>
+			<input type="submit" value="Cerrar sesión" name="btnCerrarSesion"></input>
 		</div>
-		</td>
-		<td width="85%">
-			<div style="border: 1px solid #CCC; border-top: 4px solid #CCC; height:300px; position: relative; top: -4px; left: -4px;">
-				<div style="font-family:Sans-serif; color:Black; font-size:12px; font-weight:bold;">
-					<span style="display: inline-block; margin-left: 1ex; padding:1ex; border-left: 1px solid #AAA;border-right: 1px solid #AAA;border-bottom: 4px solid #AAA;">Buscar</span>
-					<span style="display: inline-block; margin-left: 1ex; padding:1ex; border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc;">Agregar</span>
-				</div>			
-			</div>
-				<div style="border: 1px solid #CCC; text-align: center; padding: 3px; position: relative; left: -4px;">
-					<button type="button">Aceptar</button>&nbsp;&nbsp;&nbsp;
-					<button type="button">Cancelar</button>
+		<div class="clear"></div>
+	</div>
+	
+	<table class="principal">
+		<tr>
+			<td></td>
+			<td class="funcs funcsSecundarias">
+				<a class="func funcAct" href="#">Producto</a>
+				<a class="func" href="buscarMarca.jsp">Marca</a>
+				<a class="func" href="buscarTipoProducto.jsp">Tipo de producto</a>
+			</td>
+		</tr>
+		<tr>
+			<td class="funcs funcsPrincipales">
+				<a class="funcPrincipal funcPrincipalAct" href="#">Gestión de productos</a>
+				<a class="funcPrincipal" href="#">Ventas</a>
+				<a class="funcPrincipal" href="#">Administración de clientes</a>
+				<a class="funcPrincipal" href="#">Reportes</a>
+				<a class="funcPrincipal" href="#">Administración de usuarios</a>
+			</td>
+			
+			<td class="panelPrincipal">
+				<div class="subFuncs">
+					<a class="subFunc" href="buscarProducto.jsp">Buscar</a>
+					<a class="subFunc subFuncAct" href="#">Agregar</a>
 				</div>
-		</td>
-	<tr>
-</table>
-
-</td>
-</tr>
-</table>
+				
+				
+				[Acá van las cosas propias de la funcionalidad]
+				
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="separador"></td>
+		</tr>		
+		<tr>
+			<td></td>
+			<td class="botonera">
+				<input type="submit" value="Aceptar" name="btnAceptar"></input>
+				<input type="submit" value="Cancelar" name="btnCancelar"></input>
+			</td>
+		</tr>
+	</table>
+	</form>
 </body>
 </html>

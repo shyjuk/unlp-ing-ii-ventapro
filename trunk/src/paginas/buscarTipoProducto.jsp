@@ -25,9 +25,9 @@
 		<tr>
 			<td></td>
 			<td class="funcs funcsSecundarias">
-				<a class="func funcAct" href="#">Producto</a>
+				<a class="func" href="buscarProducto.jsp">Producto</a>
 				<a class="func" href="buscarMarca.jsp">Marca</a>
-				<a class="func" href="buscarTipoProducto.jsp">Tipo de producto</a>
+				<a class="func funcAct" href="#">Tipo de producto</a>
 			</td>
 		</tr>
 		<tr>
@@ -42,7 +42,7 @@
 			<td class="panelPrincipal">
 				<div class="subFuncs">
 					<a class="subFunc subFuncAct" href="#">Buscar</a>
-					<a class="subFunc" href="agregarProducto.jsp">Agregar</a>
+					<a class="subFunc" href="agregarTipoProducto.jsp">Agregar</a>
 				</div>
 				
 				
