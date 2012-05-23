@@ -1,6 +1,7 @@
 package unlp.info.ingenieriaii.modelo;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SucursalUno {
 	
@@ -23,7 +24,7 @@ public class SucursalUno {
 		return instance;
 	}
 	
-	private static void validarNuevoObjetoPersistente (ObjetoPersistente objetoPersistente) throws Exception {
+	private static void prepararObjetoPersistenteParaCreacion (ObjetoPersistente objetoPersistente) throws Exception {
 		if (objetoPersistente == null) {
 			throw new Exception("es null");
 		}
@@ -31,15 +32,17 @@ public class SucursalUno {
 			throw new Exception("ya tiene ID generado");
 		}
 		objetoPersistente.generarIDAutomatico();
+		objetoPersistente.setFechaCreacion(new Date()); // new Date() me da la fecha de hoy
 	}
 	
-	private static void validarEdicionObjetoPersistente (ObjetoPersistente objetoPersistente) throws Exception {
+	private static void prepararObjetoPersistenteParaEdicion (ObjetoPersistente objetoPersistente) throws Exception {
 		if (objetoPersistente == null) {
 			throw new Exception("es null");
 		}
 		if (objetoPersistente.getId() == -1) {
 			throw new Exception("el ID no fue generado");
 		}
+		objetoPersistente.setFechaModificacion(new Date()); // new Date() me da la fecha de hoy
 	}
 	
 	private static void agregarAlHistorialObjetoPersistente (TipoDeAccion tipoAccion, ObjetoPersistente objetoPersistente) throws Exception {
@@ -47,13 +50,13 @@ public class SucursalUno {
 	}
 	
 	public static final void agregar(TipoDeProducto tipoDeProducto) throws Exception {
-		validarNuevoObjetoPersistente(tipoDeProducto);
+		prepararObjetoPersistenteParaCreacion(tipoDeProducto);
 		instance.getTiposDeProducto().add(tipoDeProducto);
 		agregarAlHistorialObjetoPersistente(TipoDeAccion.ALTA, tipoDeProducto);
 	}
 	
 	public static final void modificar (TipoDeProducto tipoDeProducto) throws Exception {
-		validarEdicionObjetoPersistente(tipoDeProducto);
+		prepararObjetoPersistenteParaEdicion(tipoDeProducto);
 		instance.getTiposDeProducto().add(tipoDeProducto);
 		agregarAlHistorialObjetoPersistente(TipoDeAccion.EDICION, tipoDeProducto);
 	}
