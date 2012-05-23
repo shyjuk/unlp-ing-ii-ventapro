@@ -25,7 +25,7 @@
 			float: right;
 		}
 		
-		table.principal	{
+		table.principal {
 			width: 100%;
 			border-collapse:collapse;
 		}
@@ -126,4 +126,13 @@
 		
 		.invisible {
 			visibility: hidden;
+		}
+		
+		.errorEntrada {
+			color: red;
+			font-size: 12px;
+		}
+		
+		.labelForm {
+			padding-right: 2em;
 		}
