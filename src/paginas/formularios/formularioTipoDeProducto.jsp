@@ -12,11 +12,11 @@
 
 <table>
 	<tr>
-		<td width="20%"><div class="body">Nombre:&nbsp</div></td>
-		<td><input type="text" name="nombre" id="nombre" size="100" value="<%=Utiles.getNotNullValue(tipoDeProducto.getNombre())%>"/>&nbsp*</td>
+		<td class="labelForm">Nombre:</td>
+		<td><input type="text" name="nombre" id="nombre" size="50" value="<%=Utiles.getNotNullValue(tipoDeProducto.getNombre())%>"/> *</td>
 	</tr>
 	<tr>
-		<td width="20%"><div class="body">Descripción:&nbsp</div></td>
-		<td><input type="text" name="descripcion" id="descripcion" size="100" value="<%=Utiles.getNotNullValue(tipoDeProducto.getDescripcion())%>"/>&nbsp</td>
+		<td class="labelForm">Descripción:</td>
+		<td><input type="text" name="descripcion" id="descripcion" size="50" value="<%=Utiles.getNotNullValue(tipoDeProducto.getDescripcion())%>"/></td>
 	</tr>
 </table>
