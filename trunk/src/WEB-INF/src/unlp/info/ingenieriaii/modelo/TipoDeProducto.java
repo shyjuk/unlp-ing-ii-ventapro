@@ -7,6 +7,10 @@ public class TipoDeProducto extends ObjetoPersistente{
 	private String nombre;
 	private String descripcion;
 	
+	public TipoDeProducto() {
+		super();
+	}
+	
 	public boolean esValidoParaCrear()	{
 		return super.esValidoParaCrear() && Validador.esValidoTipoDeProducto(this, this.getErrores());
 	}
