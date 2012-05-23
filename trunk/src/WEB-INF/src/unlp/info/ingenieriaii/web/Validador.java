@@ -1,7 +1,9 @@
 package unlp.info.ingenieriaii.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import unlp.info.ingenieriaii.modelo.SucursalUno;
 import unlp.info.ingenieriaii.modelo.TipoDeProducto;
 
 public class Validador {
@@ -22,9 +24,22 @@ public class Validador {
 			errores.put("descripcion", "Ingrese entre 1 y 100 caracteres.");
 			return false;
 		}
+		if (estaRepetido(tipoDeProducto)) {
+			errores.put("nombre", "El tipo de producto ya existe.");
+		}
 		return true;
 	}
 	
+	private static boolean estaRepetido (TipoDeProducto tipoDeProducto) {
+		ArrayList<TipoDeProducto> todos = SucursalUno.getSingleInstance().getTiposDeProducto();
+		for (TipoDeProducto tipoProducto : todos) {
+			if (tipoProducto.getNombre().equalsIgnoreCase(tipoDeProducto.getNombre()) 
+					&& tipoProducto.getId() != tipoDeProducto.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 	
