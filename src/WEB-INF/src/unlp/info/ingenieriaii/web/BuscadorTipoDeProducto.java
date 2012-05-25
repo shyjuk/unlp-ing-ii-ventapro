@@ -15,7 +15,12 @@ public class BuscadorTipoDeProducto extends Buscador{
 	}
 	
 	public boolean esValidoParaBuscar () {
-		return nombre != null && nombre.length() > 0;
+		this.getErrores().clear();
+		if (nombre == null || nombre.length() == 0) {
+			this.getErrores().put(Validador.ERROR_GENERICO, "Complete algún parametro para realizar la búsqueda.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
