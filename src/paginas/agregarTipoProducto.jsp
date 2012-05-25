@@ -16,7 +16,24 @@
 	<link rel="stylesheet" type="text/css" href="basico.css" />
 </head>
 <body>
+<script type="text/javascript">
+	function cancelar () {
+		if (confirm("¿Esta seguro que desea cancelar la operación?")){
+			submit();
+		}
+	}
+	function agregar () {
+		
+	}
+</script>
+	
 	<form method="post">
+	<input type="hidden" name="objectName" value="unlp.info.ingenieriaii.modelo.TipoDeProducto">
+	<input type="hidden" name="objectClassName" value="tipoDeProducto">
+	<input type="hidden" name="thisPage" value="agregarTipoProducto.jsp">
+	<input type="hidden" name="successPageName" value="buscarTipoProducto.jsp">
+	<input type="hidden" name="invalidPageName" value="agregarTipoProducto.jsp">
+	
 	<div class="header">
 		<div class="nombreSucursal"><%=SucursalUno.getSingleInstance().getNombre()%></div>
 		<div class="nombreUsuario">
@@ -62,7 +79,7 @@
 			<td></td>
 			<td class="botonera">
 				<input type="submit" value="Aceptar" name="btnAceptar"></input>
-				<input type="submit" value="Cancelar" name="btnCancelar"></input>
+				<input type="submit" value="Cancelar" name="btnCancelar" onclick="cancelar();"></input>
 			</td>
 		</tr>
 	</table>

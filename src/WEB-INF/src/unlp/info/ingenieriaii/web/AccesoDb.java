@@ -16,8 +16,7 @@ public class AccesoDb {
 
 		try {
 			Class.forName(DRIVER).newInstance();
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

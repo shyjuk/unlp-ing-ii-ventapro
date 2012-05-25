@@ -20,8 +20,8 @@ public class Validador {
 			errores.put("nombre", "Ingrese entre 1 y 50 caracteres.");
 			return false;
 		}
-		if (tipoDeProducto.getDescripcion().length() > 100) {
-			errores.put("descripcion", "Ingrese entre 1 y 100 caracteres.");
+		if (tipoDeProducto.getDescripcion() != null && tipoDeProducto.getDescripcion().length() > 100) {
+			errores.put("descripcion", "Ingrese entre 0 y 100 caracteres.");
 			return false;
 		}
 		if (estaRepetido(tipoDeProducto)) {
