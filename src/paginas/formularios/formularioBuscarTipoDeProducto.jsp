@@ -25,9 +25,9 @@
 	<%
 	//buscadorTipoProd.setNombre("a");
 	// NECESITO EL SERVELT PARA HACER ESOT!!!
-	if (buscadorTipoProd.getErrores().isEmpty() && buscadorTipoProd.esValidoParaBuscar()) {
+	//if (buscadorTipoProd.getErrores().isEmpty() && buscadorTipoProd.esValidoParaBuscar()) {
 		buscadorTipoProd.ejecutarBusqueda();
-	}
+	//}
 	
 	%>
 	<tr>

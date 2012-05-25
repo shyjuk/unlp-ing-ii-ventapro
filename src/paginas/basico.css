@@ -136,3 +136,8 @@
 		.labelForm {
 			padding-right: 2em;
 		}
+		
+		.helpText {
+			color: blue;
+			font-size: 12px;
+		}
