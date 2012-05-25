@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class VentaProServlet extends HttpServlet{
 
 	private static final long serialVersionUID = -8532993373342222147L;
-
+/*
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
@@ -35,10 +35,11 @@ public class VentaProServlet extends HttpServlet{
 	      e.printStackTrace();
 	    }
 	  }
-		
+*/		
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		this.doGet(req, resp);
+		
+		throw new ServletException("Hey, funcionó el POST!");
+		//this.doGet(req, resp);
 	}
-	
-	}
+}

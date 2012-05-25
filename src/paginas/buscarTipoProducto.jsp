@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" extends="unlp.info.ingenieriaii.web.VentaProServlet"%>
 <%@ page import="unlp.info.ingenieriaii.modelo.*" %>
 <%@ page import="unlp.info.ingenieriaii.web.*" %>
 <jsp:useBean id="buscadorTipoProd" class="unlp.info.ingenieriaii.web.BuscadorTipoDeProducto" scope="session"/>
