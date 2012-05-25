@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="unlp.info.ingenieriaii.web.AccesoDb"%>
 <%@ page import="java.sql.ResultSet"%>
+<%@ page import="java.util.Date"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,40 +12,82 @@
 </head>
 <body>
 
-	<table>
+	<%
+		//Esto es una chantada temporal, tengo que ver de mejorar los templates y preguntarle a Daiana si hay una especie de evento AppStart
+		AccesoDb.cargarConfig(this.getServletContext());
+
+		AccesoDb acceso = new AccesoDb();
+		ResultSet rs;
+
+		String nombreRnd = "TipoProducto-" + (new Date()).toString();
+
+		acceso.ejecutarQuery("CALL agregarCategoria('" + nombreRnd + "')");
+	%>
+
+	<table border="1">
+		<%
+			rs = acceso.ejecutarQuery("SELECT * FROM tbl_persona");
+		%>
 		<tr>
-			<td>id</td>
-			<td>nombre</td>
-			<td>tipoDocumento</td>
-			<td>nroDocumento</td>
-			<td>telefono</td>
-			<td>celular</td>
-			<td>eMail</td>
+			<%
+				for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+			%>
+			<td><%=rs.getMetaData().getColumnName(i)%></td>
+			<%
+				}
+			%>
 		</tr>
 		<%
-			//Esto es una chantada temporal, tengo que ver de mejorar los templates y preguntarle a Daiana si hay una especie de evento AppStart
-			AccesoDb.cargarConfig(this.getServletContext());
-
-			AccesoDb acceso = new AccesoDb();
-			ResultSet rs = acceso.ejecutarQuery("SELECT * FROM tbl_persona");
-
 			while (rs.next()) {
 		%>
 		<tr>
-			<td><%=rs.getString("id")%></td>
-			<td><%=rs.getString("nombre")%></td>
-			<td><%=rs.getString("tipoDocumento")%></td>
-			<td><%=rs.getString("nroDocumento")%></td>
-			<td><%=rs.getString("telefono")%></td>
-			<td><%=rs.getString("celular")%></td>
-			<td><%=rs.getString("eMail")%></td>
+			<%
+				for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+			%>
+			<td><%=rs.getString(i)%></td>
+			<%
+				}
+			%>
 		</tr>
 		<%
 			}
-
-			acceso.cerrar();
 		%>
 	</table>
 
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+
+	<table border="1">
+		<%
+			rs = acceso.ejecutarQuery("SELECT * FROM tbl_categoria");
+		%>
+		<tr>
+			<%
+				for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+			%>
+			<td><%=rs.getMetaData().getColumnName(i)%></td>
+			<%
+				}
+			%>
+		</tr>
+		<%
+			while (rs.next()) {
+		%>
+		<tr>
+			<%
+				for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+			%>
+			<td><%=rs.getString(i)%></td>
+			<%
+				}
+			%>
+		</tr>
+		<%
+			}
+		%>
+	</table>
 </body>
 </html>
