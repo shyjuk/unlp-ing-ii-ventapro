@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
+import unlp.info.ingenieriaii.test.GeneradorDeDatos;
+
 public class SucursalUno {
 	
 	private static SucursalUno instance;
@@ -21,6 +23,11 @@ public class SucursalUno {
 			instance.setProductos(new ArrayList<Producto>());
 			instance.setMarcas(new ArrayList<Marca>());
 			instance.setTiposDeProducto(new ArrayList<TipoDeProducto>());
+			try {
+				GeneradorDeDatos.generarTiposDeProductos();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return instance;
 	}
@@ -52,19 +59,20 @@ public class SucursalUno {
 	
 	public static final void agregar(TipoDeProducto tipoDeProducto) throws Exception {
 		prepararObjetoPersistenteParaCreacion(tipoDeProducto);
-		instance.getTiposDeProducto().add(tipoDeProducto);
+		getSingleInstance().getTiposDeProducto().add(tipoDeProducto);
 		agregarAlHistorialObjetoPersistente(TipoDeAccion.ALTA, tipoDeProducto);
+		System.out.println(tipoDeProducto.getId() + tipoDeProducto.getNombre() + tipoDeProducto.getDescripcion());
 	}
 	
 	public static final void modificar (TipoDeProducto tipoDeProducto) throws Exception {
 		prepararObjetoPersistenteParaEdicion(tipoDeProducto);
-		instance.getTiposDeProducto().add(tipoDeProducto);
+		getSingleInstance().getTiposDeProducto().add(tipoDeProducto);
 		agregarAlHistorialObjetoPersistente(TipoDeAccion.EDICION, tipoDeProducto);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static ArrayList<TipoDeProducto> tiposDeProductosOrdenadosPorFecha (){
-		ArrayList<TipoDeProducto> lista = (ArrayList<TipoDeProducto>) instance.getTiposDeProducto().clone();
+		ArrayList<TipoDeProducto> lista = (ArrayList<TipoDeProducto>) getSingleInstance().getTiposDeProducto().clone();
 		Collections.sort(lista, new ComparableFechaCreacion());
 		return lista;
 	}

@@ -9,7 +9,6 @@
 <script type="text/javascript">
 	
 </script>
-
 <table>
 	<tr>
 		<td class="labelForm">Nombre:</td>
