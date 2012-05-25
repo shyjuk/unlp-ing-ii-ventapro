@@ -11,9 +11,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Venta Pro - Agregar Tipo de producto</title>
-	<link rel="stylesheet" type="text/css" href="basico.css" />
+	<title>Venta Pro - Editar Tipo de producto</title>
 	<script src="funciones.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="basico.css" />
 </head>
 <body>
 <script type="text/javascript">
@@ -25,7 +25,6 @@
 	function agregar () {
 		
 	}
-	
 </script>
 	
 	<form method="post">
@@ -65,8 +64,10 @@
 			<td class="panelPrincipal">
 				<div class="subFuncs">
 					<a class="subFunc" href="buscarTipoProducto.jsp">Buscar</a>
-					<a class="subFunc subFuncAct" href="#">Agregar</a>
+					<a class="subFunc" href="agregarTipoProducto.jsp">Agregar</a>
+					<a class="subFunc subFuncAct" href="#">Editar</a>
 				</div>
+				
 				
 				<jsp:include page="formularios/formularioTipoDeProducto.jsp" flush="true"/>
 				
