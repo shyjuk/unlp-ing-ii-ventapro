@@ -8,38 +8,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class VentaProServlet extends HttpServlet{
+public class VentaProServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -8532993373342222147L;
-/*
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-		throws ServletException, IOException {
-		String unAttributo = (String) req.getAttribute("nombreAttributo");
-		
-	    try {
-	    	
-	    	// Aca iria la logica de rediccion
-	    	
-	    	if (unAttributo != null && unAttributo.equals("ir")) {
-	    		RequestDispatcher dispatcher =
-	  	    	  req.getRequestDispatcher( "/paginas/buscarTipoProducto.jsp");
-	  	    	  dispatcher.forward(req, resp);
-	    	}
+			throws ServletException, IOException {
+//		String unAttributo = (String) req.getAttribute("nombreAttributo");
 
-	    } catch (ServletException e) {
-	      // TODO Auto-generated catch block
-	      e.printStackTrace();
-	    } catch (IOException e) {
-	      // TODO Auto-generated catch block
-	      e.printStackTrace();
-	    }
-	  }
-*/		
+//		try {
+//
+//			// Aca iria la logica de rediccion
+//
+//			if (unAttributo != null && unAttributo.equals("ir")) {
+//				RequestDispatcher dispatcher = req
+//						.getRequestDispatcher("/paginas/buscarTipoProducto.jsp");
+//				dispatcher.forward(req, resp);
+//			}
+//
+//		} catch (ServletException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		req.getRequestDispatcher("/WEB-INF/src/Prueba.jsp").forward(req, resp);
+	}
+
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+
 		throw new ServletException("Hey, funcionó el POST!");
-		//this.doGet(req, resp);
+		// this.doGet(req, resp);
 	}
 }
