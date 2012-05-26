@@ -1,16 +1,26 @@
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-app_2_4.xsd"
-version="2.4">
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-app_2_4.xsd"
+	version="2.4">
 
-<servlet>
-	<servlet-name>VentaProServlet</servlet-name>
-	<servlet-class>unlp.info.ingenieriaii.web.VentaProServlet</servlet-class>
-</servlet>
+	<servlet>
+		<servlet-name>VentaProServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.VentaProServlet
+		</servlet-class>
+	</servlet>
 
-<servlet-mapping>
-	<servlet-name>VentaProServlet</servlet-name>
-	<url-pattern>/paginas/buscarTipoProducto.jsp</url-pattern>
-</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>VentaProServlet</servlet-name>
+		<url-pattern>/paginas/buscarTipoProducto.jsp</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>helloServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.HelloServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>helloServlet</servlet-name>
+		<url-pattern>/hello.jsp</url-pattern>
+	</servlet-mapping>
 
 </web-app>
