@@ -10,7 +10,7 @@ version="2.4">
 
 <servlet-mapping>
 	<servlet-name>VentaProServlet</servlet-name>
-	<url-pattern>/demo/buscarTipoProducto</url-pattern>
+	<url-pattern>/paginas/buscarTipoProducto.jsp</url-pattern>
 </servlet-mapping>
 
 </web-app>
