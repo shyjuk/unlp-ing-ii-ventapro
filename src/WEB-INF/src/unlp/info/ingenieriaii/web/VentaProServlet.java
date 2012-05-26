@@ -2,13 +2,11 @@ package unlp.info.ingenieriaii.web;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class VentaProServlet extends HttpServlet {
+public class VentaProServlet extends ServletPagina {
 
 	private static final long serialVersionUID = -8532993373342222147L;
 
@@ -34,14 +32,16 @@ public class VentaProServlet extends HttpServlet {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		req.getRequestDispatcher("/WEB-INF/src/Prueba.jsp").forward(req, resp);
+
+		// Comportamiento por default es mostrar el JSP propio, si hay que ir a otra parte 
+		//usar super.despacharJsp ("super" no hace falta en este en realidad)
+		super.doGet(req, resp); 
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		throw new ServletException("Hey, funcionó el POST!");
-		// this.doGet(req, resp);
+		super.doPost(req, resp);
 	}
 }
