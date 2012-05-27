@@ -27,6 +27,7 @@ public class Validador {
 		}
 		if (estaRepetido(tipoDeProducto)) {
 			errores.put("nombre", "El tipo de producto ya existe.");
+			return false;
 		}
 		return true;
 	}
@@ -58,7 +59,7 @@ public class Validador {
 			errores.put("Stock Minimo", "Complete el campo.");
 			return false;
 		}
-		if (producto.getGarantía() != 'Y' || producto.getGarantía()!=  'N'  ) {
+		if (producto.getGarantia() != 'Y' || producto.getGarantia()!=  'N'  ) {
 			errores.put("Garantia", "Complete el campo.");
 			return false;
 		}
