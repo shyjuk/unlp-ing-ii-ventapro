@@ -46,7 +46,7 @@
 				</div>
 				
 				
-				[Acá van las cosas propias de la funcionalidad]
+				<jsp:include page="forms/formularioBuscarProducto.jsp" flush="true"/>
 				
 			</td>
 		</tr>
