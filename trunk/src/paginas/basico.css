@@ -140,4 +140,6 @@
 		.helpText {
 			color: blue;
 			font-size: 12px;
+			text-align: right;
+			margin-right: 1ex;
 		}
