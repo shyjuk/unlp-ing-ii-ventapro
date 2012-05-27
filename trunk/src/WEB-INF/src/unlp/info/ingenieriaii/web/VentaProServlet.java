@@ -12,7 +12,7 @@ public class VentaProServlet extends ServletPagina {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+		throws ServletException, IOException {
 //		String unAttributo = (String) req.getAttribute("nombreAttributo");
 
 //		try {
@@ -37,11 +37,11 @@ public class VentaProServlet extends ServletPagina {
 		//usar super.despacharJsp ("super" no hace falta en este en realidad)
 		super.doGet(req, resp); 
 	}
-
+		
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
+		
 		super.doPost(req, resp);
 	}
 }
