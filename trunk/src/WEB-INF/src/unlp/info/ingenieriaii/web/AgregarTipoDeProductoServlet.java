@@ -21,7 +21,8 @@ public class AgregarTipoDeProductoServlet extends ServletPagina{
 		if (object.esValidoParaCrear()) {
 			try {
 				SucursalUno.getSingleInstance().agregar(object);
-				despacharJsp("buscarTipoProducto.jsp", req, resp);
+				//despacharJsp("buscarTipoProducto.jsp", req, resp);
+				resp.sendRedirect("buscarTipoProducto.jsp");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
