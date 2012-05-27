@@ -4,10 +4,6 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-app_2_4.xsd"
 version="2.4">
 
 <servlet>
-	<servlet-name>VentaProServlet</servlet-name>
-	<servlet-class>unlp.info.ingenieriaii.web.VentaProServlet</servlet-class>
-</servlet>
-<servlet>
 	<servlet-name>BuscarTipoDeProductoServelt</servlet-name>
 	<servlet-class>unlp.info.ingenieriaii.web.BuscarTipoDeProductoServelt</servlet-class>
 </servlet>
@@ -16,13 +12,17 @@ version="2.4">
 	<servlet-class>unlp.info.ingenieriaii.web.AgregarTipoDeProductoServlet</servlet-class>
 </servlet>
 <servlet>
+	<servlet-name>BuscarMarcaServlet</servlet-name>
+	<servlet-class>unlp.info.ingenieriaii.web.BuscarMarcaServlet</servlet-class>
+</servlet>
+<servlet>
+	<servlet-name>AgregarMarcaServlet</servlet-name>
+	<servlet-class>unlp.info.ingenieriaii.web.AgregarMarcaServlet</servlet-class>
+</servlet>
+<servlet>
 	<servlet-name>helloServlet</servlet-name>
 	<servlet-class>unlp.info.ingenieriaii.web.HelloServlet</servlet-class>
 </servlet>
-<servlet-mapping>
-	<servlet-name>helloServlet</servlet-name>
-	<url-pattern>/hello.jsp</url-pattern>
-</servlet-mapping>
 
 
 <servlet-mapping>
@@ -32,6 +32,18 @@ version="2.4">
 <servlet-mapping>
 	<servlet-name>AgregarTipoDeProductoServlet</servlet-name>
 	<url-pattern>/paginas/agregarTipoProducto.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>BuscarMarcaServlet</servlet-name>
+	<url-pattern>/paginas/buscarMarca.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>AgregarMarcaServlet</servlet-name>
+	<url-pattern>/paginas/agregarMarca.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>helloServlet</servlet-name>
+	<url-pattern>/hello.jsp</url-pattern>
 </servlet-mapping>
 
 </web-app>
