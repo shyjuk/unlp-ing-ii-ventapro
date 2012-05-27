@@ -7,7 +7,7 @@ public class Producto extends ObjetoPersistente{
 	private int codigo;
 	private String nombre;
 	private float precio;
-	private int garantía;
+	private int garantia;
 	private int stock;
 	private int stockMinimo;
 	private boolean enVenta;
@@ -33,11 +33,11 @@ public class Producto extends ObjetoPersistente{
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
-	public int getGarantía() {
-		return garantía;
+	public int getGarantia() {
+		return garantia;
 	}
-	public void setGarantía(int garantía) {
-		this.garantía = garantía;
+	public void setGarantia(int garantia) {
+		this.garantia = garantia;
 	}
 	public int getStock() {
 		return stock;

@@ -66,8 +66,18 @@ public class SucursalUno {
 	
 	public static final void modificar (TipoDeProducto tipoDeProducto) throws Exception {
 		prepararObjetoPersistenteParaEdicion(tipoDeProducto);
-		getSingleInstance().getTiposDeProducto().add(tipoDeProducto);
+		for (TipoDeProducto object : getSingleInstance().getTiposDeProducto()) {
+			if (object.getId() == tipoDeProducto.getId()) {
+				object.setNombre(tipoDeProducto.getNombre());
+				object.setDescripcion(tipoDeProducto.getDescripcion());
+			}
+		}
 		agregarAlHistorialObjetoPersistente(TipoDeAccion.EDICION, tipoDeProducto);
+	}
+	
+	public static final void eliminar (TipoDeProducto tipoDeProducto) throws Exception{
+		getSingleInstance().getTiposDeProducto().remove(tipoDeProducto);
+		agregarAlHistorialObjetoPersistente(TipoDeAccion.BAJA, tipoDeProducto);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -77,6 +87,14 @@ public class SucursalUno {
 		return lista;
 	}
 	
+	public static TipoDeProducto getTipoDeProductoCon (String id) {
+		for (TipoDeProducto object : SucursalUno.getSingleInstance().getTiposDeProducto()){
+			if (object.getId() == Integer.valueOf(id).intValue()) {
+				return object;
+			}
+		}
+		return null;
+	}
 	
 	/* ------------ variables de instancia ---------------*/
 
