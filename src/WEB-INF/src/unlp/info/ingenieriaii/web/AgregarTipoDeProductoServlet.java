@@ -14,7 +14,7 @@ public class AgregarTipoDeProductoServlet extends ServletPagina{
 	private static final long serialVersionUID = -6737178893187649667L;
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		TipoDeProducto object = new TipoDeProducto();
 		object.setNombre((String) req.getParameter("nombre"));
 		object.setDescripcion((String) req.getParameter("descripcion"));
@@ -28,7 +28,7 @@ public class AgregarTipoDeProductoServlet extends ServletPagina{
 			}
 		}else {
 			req.setAttribute("errores", object.getErrores());
-			super.doPost(req, resp);
+			super.procesarPost(req, resp);
 		}
 	}
 

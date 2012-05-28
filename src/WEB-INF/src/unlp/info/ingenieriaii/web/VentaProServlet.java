@@ -11,7 +11,7 @@ public class VentaProServlet extends ServletPagina {
 	private static final long serialVersionUID = -8532993373342222147L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+	protected void procesarGet(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
 //		String unAttributo = (String) req.getAttribute("nombreAttributo");
 
@@ -35,13 +35,13 @@ public class VentaProServlet extends ServletPagina {
 
 		// Comportamiento por default es mostrar el JSP propio, si hay que ir a otra parte 
 		//usar super.despacharJsp ("super" no hace falta en este en realidad)
-		super.doGet(req, resp); 
+		super.procesarGet(req, resp); 
 	}
 		
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		super.doPost(req, resp);
+		super.procesarPost(req, resp);
 	}
 }

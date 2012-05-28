@@ -14,12 +14,12 @@ public class BuscarTipoDeProductoServelt extends ServletPagina{
 	private static final long serialVersionUID = 5874040150008001323L;
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
-		super.doGet(req, resp);
+	protected void procesarGet(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
+		super.procesarGet(req, resp);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String action = (String) req.getParameter("action");
 		if (action != null) {
@@ -60,11 +60,11 @@ public class BuscarTipoDeProductoServelt extends ServletPagina{
 					despacharJsp("editarTipoProducto.jsp", req, resp);
 				}
 			}else  {
-				super.doPost(req, resp);
+				super.procesarPost(req, resp);
 			}
 		}else {
 			// no deberia entrar por aca
-			super.doPost(req, resp);
+			super.procesarPost(req, resp);
 		}
 		
 	} 
