@@ -1,6 +1,8 @@
 package unlp.info.ingenieriaii.web;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ public class BuscarTipoDeProductoServelt extends ServletPagina{
 	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String action = (String) req.getParameter("action");
+		
 		if (action != null) {
 			if (action.equals("editar")) {
 				// Ir a pag editar tipo de producto
@@ -40,6 +43,11 @@ public class BuscarTipoDeProductoServelt extends ServletPagina{
 				}
 			}else if (action.equals("buscar")) {
 				// Ejecutar busqueda de producto
+				String nombre = (String) req.getParameter("nombre");
+				BuscadorTipoDeProducto buscador = new BuscadorTipoDeProducto();
+				buscador.setNombre(nombre);
+				buscador.esValidoParaBuscar();
+				req.setAttribute("errores", buscador.getErrores());
 				despacharJsp("buscarTipoProducto.jsp", req, resp);
 			} else if (action.equals("guardarEdicion")) {
 				// guardar datos de tipo de producto editado
@@ -59,6 +67,22 @@ public class BuscarTipoDeProductoServelt extends ServletPagina{
 					req.setAttribute("errores", object.getErrores());
 					despacharJsp("editarTipoProducto.jsp", req, resp);
 				}
+			}else if (action.equals("borrarSeleccionados")){
+				HashMap<String, Boolean> checkboxValues = getAllParameterCheckBox(req, "seleccionados_");
+				for (Entry<String, Boolean> row : checkboxValues.entrySet()) {
+					if (row.getValue()) { // value = TRUE (seleccionado)
+						String id = row.getKey();
+						TipoDeProducto object = SucursalUno.getSingleInstance().getTipoDeProductoCon(id);
+						if (object.esValidoParaEliminar()) {
+							try {
+								SucursalUno.getSingleInstance().eliminar(object);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+				despacharJsp("buscarTipoProducto.jsp", req, resp);
 			}else  {
 				super.procesarPost(req, resp);
 			}
