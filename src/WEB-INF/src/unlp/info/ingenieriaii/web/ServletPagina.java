@@ -1,6 +1,11 @@
 package unlp.info.ingenieriaii.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
@@ -64,5 +69,17 @@ public abstract class ServletPagina extends HttpServlet {
 			HttpServletResponse resp) throws ServletException, IOException {
 
 		despacharJsp(this.nombreJsp(req), req, resp);
+	}
+	
+	protected HashMap<String, Boolean> getAllParameterCheckBox(HttpServletRequest req, String string) {
+		HashMap<String, Boolean> parameters = new HashMap<String, Boolean>();
+		Map<String, Object> allParameters = req.getParameterMap();
+		for (Entry<String, Object> entry : allParameters.entrySet()) {
+			if (!entry.getKey().endsWith("TODOS") && entry.getKey().startsWith(string)) {
+				String[] value = (String[])entry.getValue();
+				parameters.put(entry.getKey().substring(string.length()), "TRUE".equals(value[0])? true : false);
+			}
+		}
+		return parameters;
 	}
 }

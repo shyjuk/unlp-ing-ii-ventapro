@@ -18,18 +18,21 @@
 		document.test.submit();
 	}
 	
+	function deleteAllSelectedObjecs () {
+		document.test.action.value = 'borrarSeleccionados';
+		document.test.submit();
+	}
 </script>
 	
 <table width="100%">
 	<%
-	//buscadorTipoProd.setNombre("a");
-	// NECESITO EL SERVELT PARA HACER ESOT!!!
-	//if (buscadorTipoProd.getErrores().isEmpty() && buscadorTipoProd.esValidoParaBuscar()) {
+		java.util.HashMap<String, String> errores = (java.util.HashMap<String,String>)request.getAttribute("errores");
+		
 		BuscadorTipoDeProducto buscadorTipoProd = new BuscadorTipoDeProducto();
 		buscadorTipoProd.setNombre((String)request.getParameter("nombre"));
-		buscadorTipoProd.ejecutarBusqueda();
-	//}
-	
+		//if (errores == null || errores.isEmpty()) {
+			buscadorTipoProd.ejecutarBusqueda();
+		//}
 	%>
 	<tr>
 		<td colspan="2" heigth="40">&nbsp</td>
@@ -42,8 +45,14 @@
 	</tr>
 	<tr>
 		<td class="labelForm">Nombre:</td>
-		<td><input type="text" name="nombre" id="nombre" size="50" value="<%=Utiles.getNotNullValue(buscadorTipoProd.getNombre())%>"/>&nbsp*</td>
+		<td><input type="text" name="nombre" id="nombre" size="50" value="<%=Utiles.getNotNullValue(buscadorTipoProd.getNombre())%>"/>&nbsp</td>
 	</tr>
+	<% if (errores != null && errores.containsKey("nombre")){ %>
+		<tr>
+			<td></td>
+			<td class="errorEntrada"><%=errores.get("nombre")%></td>
+		</tr>
+	<%}%>
 	<tr>
 		<td colspan="2" heigth="40">&nbsp</td>
 	</tr>
@@ -52,15 +61,24 @@
 		<td colspan="2">
 			<fieldset>
 				<legend>Resultado de la búsqueda</legend>
+				<%
+				java.util.ArrayList<ObjetoPersistente> resultado = buscadorTipoProd.getResultado();
+				java.util.ArrayList<String> listId = new java.util.ArrayList<String>();
+				for (ObjetoPersistente object : resultado) {
+					listId.add(String.valueOf(object.getId()));
+				}
+				%>
 				<table border="1" width="100%" cellpading="0" cellspacing="0">
 					<tr>
+						<td align="center"><input type="checkbox" name="<%="seleccionados_TODOS"%>" value="FALSE" onclick="javascript:changeAllSelection(this,<%=listId%>);"></input></td>
 						<td align="center">Nombre</td>
 						<td align="center">Descripcion</td>
 						<td align="center">Editar</td>
 						<td align="center">Borrar</td>
 					</tr>
-					<% for (ObjetoPersistente row : buscadorTipoProd.getResultado()) {%>
+					<% for (ObjetoPersistente row : resultado) {%>
 						<tr>
+							<td align="center"><input type="checkbox" name="<%="seleccionados_" + row.getId()%>" id="<%="seleccionados_" + row.getId()%>" value="FALSE" onclick="javascript:changeSelection(this);"></input></td>
 							<td><%=Utiles.getNotNullValue(((TipoDeProducto)row).getNombre())%></td>
 							<td><%=Utiles.getNotNullValue(((TipoDeProducto)row).getDescripcion())%></td>
 							<td align="center"><img src="imagenes/iconos/edit.gif" onclick="javascript:editObject('<%=row.getId()%>')" alt="Editar" /></td>
@@ -75,8 +93,10 @@
 		<td colspan="2" heigth="40">&nbsp</td>
 	</tr>
 	<tr>
-		<% if (!buscadorTipoProd.getErrores().isEmpty()) { %>
-			<td colspan="2" heigth="40" align="center" class="errorEntrada"><%=buscadorTipoProd.getErrores().get(Validador.ERROR_GENERICO)%></td>
-		<%}%>	
+		<% if (errores != null && errores.containsKey(Validador.ERROR_GENERICO)){ %>
+			<tr>
+				<td colspan="2" heigth="40" class="errorEntrada" align="center"><%=errores.get(Validador.ERROR_GENERICO)%></td>
+			</tr>
+		<%}%>
 	</tr>
 </table>

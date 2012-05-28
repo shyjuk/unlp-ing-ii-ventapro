@@ -15,7 +15,7 @@
 <body>
 	<form method="post" name="test">
 	<input type="hidden" name="id" value="xxxx">
-	<input type="hidden" name="action" value="xxxx">
+	<input type="hidden" name="action" value="buscar">
 	<div class="header">
 		<div class="nombreSucursal"><%=SucursalUno.getSingleInstance().getNombre()%></div>
 		<div class="nombreUsuario">
@@ -61,6 +61,7 @@
 			<td></td>
 			<td class="botonera">
 				<input type="submit" value="Aceptar" name="btnAceptar"></input>
+				<input type="submit" onclick="deleteAllSelectedObjecs();" value="Borrar" name="btnBorrarTodos"></input>
 			</td>
 		</tr>
 	</table>
