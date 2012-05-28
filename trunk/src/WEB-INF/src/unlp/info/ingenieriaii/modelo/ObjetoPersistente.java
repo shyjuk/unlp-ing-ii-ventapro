@@ -1,11 +1,13 @@
 package unlp.info.ingenieriaii.modelo;
 
 import java.util.HashMap;
-import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import unlp.info.ingenieriaii.web.Validador;
 
 public abstract class ObjetoPersistente {
+	
+	private static AtomicInteger SIGUIENTE_ID = new AtomicInteger(0);
 
 	private int id = -1;
 	private java.util.Date fechaCreacion;
@@ -14,7 +16,10 @@ public abstract class ObjetoPersistente {
 	private HashMap<String, String> errores = new HashMap<String, String>();
 	
 	public void generarIDAutomatico () {
-		this.setId((new Random()).nextInt(100)); // ver si esto esta bien
+		//this.setId((new Random()).nextInt(100)); // ver si esto esta bien
+		//No, es propenso a colisiones
+		
+		this.setId(SIGUIENTE_ID.incrementAndGet());
 	}
 	
 	public boolean esValidoParaCrear()	{

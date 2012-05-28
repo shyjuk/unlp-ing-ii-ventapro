@@ -16,7 +16,7 @@ public class HelloServlet extends ServletPagina {
 	private static final long serialVersionUID = 5612357445861162497L;
 
 	@Override
-	protected void doPost(HttpServletRequest request,
+	protected void procesarPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// Postprocess request: gather and validate submitted data and display
 		// result in same JSP.
