@@ -18,12 +18,17 @@ public class BuscadorMarca extends Buscador {
 
 		this.getErrores().clear();
 
-		if (Utiles.esVacio(this.getNombre())) {
+		if (Utiles.longitud(this.getNombre()) < 1) {
 			this.getErrores().put(Validador.ERROR_GENERICO,
 					"Complete algún parámetro para realizar la búsqueda.");
 			return false;
 		}
 		return true;
+	}
+	
+	public String getErrorGenerico(){
+		
+		return this.getErrores().get(Validador.ERROR_GENERICO);
 	}
 
 	@Override
@@ -32,7 +37,7 @@ public class BuscadorMarca extends Buscador {
 		this.getResultado().clear();
 
 		for (Marca m : SucursalUno.getSingleInstance().getMarcas()) {
-			
+
 			if (Utiles.esVacio(this.getNombre())) {
 				this.getResultado().add(m);
 			} else if (Utiles.like(m.getNombre(), this.getNombre())) {

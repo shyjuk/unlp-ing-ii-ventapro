@@ -13,17 +13,31 @@ public class BuscarMarcaServlet extends ServletPagina {
 	 */
 	private static final long serialVersionUID = 8780988681189936206L;
 
+	private void setBuscador(String nombre, HttpServletRequest req,
+			boolean validar) {
+		BuscadorMarca buscadorMarca = new BuscadorMarca();
+
+		buscadorMarca.setNombre(nombre);
+		if (!validar || buscadorMarca.esValidoParaBuscar())
+			buscadorMarca.ejecutarBusqueda();
+
+		req.setAttribute("buscador", buscadorMarca);
+	}
+
 	@Override
 	protected void procesarGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		BuscadorMarca buscadorMarca = new BuscadorMarca();
 
-		buscadorMarca.setNombre(null);
-		buscadorMarca.ejecutarBusqueda();
-
-		req.setAttribute("buscador", buscadorMarca);
-
+		this.setBuscador(null, req, false);
 		super.procesarGet(req, resp);
 	}
 
+	@Override
+	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+		this.setBuscador(req.getParameter("nombre"), req,
+				req.getParameter("btnAceptar") != null);
+		super.procesarPost(req, resp);
+	}
 }
