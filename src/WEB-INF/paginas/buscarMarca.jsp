@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="unlp.info.ingenieriaii.modelo.SucursalUno"%>
+<%@ page import="unlp.info.ingenieriaii.web.Validador"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -58,9 +59,22 @@
 						<a class="subFunc subFuncAct" href="#">Buscar</a> <a
 							class="subFunc" href="agregarMarca.jsp">Agregar</a>
 					</div>
-					<div style="color: red">OJO, no funciona nada de acá todavía,
-						solo se muestran las marcas de prueba más las agregadas por
-						agregarMarca.jsp</div>
+					<div class="helpText">
+						Si necesita ayuda haga <a
+							href="javascript:abrirPopUp('popupAyudaGenerica.html')">click
+							aquí</a>
+					</div>
+					<table>
+						<tr>
+							<td class="labelForm">Nombre:</td>
+							<td><input type="text" name="nombre" id="nombre" size="50"
+								value="${buscador.nombre}" /> *</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="separador"></td>
+						</tr>
+					</table>
+
 					<fieldset>
 						<legend>Resultado de la búsqueda</legend>
 						<table border="1" width="100%" cellspacing="0">
@@ -92,11 +106,17 @@
 			<tr>
 				<td colspan="2" class="separador"></td>
 			</tr>
+			<c:if test="${!empty buscador.errorGenerico}">
+				<tr>
+					<td colspan="2" align="center" class="errorEntrada"><c:out
+							value="${buscador.errorGenerico}"></c:out></td>
+				</tr>
+			</c:if>
 			<tr>
 				<td></td>
 				<td class="botonera"><input type="submit" value="Aceptar"
-					name="btnAceptar"></input> <input type="submit" value="Cancelar"
-					name="btnCancelar"></input></td>
+					name="btnAceptar"></input> <input type="submit" value="Borrar"
+					name="btnBorrar"></input></td>
 			</tr>
 		</table>
 	</form>
