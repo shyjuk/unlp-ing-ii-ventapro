@@ -15,19 +15,28 @@ public class AgregarTipoDeProductoServlet extends ServletPagina{
 	
 	@Override
 	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		TipoDeProducto object = new TipoDeProducto();
-		object.setNombre((String) req.getParameter("nombre"));
-		object.setDescripcion((String) req.getParameter("descripcion"));
-		if (object.esValidoParaCrear()) {
-			try {
-				SucursalUno.getSingleInstance().agregar(object);
-				//despacharJsp("buscarTipoProducto.jsp", req, resp);
+		String action = (String)req.getParameter("action");
+		if (action != null && action.length() > 0) {
+			if (action.equals("agregar")) {
+				TipoDeProducto object = new TipoDeProducto();
+				object.setNombre((String) req.getParameter("nombre"));
+				object.setDescripcion((String) req.getParameter("descripcion"));
+				if (object.esValidoParaCrear()) {
+					try {
+						SucursalUno.getSingleInstance().agregar(object);
+						//despacharJsp("buscarTipoProducto.jsp", req, resp);
+						resp.sendRedirect("buscarTipoProducto.jsp");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}else {
+					req.setAttribute("errores", object.getErrores());
+					super.procesarPost(req, resp);
+				}
+			}else if (action.equals("cancelar")) {
 				resp.sendRedirect("buscarTipoProducto.jsp");
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
-		}else {
-			req.setAttribute("errores", object.getErrores());
+		}else{
 			super.procesarPost(req, resp);
 		}
 	}

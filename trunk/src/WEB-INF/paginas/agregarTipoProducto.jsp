@@ -16,17 +16,18 @@
 <script type="text/javascript">
 	function cancelar () {
 		if (confirm("¿Esta seguro que desea cancelar la operación?")){
-			submit();
+			document.test.action.value ='cancelar';
+			document.test.submit();
 		}
 	}
 	function agregar () {
-		
+		document.test.action.value ='agregar';
+		document.test.submit();
 	}
-	
 </script>
 	
-	<form method="post">
-	<input type="hidden" name="objectName" value="unlp.info.ingenieriaii.modelo.TipoDeProducto">
+	<form method="post" name="test">
+	<input type="hidden" name="action" value="">
 	<%
 	TipoDeProducto tipoDeProducto = new TipoDeProducto(); 
 	java.util.HashMap<String, String> errores = (java.util.HashMap<String,String>)request.getAttribute("errores");
@@ -106,7 +107,7 @@
 		<tr>
 			<td></td>
 			<td class="botonera">
-				<input type="submit" value="Aceptar" name="btnAceptar"></input>
+				<input type="submit" value="Aceptar" name="btnAceptar" onclick="agregar();"></input>
 				<input type="submit" value="Cancelar" name="btnCancelar" onclick="cancelar();"></input>
 			</td>
 		</tr>
