@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.lang.*;
 
 import unlp.info.ingenieriaii.modelo.Marca;
 import unlp.info.ingenieriaii.modelo.Producto;
@@ -93,46 +94,46 @@ public class Validador {
 
 		return resultado;
 	}
+	
 
 	public static boolean esValidoProducto(Producto producto,
 			HashMap<String, String> errores) {
 		errores.clear();
+		boolean resultado;
+		
+		resultado=true;
 		if (producto.getCodigo() == 0) {
-			errores.put("Codigo", "Complete el campo.");
-			return false;
+			errores.put("codigo", "Complete el campo.");
+			resultado = false;
 		}
 		if (producto.getNombre() == null || producto.getNombre().length() == 0) {
-			errores.put("Nombre", "Complete el campo.");
-			return false;
+			errores.put("nombre", "Complete el campo.");
+			resultado = false;
 		}
 		if (producto.getNombre().length() > 50) {
-			errores.put("Nombre", "Ingrese entre 1 y 50 caracteres.");
-			return false;
+			errores.put("mombre", "Ingrese entre 1 y 50 caracteres.");
+			resultado = false;
 		}
 		if (producto.getPrecio() == 0) {
-			errores.put("Precio", "Complete el campo.");
-			return false;
+			errores.put("precio", "Complete el campo.");
+			resultado = false;
 		}
-		if (producto.getStock() == ' ') {
-			errores.put("Stock", "Complete el campo.");
-			return false;
+		if (producto.getStock() == 0) {
+			errores.put("stock", "Complete el campo.");
+			resultado = false;
 		}
-		if (producto.getStockMinimo() == ' ') {
-			errores.put("Stock Minimo", "Complete el campo.");
-			return false;
+		if (producto.getGarantia()==0) {
+			errores.put("garantia", "Complete el campo.");
+			resultado = false;
 		}
-		if (producto.getGarantia() != 'Y' || producto.getGarantia() != 'N') {
-			errores.put("Garantia", "Complete el campo.");
-			return false;
-		}
-		if (producto.getDescripcion().length() > 100) {
-			errores.put("Descripcion", "Ingrese entre 1 y 100 caracteres.");
-			return false;
+		if (producto.getDescripcion().length()>255) {
+			errores.put("descripcion", "Coloque entre 1 y 255 caracteres.");
+			resultado = false;
 		}
 		if (estaRepetido(producto)) {
-			errores.put("Nombre", "El producto ya existe.");
+			errores.put("nombre", "El producto ya existe.");
 		}
-		return true;
+		return resultado;
 	}
 
 	public static boolean estaCompletado(String nombreCampo, String valor,
