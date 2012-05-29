@@ -4,9 +4,6 @@
 <%@ page import="unlp.info.ingenieriaii.modelo.*" %>
 <%@ page import="unlp.info.ingenieriaii.web.*" %>
 
-<jsp:useBean id="producto" class="unlp.info.ingenieriaii.modelo.Producto" scope="session"/>
-<jsp:setProperty name="producto" property="*"/> 
-
 <script type="text/javascript">
 	function deleteObject (idObject) {
 		if (confirm("¿Esta seguro que desea borrarlo?")){
@@ -30,27 +27,21 @@
 
 <table width="80%">
 	<%
-		java.util.HashMap<String, String> errores = (java.util.HashMap<String,String>)request.getAttribute("errores");
-		
-		BuscadorProducto buscadorProd = new BuscadorProducto();
-		buscadorProd.setNombre((String)request.getParameter("nombre"));
-		buscadorProd.setCodigo((String)request.getParameter("codigo"));
-		buscadorProd.setMarca((String)request.getParameter("marca"));
-		buscadorProd.setCategoria((String)request.getParameter("tipoDeProducto"));
-		//if (errores == null || errores.isEmpty()) {
-			buscadorProd.ejecutarBusqueda();
-		//}
+		BuscadorProducto buscador = (BuscadorProducto)request.getAttribute("buscador");
+		if (buscador == null) {
+			buscador = new BuscadorProducto();
+		}
 	%>
 	<tr colspan=4>
-						<td class="helpText" colspan="4" align="right">Si necesita ayuda haga <a href="javascript:abrirPopUp('popupAyudaGenerica.html')">click aquí</a></td>
+		<td class="helpText" colspan="4" align="right">Si necesita ayuda haga <a href="javascript:abrirPopUp('popupAyudaGenerica.html')">click aquí</a></td>
 	</tr>
 	<tr>
-						<td colspan="2" height="40"></td>
+		<td colspan="2" height="40"></td>
 	</tr>
 	<td>
 		<tr>
 			<td size="100" class="labelForm">Nombre:</td>
-			<td  align="left"><input type="text" name="nombre" id="nombre" size="25" value="<%=Utiles.getNotNullValue(producto.getNombre())%>"/> *</td>
+			<td  align="left"><input type="text" name="nombre" id="nombre" size="25" value="<%=Utiles.getNotNullValue(buscador.getNombre())%>"/> *</td>
 			<td align="left" class="labelForm" align="left">Marca:</td>
 			<td>
 				<SELECT name="marca" id="marca" size="1" onChange="redirect(this.options.selectedIndex)">
@@ -66,7 +57,7 @@
 	<td>
 		<tr>
 			<td size="100" class="labelForm">Código:</td>
-			<td align="left"><input type="text" name="codigo" id="codigo" size="25" value="<%=Utiles.getNotNullValue(producto.getNombre())%>"/> *</td>
+			<td align="left"><input type="text" name="codigo" id="codigo" size="25" value="<%=Utiles.getNotNullValue(buscador.getCodigo())%>"/> *</td>
 			<td align="left" class="labelForm" align="left">Categoria:</td>
 			<td>
 				<SELECT name="tipoDeProducto" width="30%" size="1"  onChange="redirect(this.options.selectedIndex)">
@@ -96,18 +87,34 @@
 </table>
 
 <table width="100%">
+	<%
+		java.util.HashMap<String, String> errores = buscador.getErrores();
+		
+		//BuscadorProducto buscadorProd = new BuscadorProducto();
+		//buscadorProd.setNombre((String)request.getParameter("nombre"));
+		//if (errores == null || errores.isEmpty()) {
+			//buscadorProd.ejecutarBusqueda();
+		//}
+	%>
 	<tr>
 		<td colspan="2" heigth="40">&nbsp</td>
 	</tr>
 	<tr>
 		<td colspan="2" heigth="40">&nbsp</td>
 	</tr>
+	<% if (errores != null && errores.containsKey("nombre")){ %>
+		<tr>
+			<td></td>
+			<td class="errorEntrada"><%=errores.get("nombre")%></td>
+		</tr>
+	<%}%>
+
 	<tr>
 		<td colspan="2">
 			<fieldset>
 				<legend>Resultado de la búsqueda</legend>
 				<%
-				java.util.ArrayList<ObjetoPersistente> resultado = buscadorProd.getResultado();
+				java.util.ArrayList<ObjetoPersistente> resultado = buscador.getResultado();
 				java.util.ArrayList<String> listId = new java.util.ArrayList<String>();
 				for (ObjetoPersistente object : resultado) {
 					listId.add(String.valueOf(object.getId()));

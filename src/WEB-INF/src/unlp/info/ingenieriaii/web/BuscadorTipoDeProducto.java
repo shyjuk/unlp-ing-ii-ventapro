@@ -27,7 +27,7 @@ public class BuscadorTipoDeProducto extends Buscador{
 	public ArrayList<ObjetoPersistente> ejecutarBusqueda() {
 		this.getResultado().clear();
 		for (TipoDeProducto tipoProd : SucursalUno.getSingleInstance().getTiposDeProducto()) {
-			if (this.getNombre() == null || this.getNombre().isEmpty()) {
+			if (Utiles.esVacio(this.getNombre())) {
 				this.getResultado().add(tipoProd);
 			}else if (Utiles.like(tipoProd.getNombre(), this.getNombre())) {
 				this.getResultado().add(tipoProd);

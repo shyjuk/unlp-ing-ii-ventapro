@@ -26,13 +26,12 @@
 	
 <table width="100%">
 	<%
-		java.util.HashMap<String, String> errores = (java.util.HashMap<String,String>)request.getAttribute("errores");
-		
-		BuscadorTipoDeProducto buscadorTipoProd = new BuscadorTipoDeProducto();
-		buscadorTipoProd.setNombre((String)request.getParameter("nombre"));
-		//if (errores == null || errores.isEmpty()) {
+		BuscadorTipoDeProducto buscadorTipoProd = (BuscadorTipoDeProducto)request.getAttribute("buscador");
+		if (buscadorTipoProd == null) {
+			buscadorTipoProd = new BuscadorTipoDeProducto();
 			buscadorTipoProd.ejecutarBusqueda();
-		//}
+		}
+		java.util.HashMap<String, String> errores = buscadorTipoProd.getErrores(); 
 	%>
 	<tr>
 		<td colspan="2" heigth="40">&nbsp</td>

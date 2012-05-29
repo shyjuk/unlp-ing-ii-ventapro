@@ -1,6 +1,7 @@
 package unlp.info.ingenieriaii.test;
 
 import unlp.info.ingenieriaii.modelo.Marca;
+import unlp.info.ingenieriaii.modelo.Producto;
 import unlp.info.ingenieriaii.modelo.SucursalUno;
 import unlp.info.ingenieriaii.modelo.TipoDeProducto;
 
@@ -75,6 +76,21 @@ public class GeneradorDeDatos {
 		dato = new Marca();
 		dato.setNombre("Domec");
 		dato.setContacto("Sitio: http://www.servicedomec.com.ar/\nTeléfono: (011) 4611-4882");
+		if (dato.esValidoParaCrear()) {
+			SucursalUno.agregar(dato);
+		}
+	}
+	
+	public static void generarProducto() throws Exception {
+		Producto dato = new Producto();
+		dato.setNombre("Heladera X-56 Wirpool");
+		dato.setCodigo(1231232);
+		dato.setStock(100);
+		dato.setStockMinimo(10);
+		dato.setMarca("test");
+		dato.setTipoDeProducto("test");
+		dato.setPrecio(100);
+		dato.setGarantia(12);
 		if (dato.esValidoParaCrear()) {
 			SucursalUno.agregar(dato);
 		}

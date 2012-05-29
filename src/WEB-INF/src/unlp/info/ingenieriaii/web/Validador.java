@@ -132,12 +132,13 @@ public class Validador {
 			errores.put("garantia", "Garantia: Complete el campo.");
 			resultado = false;
 		}
-		if (producto.getDescripcion().length()>255) {
+		if (producto.getDescripcion() != null && producto.getDescripcion().length()>255) {
 			errores.put("descripcion", "Descripcion: Coloque entre 1 y 255 caracteres.");
 			resultado = false;
 		}
 		if (estaRepetido(producto)) {
 			errores.put("nombre", "El producto ya existe.");
+			resultado = false;
 		}
 		return resultado;
 	}
