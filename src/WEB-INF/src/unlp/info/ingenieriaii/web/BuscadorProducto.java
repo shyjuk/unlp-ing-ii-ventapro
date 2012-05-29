@@ -21,7 +21,7 @@ public class BuscadorProducto extends Buscador{
 		
 		boolean esValido = true;
 		this.getErrores().clear();
-		if (nombre == null || nombre.length() == 0) {
+		if (nombre == " " || nombre.length() == 0) {
 			this.getErrores().put(Validador.ERROR_GENERICO, "Complete algún parametro para realizar la búsqueda.");
 			esValido=false;}
 			else if (codigo == 0) {
@@ -42,9 +42,7 @@ public class BuscadorProducto extends Buscador{
 		this.getResultado().clear();
 		
 		for (Producto prod : SucursalUno.getSingleInstance().getProductos()) {
-			if (this.getNombre() == null || this.getNombre().isEmpty()) {
-				this.getResultado().add(prod);
-				}else if (Utiles.like(prod.getNombre(), this.getNombre())) {
+			if (Utiles.like(prod.getNombre(), this.getNombre())) {
 					this.getResultado().add(prod);
 					}else if (prod.getCodigo() == this.getCodigo()) {
 							this.getResultado().add(prod);
@@ -55,13 +53,25 @@ public class BuscadorProducto extends Buscador{
 			}
 		return this.getResultado();
 	}
+	
+public String getErrorGenerico(){
+		
+		return this.getErrores().get(Validador.ERROR_GENERICO);
+	}
 
 	public int getCodigo() {
 				return codigo;
 			}
+	
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
 
-			public void setCodigo(int codigo) {
-				this.codigo = codigo;
+
+			public void setCodigo(String codigo) {
+				if (AgregarProductoServlet.isInteger(codigo)){
+					this.setCodigo(Integer.valueOf(codigo).intValue());}
+				else this.setCodigo(0);
 			}
 
 			public String getMarca() {
