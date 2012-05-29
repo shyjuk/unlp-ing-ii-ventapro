@@ -15,7 +15,7 @@ public class AgregarProductoServlet extends ServletPagina{
 
 	private static final long serialVersionUID = -6737178893187649667L;
 	
-	private static boolean isInteger(String cadena){
+	public static boolean isInteger(String cadena){
 		try {
 			Integer.parseInt(cadena);
 			return true;} 
@@ -24,7 +24,7 @@ public class AgregarProductoServlet extends ServletPagina{
 		}
 	}
 	
-	private static boolean isFloat(String cadena){
+	public static boolean isFloat(String cadena){
 		try {
 			Float.parseFloat(cadena);
 			return true;} 
