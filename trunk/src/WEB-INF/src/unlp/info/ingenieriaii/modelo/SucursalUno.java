@@ -153,6 +153,16 @@ public class SucursalUno {
 		}
 		return null;
 	}
+	
+	public static final void agregar(Producto producto)
+			throws Exception {
+		prepararObjetoPersistenteParaCreacion(producto);
+		getSingleInstance().getProductos().add(producto);
+		agregarAlHistorialObjetoPersistente(TipoDeAccion.ALTA, producto);
+		System.out.println(Utiles.join(";",
+				String.valueOf(producto.getId()),
+				producto.getNombre(), producto.getDescripcion()));
+	}
 
 	/* ------------ variables de instancia --------------- */
 
