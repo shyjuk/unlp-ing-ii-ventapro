@@ -45,7 +45,7 @@ public class AgregarProductoServlet extends ServletPagina{
 			object.setPrecio(Float.parseFloat(req.getParameter("precio")));}
 		else object.setPrecio(0);
 		object.setMarca(req.getParameter("marca"));
-		object.setMarca(req.getParameter("tipoDeProducto"));
+		object.setTipoDeProducto(req.getParameter("tipoDeProducto"));
 		if (AgregarProductoServlet.isInteger(req.getParameter("garantia"))){
 			object.setGarantia(Integer.valueOf(req.getParameter("garantia")).intValue());}
 		else object.setGarantia(0);
