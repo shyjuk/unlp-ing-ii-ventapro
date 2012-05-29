@@ -27,6 +27,7 @@ public class SucursalUno {
 			try {
 				GeneradorDeDatos.generarTiposDeProductos();
 				GeneradorDeDatos.generarMarcas();
+				GeneradorDeDatos.generarProducto();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -161,7 +162,7 @@ public class SucursalUno {
 		agregarAlHistorialObjetoPersistente(TipoDeAccion.ALTA, producto);
 		System.out.println(Utiles.join(";",
 				String.valueOf(producto.getId()),
-				producto.getNombre(), producto.getDescripcion()));
+				producto.getNombre(), producto.getDescripcion(),  String.valueOf(producto.getGarantia()), String.valueOf(producto.getPrecio())));
 	}
 	
 	public static Producto getProductoCon(String id) {

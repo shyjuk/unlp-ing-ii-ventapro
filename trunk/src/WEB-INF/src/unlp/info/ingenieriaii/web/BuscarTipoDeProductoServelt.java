@@ -17,6 +17,9 @@ public class BuscarTipoDeProductoServelt extends ServletPagina{
 	
 	@Override
 	protected void procesarGet(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
+		BuscadorTipoDeProducto buscador = new BuscadorTipoDeProducto();
+		buscador.ejecutarBusqueda();
+		req.setAttribute("buscador", buscador);
 		super.procesarGet(req, resp);
 	}
 
@@ -32,10 +35,10 @@ public class BuscarTipoDeProductoServelt extends ServletPagina{
 			}else if (action.equals("borrar")) {
 				// Borrar tipo de producto
 				String id = (String) req.getParameter("id");
-				TipoDeProducto object = SucursalUno.getSingleInstance().getTipoDeProductoCon(id);
+				TipoDeProducto object = SucursalUno.getTipoDeProductoCon(id);
 				if (object.esValidoParaEliminar()) {
 					try {
-						SucursalUno.getSingleInstance().eliminar(object);
+						SucursalUno.eliminar(object);
 						despacharJsp("buscarTipoProducto.jsp", req, resp);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -47,7 +50,8 @@ public class BuscarTipoDeProductoServelt extends ServletPagina{
 				BuscadorTipoDeProducto buscador = new BuscadorTipoDeProducto();
 				buscador.setNombre(nombre);
 				buscador.esValidoParaBuscar();
-				req.setAttribute("errores", buscador.getErrores());
+				buscador.ejecutarBusqueda();
+				req.setAttribute("buscador", buscador);
 				despacharJsp("buscarTipoProducto.jsp", req, resp);
 			} else if (action.equals("guardarEdicion")) {
 				// guardar datos de tipo de producto editado
@@ -58,7 +62,7 @@ public class BuscarTipoDeProductoServelt extends ServletPagina{
 				object.setDescripcion(req.getParameter("descripcion"));
 				if (object.esValidoParaModificar()) {	
 					try {
-						SucursalUno.getSingleInstance().modificar(object);
+						SucursalUno.modificar(object);
 						this.despacharJsp("buscarTipoProducto.jsp", req, resp);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -72,10 +76,10 @@ public class BuscarTipoDeProductoServelt extends ServletPagina{
 				for (Entry<String, Boolean> row : checkboxValues.entrySet()) {
 					if (row.getValue()) { // value = TRUE (seleccionado)
 						String id = row.getKey();
-						TipoDeProducto object = SucursalUno.getSingleInstance().getTipoDeProductoCon(id);
+						TipoDeProducto object = SucursalUno.getTipoDeProductoCon(id);
 						if (object.esValidoParaEliminar()) {
 							try {
-								SucursalUno.getSingleInstance().eliminar(object);
+								SucursalUno.eliminar(object);
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
