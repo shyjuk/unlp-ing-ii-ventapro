@@ -101,31 +101,39 @@ public class Validador {
 		
 		resultado=true;
 		if (producto.getCodigo() == 0) {
-			errores.put("codigo", "Complete el campo.");
+			errores.put("codigo", "Codigo: Complete el campo.");
 			resultado = false;
 		}
 		if (producto.getNombre() == null || producto.getNombre().length() == 0) {
-			errores.put("nombre", "Complete el campo.");
+			errores.put("nombre", "Nombre: Complete el campo.");
+			resultado = false;
+		}
+		if (producto.getMarca() == null || producto.getMarca().length() == 0) {
+			errores.put("marca", "Marca: Complete el campo.");
+			resultado = false;
+		}
+		if (producto.getTipoDeProducto() == null || producto.getTipoDeProducto().length() == 0 || producto.getTipoDeProducto() == " ") {
+			errores.put("tipoDeProducto", "Tipo: Complete el campo.");
 			resultado = false;
 		}
 		if (producto.getNombre().length() > 50) {
-			errores.put("mombre", "Ingrese entre 1 y 50 caracteres.");
+			errores.put("mombre", "Nombre: Ingrese entre 1 y 50 caracteres.");
 			resultado = false;
 		}
 		if (producto.getPrecio() == 0) {
-			errores.put("precio", "Complete el campo.");
+			errores.put("precio", "Precio: Complete el campo.");
 			resultado = false;
 		}
 		if (producto.getStock() == 0) {
-			errores.put("stock", "Complete el campo.");
+			errores.put("stock", "Stock: Complete el campo.");
 			resultado = false;
 		}
 		if (producto.getGarantia()==0) {
-			errores.put("garantia", "Complete el campo.");
+			errores.put("garantia", "Garantia: Complete el campo.");
 			resultado = false;
 		}
 		if (producto.getDescripcion().length()>255) {
-			errores.put("descripcion", "Coloque entre 1 y 255 caracteres.");
+			errores.put("descripcion", "Descripcion: Coloque entre 1 y 255 caracteres.");
 			resultado = false;
 		}
 		if (estaRepetido(producto)) {

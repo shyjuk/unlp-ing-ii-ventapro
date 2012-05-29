@@ -31,6 +31,10 @@ version="2.4">
 	<servlet-name>AgregarProductoServlet</servlet-name>
 	<servlet-class>unlp.info.ingenieriaii.web.AgregarProductoServlet</servlet-class>
 </servlet>
+<servlet>
+	<servlet-name>BuscarProductoServlet</servlet-name>
+	<servlet-class>unlp.info.ingenieriaii.web.BuscarProductoServlet</servlet-class>
+</servlet>
 
 
 <servlet-mapping>
@@ -60,6 +64,10 @@ version="2.4">
 <servlet-mapping>
 	<servlet-name>AgregarProductoServlet</servlet-name>
 	<url-pattern>/paginas/agregarProducto.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>BuscarProductoServlet</servlet-name>
+	<url-pattern>/paginas/buscarProducto.jsp</url-pattern>
 </servlet-mapping>
 
 </web-app>

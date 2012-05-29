@@ -7,7 +7,6 @@
 <jsp:setProperty name="producto" property="*"/> 
 
 <script type="text/javascript">
-<script type="text/javascript">
 	function deleteObject (idObject) {
 		if (confirm("¿Esta seguro que desea borrarlo?")){
 			document.test.id.value = idObject;
@@ -27,7 +26,6 @@
 		document.test.submit();
 	}
 </script>
-</script>
 
 <table width="80%">
 	<tr colspan=4>
@@ -42,12 +40,12 @@
 			<td  align="left"><input type="text" name="nombre" id="nombre" size="25" value="<%=Utiles.getNotNullValue(producto.getNombre())%>"/> *</td>
 			<td align="left" class="labelForm" align="left">Marca:</td>
 			<td>
-				<SELECT name="marca" size="1" onChange="redirect(this.options.selectedIndex)">
-					<OPTION SELECTED>-------SELECCIONAR MARCA-------</OPTION>
-					<OPTION></OPTION>
-					<OPTION>aplisis2</OPTION>
-					<OPTION>aplisis3</OPTION>
-					<OPTION>aplisis4</OPTION> 
+				<SELECT name="marca" id="marca" size="1" onChange="redirect(this.options.selectedIndex)">
+					<OPTION SELECTED></OPTION>
+					<OPTION>-------------------------------</OPTION>
+					<%for (ObjetoPersistente row :SucursalUno.getSingleInstance().getMarcas()) {%>
+					<OPTION><%=Utiles.getNotNullValue(((Marca)row).getNombre())%></OPTION>
+					<%}%>
 				</SELECT> *
 			</td>
 		</tr>
@@ -58,12 +56,12 @@
 			<td align="left"><input type="text" name="nombre" id="nombre" size="25" value="<%=Utiles.getNotNullValue(producto.getNombre())%>"/> *</td>
 			<td align="left" class="labelForm" align="left">Categoria:</td>
 			<td>
-				<SELECT name="marca" size="1" onChange="redirect(this.options.selectedIndex)">
-					<OPTION SELECTED>----SELECCIONAR CATEGORIA---</OPTION>
-					<OPTION></OPTION>
-					<OPTION>aplisis2</OPTION>
-					<OPTION>aplisis3</OPTION>
-					<OPTION>aplisis4</OPTION> 
+				<SELECT name="tipoDeProducto" width="30%" size="1"  onChange="redirect(this.options.selectedIndex)">
+							<OPTION SELECTED></OPTION>
+							<OPTION>-------------------------------</OPTION>
+							<%for (ObjetoPersistente row : SucursalUno.getSingleInstance().getTiposDeProducto()) {%>
+							<OPTION><%=Utiles.getNotNullValue(((TipoDeProducto)row).getNombre())%></OPTION>
+							<%}%>
 				</SELECT> *
 			</td>
 		</tr>
