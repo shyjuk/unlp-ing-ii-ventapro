@@ -4,8 +4,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.lang.*;
-
 import unlp.info.ingenieriaii.modelo.Marca;
 import unlp.info.ingenieriaii.modelo.Producto;
 import unlp.info.ingenieriaii.modelo.SucursalUno;
@@ -142,7 +140,7 @@ public class Validador {
 		if (!Utiles.esVacio(valor))
 			return true;
 
-		errores.put(nombreCampo, valor);
+		errores.put(nombreCampo, "Complete el campo.");
 		return false;
 	}
 

@@ -20,6 +20,10 @@ version="2.4">
 	<servlet-class>unlp.info.ingenieriaii.web.AgregarMarcaServlet</servlet-class>
 </servlet>
 <servlet>
+	<servlet-name>ModificarMarcaServlet</servlet-name>
+	<servlet-class>unlp.info.ingenieriaii.web.ModificarMarcaServlet</servlet-class>
+</servlet>
+<servlet>
 	<servlet-name>helloServlet</servlet-name>
 	<servlet-class>unlp.info.ingenieriaii.web.HelloServlet</servlet-class>
 </servlet>
@@ -44,6 +48,10 @@ version="2.4">
 <servlet-mapping>
 	<servlet-name>AgregarMarcaServlet</servlet-name>
 	<url-pattern>/paginas/agregarMarca.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>ModificarMarcaServlet</servlet-name>
+	<url-pattern>/paginas/modificarMarca.jsp</url-pattern>
 </servlet-mapping>
 <servlet-mapping>
 	<servlet-name>helloServlet</servlet-name>

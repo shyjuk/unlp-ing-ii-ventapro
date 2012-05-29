@@ -11,24 +11,28 @@
 <title>Venta Pro - Buscar Marca</title>
 
 <link rel="stylesheet" type="text/css" href="basico.css" />
+<script src="funciones.js" type="text/javascript"></script>
 <script type="text/javascript">
 	function deleteObject(idObject) {
 		if (confirm("¿Esta seguro que desea borrarlo?")) {
 			document.form.id.value = idObject;
-			document.form.action.value = 'borrar';
+			document.form.accion.value = 'borrar';
 			document.form.submit();
 		}
 	}
 
 	function editObject(idObject) {
 		document.form.id.value = idObject;
-		document.form.action.value = 'editar';
+		document.form.action = "modificarMarca.jsp";
+		document.form.accion.value = 'editar';
 		document.form.submit();
 	}
 </script>
 </head>
 <body>
 	<form method="post" name="form">
+		<input type="hidden" name="id" value="" /> <input type="hidden"
+			name="accion" value="" />
 		<div class="header">
 			<div class="nombreSucursal"><%=SucursalUno.getSingleInstance().getNombre()%></div>
 			<div class="nombreUsuario">
@@ -79,6 +83,9 @@
 						<legend>Resultado de la búsqueda</legend>
 						<table border="1" width="100%" cellspacing="0">
 							<tr>
+								<td><input type="checkbox" name="seleccionados_TODOS"
+									value="FALSE"
+									onclick="javascript:changeAllSelection(this,${listaId});" /></td>
 								<td>Nombre</td>
 								<td>Sitio web</td>
 								<td>Contacto</td>
@@ -88,6 +95,10 @@
 							</tr>
 							<c:forEach items="${buscador.resultado}" var="marca">
 								<tr>
+									<td><input type="checkbox"
+										name="seleccionados_${marca.id}"
+										id="seleccionados_${marca.id}" value="FALSE"
+										onclick="javascript:changeSelection(this);" /></td>
 									<td><c:out value="${marca.nombre}" /></td>
 									<td><c:out value="${marca.sitioWeb}" /></td>
 									<td><c:out value="${marca.contacto}" /></td>
@@ -101,22 +112,23 @@
 							</c:forEach>
 						</table>
 					</fieldset>
+								<c:if test="${!empty buscador.errorGenerico}">
+				
+					<div class="errorEntrada" style="text-align: center; margin: 2em;"><c:out
+							value="${buscador.errorGenerico}"></c:out></div>
+				
+			</c:if>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" class="separador"></td>
 			</tr>
-			<c:if test="${!empty buscador.errorGenerico}">
-				<tr>
-					<td colspan="2" align="center" class="errorEntrada"><c:out
-							value="${buscador.errorGenerico}"></c:out></td>
-				</tr>
-			</c:if>
 			<tr>
 				<td></td>
 				<td class="botonera"><input type="submit" value="Aceptar"
-					name="btnAceptar"></input> <input type="submit" value="Borrar"
-					name="btnBorrar"></input></td>
+					name="btnAceptar" /> <input type="submit" value="Borrar"
+					name="btnBorrar"
+					onclick="return confirm('¿Esta seguro que desea borrar las marcas seleccionadas?')" /></td>
 			</tr>
 		</table>
 	</form>
