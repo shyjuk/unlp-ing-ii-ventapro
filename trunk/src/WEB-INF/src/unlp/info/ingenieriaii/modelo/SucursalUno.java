@@ -163,6 +163,35 @@ public class SucursalUno {
 				String.valueOf(producto.getId()),
 				producto.getNombre(), producto.getDescripcion()));
 	}
+	
+	public static Producto getProductoCon(String id) {
+		for (Producto object : SucursalUno.getSingleInstance()
+				.getProductos()) {
+			if (object.getId() == Integer.valueOf(id).intValue()) {
+				return object;
+			}
+		}
+		return null;
+	}
+	
+	public static final void eliminar(Producto producto)
+			throws Exception {
+		getSingleInstance().getTiposDeProducto().remove(producto);
+		agregarAlHistorialObjetoPersistente(TipoDeAccion.BAJA, producto);
+	}
+	
+	public static final void modificar(Producto producto)
+			throws Exception {
+		prepararObjetoPersistenteParaEdicion(producto);
+		for (Producto object : getSingleInstance().getProductos()) {
+			if (object.getId() == producto.getId()) {
+				object.setNombre(producto.getNombre());
+				object.setDescripcion(producto.getDescripcion());
+			}
+		}
+		agregarAlHistorialObjetoPersistente(TipoDeAccion.EDICION,
+				producto);
+	}
 
 	/* ------------ variables de instancia --------------- */
 

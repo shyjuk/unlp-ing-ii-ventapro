@@ -7,13 +7,27 @@ public class Producto extends ObjetoPersistente{
 	private int codigo;
 	private String nombre;
 	private float precio;
+	private String marca;
+	private String tipoDeProducto;
 	private int garantia;
 	private int stock;
 	private int stockMinimo;
-	private boolean enVenta;
+	private String enVenta;
 	private String descripcion;
 	
 	
+	public String getMarca() {
+		return marca;
+	}
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+	public String getTipoDeProducto() {
+		return tipoDeProducto;
+	}
+	public void setTipoDeProducto(String tipoDeProducto) {
+		this.tipoDeProducto = tipoDeProducto;
+	}
 	//Setters y Getters
 	public int getCodigo() {
 		return codigo;
@@ -51,10 +65,10 @@ public class Producto extends ObjetoPersistente{
 	public void setStockMinimo(int stockMinimo) {
 		this.stockMinimo = stockMinimo;
 	}
-	public boolean isEnVenta() {
+	public String isEnVenta() {
 		return enVenta;
 	}
-	public void setEnVenta(boolean enVenta) {
+	public void setEnVenta(String enVenta) {
 		this.enVenta = enVenta;
 	}
 	public String getDescripcion() {
@@ -63,6 +77,7 @@ public class Producto extends ObjetoPersistente{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
 	
 	// Metodos
 	
