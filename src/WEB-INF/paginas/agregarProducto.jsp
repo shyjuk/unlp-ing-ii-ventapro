@@ -67,83 +67,85 @@
 
 <table>
 	<tr>
-						<td class="helpText" colspan="4" align="right">Si necesita ayuda haga <a href="javascript:abrirPopUp('popupAyudaGenerica.html')">click aquí</a></td>
+						<td class="helpText" colspan="8" align="right">Si necesita ayuda haga <a href="javascript:abrirPopUp('popupAyudaGenerica.html')">click aquí</a></td>
 	</tr>
 	<tr>
 						<td colspan="2" height="40"></td>
 	</tr>
 	<td>
 		<tr>
-			<td class="labelForm">Codigo:</td>
-			<td colspan=3><input type="text" name="codigo" id="codigo" size="50" value="<%=Utiles.getNotNullValue(producto.getCodigo())%>"/> * (Ingreso del código de barras del Producto)</td>
-		</tr>
-		<% if (errores != null && errores.containsKey("codigo")){ %>
+			<td class="labelForm">Codigo de barras:</td>
+			<td colspan=5><input type="text" name="codigo" id="codigo" size="90" value="<%=Utiles.getNotNullValue(producto.getCodigo())%>"/> *</td>
+			<% if (errores != null && errores.containsKey("codigo")){ %>
 						<tr>
-							<td height=8></td>
+							<td></td>
 							<td height=8 class="errorEntrada"><%=errores.get("codigo")%></td>
 						</tr>
-		<%}%>		
+				
+			<%}%>
+		</tr>	
 		<tr>
 			<td class="labelForm">Nombre:</td>
-			<td colspan=3><input type="text" name="nombre" id="nombre" size="100" value="<%=Utiles.getNotNullValue(producto.getNombre())%>"/> *</td>
-		</tr>
-		<% if (errores != null && errores.containsKey("nombre")){ %>
+			<td colspan=5><input type="text" name="nombre" id="nombre" size="90" value="<%=Utiles.getNotNullValue(producto.getNombre())%>"/> *</td>
+			<% if (errores != null && errores.containsKey("nombre")){ %>
 						<tr>
-							<td height=8></td>
+							<td></td>
 							<td height=8 class="errorEntrada"><%=errores.get("nombre")%></td>
 						</tr>
-		<%}%>
-		<tr>
+				
+			<%}%>
+		</tr>
+		<tr height = 8>
 			<td class="labelForm">Tipo de Producto:</td>
-			<td>
-				<SELECT name="tipoDeProducto" id="tipoDeProducto"  width="30%" size="1"  onChange="redirect(this.options.selectedIndex)">
-					<OPTION SELECTED> </OPTION>
-					<OPTION>-------------------------------</OPTION>
-					<OPTION>aplisis2</OPTION>
-					<OPTION>aplisis3</OPTION>
-					<OPTION>aplisis4</OPTION> 
+			<td colspan=3 align=left>
+				<SELECT name="tipoDeProducto" width="30%" size="1"  onChange="redirect(this.options.selectedIndex)">
+							<OPTION SELECTED></OPTION>
+							<OPTION>-------------------------------</OPTION>
+							<%for (ObjetoPersistente row : SucursalUno.getSingleInstance().getTiposDeProducto()) {%>
+							<OPTION><%=Utiles.getNotNullValue(((TipoDeProducto)row).getNombre())%></OPTION>
+							<%}%>
 				</SELECT> *
 			</td>
-			<td width="55%" class="labelForm" align="left">Descripcion:</td>
+			<td class="labelForm" align="left" colspan=2> Descripcion:</td>
 		</tr>
 		<% if (errores != null && errores.containsKey("tipoDeProducto")){ %>
 						<tr>
-							<td height=8></td>
-							<td height=8 class="errorEntrada"><%=errores.get("tipoDeProducto")%></td>
+							<td></td>
+							<td colspan=4 height=8 class="errorEntrada"><%=errores.get("tipoDeProducto")%></td>
 						</tr>
 		<%}%>
-		<tr>
+		<tr height = 8>
 			<td class="labelForm">Marca:</td>
-			<td>
+			<td colspan=3>
 				<SELECT name="marca" id="marca" size="1" onChange="redirect(this.options.selectedIndex)">
-					<OPTION SELECTED> </OPTION>
+					<OPTION SELECTED></OPTION>
 					<OPTION>-------------------------------</OPTION>
-					<OPTION>aplisis2</OPTION>
-					<OPTION>aplisis3</OPTION>
-					<OPTION>aplisis4</OPTION> 
-				</SELECT> *
+					<%for (ObjetoPersistente row :SucursalUno.getSingleInstance().getMarcas()) {%>
+					<OPTION><%=Utiles.getNotNullValue(((Marca)row).getNombre())%></OPTION>
+					<%}%>
+					</SELECT> *
 			</td>
-			<td width="55%" align="left" rowspan=5><textarea name="descripcion" id="descripcion" rows="9" cols="45"></textarea></td>
-		</tr>
-		<% if (errores != null && errores.containsKey("marca")){ %>
+			<td align=left rowspan=8><textarea name="descripcion" id="descripcion" rows="9" cols="37"></textarea></td>		
+			<% if (errores != null && errores.containsKey("marca")){ %>
 						<tr>
-							<td height=8></td>
+							<td></td>
 							<td height=8 class="errorEntrada"><%=errores.get("marca")%></td>
 						</tr>
-		<%}%>
+			<%}%>
+		</tr>
 		<tr>
 			<td class="labelForm">Precio:</td>
-			<td width="250"><input type="text" name="precio" id="precio" size="25" value="<%=Utiles.getNotNullValue(producto.getPrecio())%>"/> *</td>
+			<td colspan=3 width="250"><input type="text" name="precio" id="precio" size="25" value="<%=Utiles.getNotNullValue(producto.getPrecio())%>"/> *</td>
 		</tr>
 		<% if (errores != null && errores.containsKey("precio")){ %>
-						<tr>
+					<tr>
 							<td height=8></td>
 							<td height=8 class="errorEntrada"><%=errores.get("precio")%></td>
-						</tr>
+					<tr>
 		<%}%>
 		<tr>
 			<td class="labelForm">Garantia:</td>
-			<td><input type="text" name="garantia" id="garantia" size="5" value="<%=Utiles.getNotNullValue(producto.getGarantia())%>"/>meses *</td>
+			<td colspan=3 ><input type="text" name="garantia" id="garantia" size="5" value="<%=Utiles.getNotNullValue(producto.getGarantia())%>"/>meses *</td>
 		</tr>
 		<% if (errores != null && errores.containsKey("garantia")){ %>
 						<tr height=5>
@@ -153,26 +155,31 @@
 		<%}%>
 		<tr>
 			<td class="labelForm">Stock:</td>
-			<td><input type="text" name="stock" id="stock" size="5" value="<%=Utiles.getNotNullValue(producto.getStock())%>"/>unidades *</td>
+			<td colspan=3 ><input type="text" name="stock" id="stock" size="5" value="<%=Utiles.getNotNullValue(producto.getStock())%>"/>unidades *</td>
 		</tr>
 		<% if (errores != null && errores.containsKey("stock")){ %>
-						<tr>
+				<tr>
 							<td height=8></td>
 							<td height=8 class="errorEntrada"><%=errores.get("stock")%></td>
-						</tr>
+				</tr>
 		<%}%>
 		<tr>
 			<td class="labelForm">Stock Minimo:</td>
-			<td><input type="text" name="stockMinimo" id="stockMinimo" size="5" value="<%=Utiles.getNotNullValue(producto.getStockMinimo())%>"/>unidades</td>
+			<td colspan=3><input type="text" name="stockMinimo" id="stockMinimo" size="5" value="<%=Utiles.getNotNullValue(producto.getStockMinimo())%>"/>unidades</td>
 		</tr>
-		<% if (errores != null && errores.containsKey("stockMinimo")){ %>
-						<tr>
+	</td>
+	<% if (errores != null && errores.containsKey("stockMinimo")){ %>
+					<tr>
 							<td height=8></td>
 							<td height=8 class="errorEntrada"><%=errores.get("stockMinimo")%></td>
+				 	</tr>
+	<%}%>
+	<% if (errores != null && errores.containsKey("descripcion")){ %>
+						<tr>
+							<td height=8></td>
+							<td height=8 class="errorEntrada"><%=errores.get("descripcion")%></td>
 						</tr>
-		<%}%>
-	</td>
-	</tr>
+	<%}%>
 	<% if (errores != null && errores.containsKey(Validador.ERROR_GENERICO)){ %>
 			<tr>
 				<td colspan="2" colspan="2" class="errorEntrada"><%=errores.get(Validador.ERROR_GENERICO)%></td>
