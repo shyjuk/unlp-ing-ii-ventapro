@@ -1,12 +1,10 @@
 package unlp.info.ingenieriaii.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class ServletPagina extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1446047028129827257L;
 
 	private static final String PATH_PAGINAS = "/WEB-INF/paginas/";
