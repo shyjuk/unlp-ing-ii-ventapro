@@ -12,9 +12,7 @@
 
 	<link rel="stylesheet" type="text/css" href="basico.css" />
 	
-</head>
-<body>
-<script type="text/javascript">
+	<script type="text/javascript">
 	function cancelar () {
 		if (confirm("¿Esta seguro que desea cancelar la operación?")){
 			submit();
@@ -24,8 +22,20 @@
 		
 	}
 	
-</script>
+	function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : event.keyCode
+          if (charCode > 31 && (charCode < 48 || charCode > 57))
+             return false;
 
+          return true;
+       }
+       //-->
+	
+</script>
+	
+</head>
+<body>
 	<form method="post">
 	<div class="header">
 		<div class="nombreSucursal"><%=SucursalUno.getSingleInstance().getNombre()%></div>
@@ -75,7 +85,7 @@
 	<td>
 		<tr>
 			<td class="labelForm">Codigo de barras:</td>
-			<td colspan=5><input type="text" name="codigo" id="codigo" size="90" value="<%=Utiles.getNotNullValue(producto.getCodigo())%>"/> *</td>
+			<td colspan=5><input id="codigo" onkeypress="return isNumberKey(event) size="90" type="text" name="codigo" value="<%=Utiles.getNotNullValue(producto.getCodigo())%>"/> *</td>
 			<% if (errores != null && errores.containsKey("codigo")){ %>
 						<tr>
 							<td></td>
@@ -86,7 +96,7 @@
 		</tr>	
 		<tr>
 			<td class="labelForm">Nombre:</td>
-			<td colspan=5><input type="text" name="nombre" id="nombre" size="90" value="<%=Utiles.getNotNullValue(producto.getNombre())%>"/> *</td>
+			<td colspan=5><input type="text" name="nombre" id="nombre"  size="90" value="<%=Utiles.getNotNullValue(producto.getNombre())%>"/> *</td>
 			<% if (errores != null && errores.containsKey("nombre")){ %>
 						<tr>
 							<td></td>
@@ -135,7 +145,7 @@
 		</tr>
 		<tr>
 			<td class="labelForm">Precio:</td>
-			<td colspan=3 width="250"><input type="text" name="precio" id="precio" size="25" value="<%=Utiles.getNotNullValue(producto.getPrecio())%>"/> *</td>
+			<td colspan=3 width="250"><input type="text" name="precio" id="precio" size="25" onkeypress="return isNumberKey(event) value="<%=Utiles.getNotNullValue(producto.getPrecio())%>"/> *</td>
 		</tr>
 		<% if (errores != null && errores.containsKey("precio")){ %>
 					<tr>
