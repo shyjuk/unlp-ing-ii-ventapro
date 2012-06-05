@@ -22,8 +22,8 @@
 	
 </script>
 	<%
-	TipoDeProducto tipoDeProducto = SucursalUno.getSingleInstance().getTipoDeProductoCon((String)request.getParameter("id"));
-	java.util.HashMap<String, String> errores = (java.util.HashMap<String,String>)request.getAttribute("errores"); 
+		TipoProducto tipoDeProducto = SucursalUno.getSingleInstance().getTipoDeProductoCon((String)request.getParameter("id"));
+		java.util.HashMap<String, String> errores = (java.util.HashMap<String,String>)request.getAttribute("errores");
 	%>
 	<form method="post" name="editarTipoDeProducto">
 	<input type="hidden" name="id" value="<%=tipoDeProducto.getId()%>">

@@ -8,20 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import unlp.info.ingenieriaii.modelo.Errores;
-import unlp.info.ingenieriaii.modelo.Marca;
+import unlp.info.ingenieriaii.modelo.TipoProducto;
 
-public class AgregarMarcaServlet extends ServletPagina {
+public class AgregarTipoProductoServlet extends ServletPagina {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3050633547558002236L;
+	private static final long serialVersionUID = -6737178893187649667L;
 
 	@Override
 	protected void procesarGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, SQLException {
 
-		req.setAttribute("marca", new Marca());
+		req.setAttribute("tipoProducto", new TipoProducto());
 
 		super.procesarGet(req, resp);
 	}
@@ -29,24 +26,23 @@ public class AgregarMarcaServlet extends ServletPagina {
 	@Override
 	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, SQLException {
-		Marca marca = new Marca();
+		TipoProducto tipoProducto = new TipoProducto();
 		Errores errores;
 
-		marca.setNombre(req.getParameter("nombre"));
-		marca.setSitioWeb(req.getParameter("sitioWeb"));
-		marca.setContacto(req.getParameter("contacto"));
-		marca.setInfoAdicional(req.getParameter("infoAdicional"));
+		tipoProducto.setNombre(req.getParameter("nombre"));
+		tipoProducto.setDescripcion(req.getParameter("descripcion"));
 
-		errores = marca.guardar();
+		errores = tipoProducto.guardar();
 
 		if (errores.esVacio()) {
-			
-			resp.sendRedirect("buscarMarca.jsp");
+
+			resp.sendRedirect("buscarTipoProducto.jsp");
 		} else {
-			
-			req.setAttribute("marca", marca);
+
+			req.setAttribute("tipoProducto", tipoProducto);
 			req.setAttribute("errores", errores);
 			super.procesarPost(req, resp);
 		}
 	}
+
 }

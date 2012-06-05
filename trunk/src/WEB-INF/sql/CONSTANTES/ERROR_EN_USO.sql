@@ -1,0 +1,5 @@
+delimiter $$
+
+CREATE FUNCTION `ERROR_EN_USO`() RETURNS int(11)
+    DETERMINISTIC
+RETURN -2$$

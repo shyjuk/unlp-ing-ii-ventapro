@@ -4,17 +4,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import unlp.info.ingenieriaii.modelo.Errores;
-import unlp.info.ingenieriaii.modelo.Marca;
+import unlp.info.ingenieriaii.modelo.TipoProducto;
 
-public class BuscadorMarca extends Buscador<Marca> {
-
+public class BuscadorTipoProducto extends Buscador<TipoProducto>{
+	
 	private String nombre;
-
+	
 	@Override
-	protected ArrayList<Marca> ejecutarBusqueda(AccesoDb db, Errores errores)
-			throws SQLException {
+	protected ArrayList<TipoProducto> ejecutarBusqueda(AccesoDb db,
+			Errores errores) throws SQLException {
 
-		return Marca.buscarMarcas(db, this.getNombre());
+		return TipoProducto.buscarTiposProducto(db, this.getNombre());
 	}
 
 	@Override
@@ -23,16 +23,14 @@ public class BuscadorMarca extends Buscador<Marca> {
 		if (Utiles.esVacio(this.getNombre()))
 			errores.setErrorCampo(
 					"nombre",
-					"Debe indicar el nombre de la marca (o parte de la misma) para realizar la búsqueda.");
+					"Debe indicar el nombre del tipo de producto (o parte del mismo) para realizar la búsqueda.");		
 	}
 
 	public String getNombre() {
-
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-
 		this.nombre = nombre;
-	}
+	}	
 }

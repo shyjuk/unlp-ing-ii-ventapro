@@ -11,19 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import unlp.info.ingenieriaii.modelo.Errores;
-import unlp.info.ingenieriaii.modelo.Marca;
+import unlp.info.ingenieriaii.modelo.TipoProducto;
 
-public class BuscarMarcaServlet extends ServletPagina {
+public class BuscarTipoProductoServlet extends ServletPagina {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8780988681189936206L;
+	private static final long serialVersionUID = 5874040150008001323L;
 
-	private String setListaId(BuscadorMarca buscador) {
+	private String setListaId(BuscadorTipoProducto buscador) {
 		ArrayList<Integer> lista = new java.util.ArrayList<Integer>();
 
-		for (Marca object : buscador.getResultado())
+		for (TipoProducto object : buscador.getResultado())
 			lista.add(object.getId());
 
 		return lista.toString();
@@ -31,15 +28,15 @@ public class BuscarMarcaServlet extends ServletPagina {
 
 	private void setBuscador(String nombre, HttpServletRequest req,
 			boolean validar) throws SQLException {
-		BuscadorMarca buscadorMarca = new BuscadorMarca();
+		BuscadorTipoProducto buscadorTipoProducto = new BuscadorTipoProducto();
 		Errores errores;
 
-		buscadorMarca.setNombre(nombre);
-		errores = buscadorMarca.buscar(validar);
+		buscadorTipoProducto.setNombre(nombre);
+		errores = buscadorTipoProducto.buscar(validar);
 
-		req.setAttribute("buscador", buscadorMarca);
+		req.setAttribute("buscador", buscadorTipoProducto);
 		req.setAttribute("errores", errores);
-		req.setAttribute("listaId", this.setListaId(buscadorMarca));
+		req.setAttribute("listaId", this.setListaId(buscadorTipoProducto));
 	}
 
 	@Override
@@ -55,26 +52,25 @@ public class BuscarMarcaServlet extends ServletPagina {
 			throws ServletException, IOException, SQLException {
 
 		if ("borrar".equals(req.getParameter("accion"))) {
-			Marca marca = new Marca();
+			TipoProducto tipoProducto = new TipoProducto();
 
-			marca.setId(Integer.parseInt(req.getParameter("id")));
-			req.setAttribute("erroresEliminar", marca.eliminar());
+			tipoProducto.setId(Integer.parseInt(req.getParameter("id")));
+			req.setAttribute("erroresEliminar", tipoProducto.eliminar());
 
 		} else if (req.getParameter("btnBorrar") != null) {
 			HashMap<String, Boolean> checkboxValues = getAllParameterCheckBox(
 					req, "seleccionados_");
-			Marca marca = new Marca();
+			TipoProducto tipoProducto = new TipoProducto();
 
 			for (Entry<String, Boolean> row : checkboxValues.entrySet()) {
 
-				marca.setId(Integer.parseInt(row.getKey()));
-				marca.eliminar();
+				tipoProducto.setId(Integer.parseInt(row.getKey()));
+				tipoProducto.eliminar();
 			}
 		}
 
 		this.setBuscador(req.getParameter("nombre"), req,
 				req.getParameter("btnAceptar") != null);
-		
 		super.procesarPost(req, resp);
 	}
 }
