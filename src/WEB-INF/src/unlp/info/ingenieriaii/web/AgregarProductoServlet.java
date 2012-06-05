@@ -8,14 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import unlp.info.ingenieriaii.modelo.Producto;
 import unlp.info.ingenieriaii.modelo.SucursalUno;
-import unlp.info.ingenieriaii.modelo.TipoDeProducto;
-import java.lang.Object;;
+import java.sql.SQLException;
 
 public class AgregarProductoServlet extends ServletPagina{
 
 	private static final long serialVersionUID = -6737178893187649667L;
 	
-	public static boolean isInteger(String cadena){
+	private static boolean isInteger(String cadena){
 		try {
 			Integer.parseInt(cadena);
 			return true;} 
@@ -24,7 +23,7 @@ public class AgregarProductoServlet extends ServletPagina{
 		}
 	}
 	
-	public static boolean isFloat(String cadena){
+	private static boolean isFloat(String cadena){
 		try {
 			Float.parseFloat(cadena);
 			return true;} 
@@ -34,7 +33,7 @@ public class AgregarProductoServlet extends ServletPagina{
 	}
 	
 	@Override
-	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
 		Producto object = new Producto();
 		
 		if (AgregarProductoServlet.isInteger(req.getParameter("codigo"))){
@@ -57,18 +56,18 @@ public class AgregarProductoServlet extends ServletPagina{
 		else object.setStockMinimo(0);
 		object.setEnVenta("Si");
 		object.setDescripcion(req.getParameter("descripcion"));
-		if (object.esValidoParaCrear()) {
-			try {
-				SucursalUno.getSingleInstance().agregar(object);
-				//despacharJsp("buscarTipoProducto.jsp", req, resp);
-				resp.sendRedirect("buscarProducto.jsp");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else {
-			req.setAttribute("errores", object.getErrores());
-			super.procesarPost(req, resp);
-		}
+//		if (object.esValidoParaCrear()) {
+//			try {
+//				SucursalUno.getSingleInstance().agregar(object);
+//				//despacharJsp("buscarTipoProducto.jsp", req, resp);
+//				resp.sendRedirect("buscarProducto.jsp");
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}else {
+//			req.setAttribute("errores", object.getErrores());
+//			super.procesarPost(req, resp);
+//		}
 	}
 
 }

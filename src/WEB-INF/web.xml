@@ -1,73 +1,85 @@
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-app_2_4.xsd"
-version="2.4">
-
-<servlet>
-	<servlet-name>BuscarTipoDeProductoServelt</servlet-name>
-	<servlet-class>unlp.info.ingenieriaii.web.BuscarTipoDeProductoServelt</servlet-class>
-</servlet>
-<servlet>
-	<servlet-name>AgregarTipoDeProductoServlet</servlet-name>
-	<servlet-class>unlp.info.ingenieriaii.web.AgregarTipoDeProductoServlet</servlet-class>
-</servlet>
-<servlet>
-	<servlet-name>BuscarMarcaServlet</servlet-name>
-	<servlet-class>unlp.info.ingenieriaii.web.BuscarMarcaServlet</servlet-class>
-</servlet>
-<servlet>
-	<servlet-name>AgregarMarcaServlet</servlet-name>
-	<servlet-class>unlp.info.ingenieriaii.web.AgregarMarcaServlet</servlet-class>
-</servlet>
-<servlet>
-	<servlet-name>ModificarMarcaServlet</servlet-name>
-	<servlet-class>unlp.info.ingenieriaii.web.ModificarMarcaServlet</servlet-class>
-</servlet>
-<servlet>
-	<servlet-name>helloServlet</servlet-name>
-	<servlet-class>unlp.info.ingenieriaii.web.HelloServlet</servlet-class>
-</servlet>
-<servlet>
-	<servlet-name>AgregarProductoServlet</servlet-name>
-	<servlet-class>unlp.info.ingenieriaii.web.AgregarProductoServlet</servlet-class>
-</servlet>
-<servlet>
-	<servlet-name>BuscarProductoServlet</servlet-name>
-	<servlet-class>unlp.info.ingenieriaii.web.BuscarProductoServlet</servlet-class>
-</servlet>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-app_2_4.xsd"
+	version="2.4">
 
 
-<servlet-mapping>
-	<servlet-name>BuscarTipoDeProductoServelt</servlet-name>
-	<url-pattern>/paginas/buscarTipoProducto.jsp</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-	<servlet-name>AgregarTipoDeProductoServlet</servlet-name>
-	<url-pattern>/paginas/agregarTipoProducto.jsp</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-	<servlet-name>BuscarMarcaServlet</servlet-name>
-	<url-pattern>/paginas/buscarMarca.jsp</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-	<servlet-name>AgregarMarcaServlet</servlet-name>
-	<url-pattern>/paginas/agregarMarca.jsp</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-	<servlet-name>ModificarMarcaServlet</servlet-name>
-	<url-pattern>/paginas/modificarMarca.jsp</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-	<servlet-name>helloServlet</servlet-name>
-	<url-pattern>/hello.jsp</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-	<servlet-name>AgregarProductoServlet</servlet-name>
-	<url-pattern>/paginas/agregarProducto.jsp</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-	<servlet-name>BuscarProductoServlet</servlet-name>
-	<url-pattern>/paginas/buscarProducto.jsp</url-pattern>
-</servlet-mapping>
+	<listener>
+		<listener-class>unlp.info.ingenieriaii.web.AppServlet</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>BuscarTipoProductoServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.BuscarTipoProductoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AgregarTipoProductoServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.AgregarTipoProductoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ModificarTipoProductoServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.ModificarTipoProductoServlet</servlet-class>
+	</servlet>	
+	<servlet>
+		<servlet-name>BuscarMarcaServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.BuscarMarcaServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AgregarMarcaServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.AgregarMarcaServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ModificarMarcaServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.ModificarMarcaServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>helloServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.HelloServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AgregarProductoServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.AgregarProductoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BuscarProductoServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.BuscarProductoServlet</servlet-class>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>BuscarTipoProductoServlet</servlet-name>
+		<url-pattern>/paginas/buscarTipoProducto.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AgregarTipoProductoServlet</servlet-name>
+		<url-pattern>/paginas/agregarTipoProducto.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ModificarTipoProductoServlet</servlet-name>
+		<url-pattern>/paginas/modificarTipoProducto.jsp</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>BuscarMarcaServlet</servlet-name>
+		<url-pattern>/paginas/buscarMarca.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AgregarMarcaServlet</servlet-name>
+		<url-pattern>/paginas/agregarMarca.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ModificarMarcaServlet</servlet-name>
+		<url-pattern>/paginas/modificarMarca.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>helloServlet</servlet-name>
+		<url-pattern>/hello.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AgregarProductoServlet</servlet-name>
+		<url-pattern>/paginas/agregarProducto.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BuscarProductoServlet</servlet-name>
+		<url-pattern>/paginas/buscarProducto.jsp</url-pattern>
+	</servlet-mapping>
 
 </web-app>

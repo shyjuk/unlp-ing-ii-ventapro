@@ -8,58 +8,56 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import unlp.info.ingenieriaii.modelo.Errores;
-import unlp.info.ingenieriaii.modelo.Marca;
+import unlp.info.ingenieriaii.modelo.TipoProducto;
 
-public class ModificarMarcaServlet extends ServletPagina {
+public class ModificarTipoProductoServlet extends ServletPagina {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4459235876274309436L;
+	private static final long serialVersionUID = 835526157190230619L;
 
 	@Override
 	protected void procesarGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// Te haces el pilluelo entrando derecho? Tomá:
-		resp.sendRedirect("buscarMarca.jsp");
+		resp.sendRedirect("buscarTipoProducto.jsp");
 	}
 
 	@Override
 	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, NumberFormatException,
 			SQLException {
-		Marca marca = new Marca();
+		TipoProducto tipoProducto = new TipoProducto();
 		Errores errores;
 
-		marca.setId(Utiles.esVacio(req.getParameter("id")) ? null : Integer
+		tipoProducto.setId(Utiles.esVacio(req.getParameter("id")) ? null : Integer
 				.parseInt(req.getParameter("id")));
 
 		if ("editar".equals(req.getParameter("accion"))) {
 
-			errores = marca.recuperar();
-			req.setAttribute("marca", marca);
+			errores = tipoProducto.recuperar();
+			req.setAttribute("tipoProducto", tipoProducto);
 			req.setAttribute("errores", errores);
 			super.procesarPost(req, resp);
 		} else if (req.getParameter("btnAceptar") != null) {
 
-			marca.setNombre(req.getParameter("nombre"));
-			marca.setSitioWeb(req.getParameter("sitioWeb"));
-			marca.setContacto(req.getParameter("contacto"));
-			marca.setInfoAdicional(req.getParameter("infoAdicional"));
+			tipoProducto.setNombre(req.getParameter("nombre"));
+			tipoProducto.setDescripcion(req.getParameter("descripcion"));
 
-			errores = marca.guardar();
+			errores = tipoProducto.guardar();
 
 			if (errores.esVacio()) {
 
-				resp.sendRedirect("buscarMarca.jsp");
+				resp.sendRedirect("buscarTipoProducto.jsp");
 			} else {
 
-				req.setAttribute("marca", marca);
+				req.setAttribute("tipoProducto", tipoProducto);
 				req.setAttribute("errores", errores);
 				super.procesarPost(req, resp);
 			}
 		} else
-			resp.sendRedirect("buscarMarca.jsp");
+			resp.sendRedirect("buscarTipoProducto.jsp");
 
 	}
 }

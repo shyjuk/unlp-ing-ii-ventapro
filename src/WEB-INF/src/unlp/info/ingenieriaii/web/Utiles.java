@@ -1,5 +1,7 @@
 package unlp.info.ingenieriaii.web;
 
+import java.util.HashMap;
+
 public class Utiles {
 
 	public static String getNotNullValue(Object object) {
@@ -31,7 +33,7 @@ public class Utiles {
 
 	public static int longitud(String valor) {
 
-		return !esVacio(valor) ? valor.length() : -1;
+		return valor != null ? valor.length() : -1;
 	}
 
 	public static String join(String delim, String... strings) {
@@ -45,5 +47,15 @@ public class Utiles {
 
 		sb.append(strings[i]);
 		return sb.toString();
+	}
+
+	public static boolean estaCompletado(String nombreCampo, String valor,
+			HashMap<String, String> errores) {
+	
+		if (!esVacio(valor))
+			return true;
+	
+		errores.put(nombreCampo, "Complete el campo.");
+		return false;
 	}
 }

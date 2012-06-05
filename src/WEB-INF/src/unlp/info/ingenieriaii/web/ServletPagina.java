@@ -1,10 +1,13 @@
 package unlp.info.ingenieriaii.web;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class ServletPagina extends HttpServlet {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1446047028129827257L;
 
 	private static final String PATH_PAGINAS = "/WEB-INF/paginas/";
@@ -43,7 +49,13 @@ public abstract class ServletPagina extends HttpServlet {
 			throws ServletException, IOException {
 
 		this.forzarUtf8(req, resp);
-		this.procesarGet(req, resp);
+		try {
+			this.procesarGet(req, resp);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("ERROR SQL!!!");
+		}
 	}
 
 	@Override
@@ -51,17 +63,23 @@ public abstract class ServletPagina extends HttpServlet {
 			throws ServletException, IOException {
 
 		this.forzarUtf8(req, resp);
-		this.procesarPost(req, resp);
+		try {
+			this.procesarPost(req, resp);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("ERROR SQL!!");
+		}
 	}
 
 	protected void procesarGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+			throws ServletException, IOException, SQLException {
 
 		this.despacharJsp(this.nombreJsp(req), req, resp);
 	}
 
 	protected void procesarPost(HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException {
+			HttpServletResponse resp) throws ServletException, IOException, SQLException {
 
 		despacharJsp(this.nombreJsp(req), req, resp);
 	}

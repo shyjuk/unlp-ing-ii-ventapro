@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Venta Pro - Buscar Marca</title>
+<title>VentaPro - Buscar Marca</title>
 
 <link rel="stylesheet" type="text/css" href="basico.css" />
 <script src="funciones.js" type="text/javascript"></script>
@@ -72,7 +72,10 @@
 						<tr>
 							<td class="labelForm">Nombre:</td>
 							<td><input type="text" name="nombre" id="nombre" size="50"
-								value="${buscador.nombre}" /> *</td>
+								value="${buscador.nombre}" /> * <c:if
+									test="${!empty errores.campo.nombre}">
+									<div class="errorEntrada">${errores.campo.nombre}</div>
+								</c:if></td>
 						</tr>
 						<tr>
 							<td colspan="2" class="separador"></td>
@@ -112,12 +115,16 @@
 							</c:forEach>
 						</table>
 					</fieldset>
-								<c:if test="${!empty buscador.errorGenerico}">
-				
-					<div class="errorEntrada" style="text-align: center; margin: 2em;"><c:out
-							value="${buscador.errorGenerico}"></c:out></div>
-				
-			</c:if>
+					<c:if test="${!empty errores.general}">
+						<div class="errorEntrada" style="text-align: center; margin: 2em;">
+							<c:out value="${errores.general}"></c:out>
+						</div>
+					</c:if>
+					<c:if test="${!empty erroresEliminar.general}">
+						<div class="errorEntrada" style="text-align: center; margin: 2em;">
+							<c:out value="${erroresEliminar.general}"></c:out>
+						</div>
+					</c:if>
 				</td>
 			</tr>
 			<tr>

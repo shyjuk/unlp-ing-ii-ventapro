@@ -1,49 +1,23 @@
 package unlp.info.ingenieriaii.test;
 
 import unlp.info.ingenieriaii.modelo.Marca;
-import unlp.info.ingenieriaii.modelo.Producto;
 import unlp.info.ingenieriaii.modelo.SucursalUno;
-import unlp.info.ingenieriaii.modelo.TipoDeProducto;
+import unlp.info.ingenieriaii.modelo.TipoProducto;
 
 public class GeneradorDeDatos {
 
 	public static void generarTiposDeProductos() throws Exception {
-		TipoDeProducto dato = new TipoDeProducto();
-		dato.setNombre("Cocina");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
-		dato = new TipoDeProducto();
-		dato.setNombre("Heladera");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
-		dato = new TipoDeProducto();
-		dato.setNombre("Microondas");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
-		dato = new TipoDeProducto();
-		dato.setNombre("TV");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
-		dato = new TipoDeProducto();
-		dato.setNombre("Lavarropa");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
-		dato = new TipoDeProducto();
-		dato.setNombre("Pequeños");
-		dato.setDescripcion("aaaaaaaa");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
-		dato = new TipoDeProducto();
-		dato.setNombre("Accesorios");
-		dato.setDescripcion("bbbb bbbbbbbbb");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
+		final String[] TIPOS_NOMBRE = { "Cocina", "Heladera", "Microondas",
+				"TV", "Lavarropa", "Pequeños", "Accesorios" };
+		final String[] TIPOS_DESCRIPCION = { null, null, null,
+				null, null, "Artículos decorativos", "Accesorios" };
+
+		for (int i = 0; i < TIPOS_NOMBRE.length; i++) {
+			TipoProducto dato = new TipoProducto();
+			
+			dato.setNombre(TIPOS_NOMBRE[i]);
+			dato.setDescripcion(TIPOS_DESCRIPCION[i]);
+			dato.guardar();
 		}
 	}
 
@@ -54,45 +28,22 @@ public class GeneradorDeDatos {
 		dato.setSitioWeb("www.samsung.com/ar/");
 		dato.setContacto("SEASA CONTACT CENTER 0800 333 3733 (Lunes a Viernes de 9 a 18hs)");
 		dato.setInfoAdicional("Rodolfo trabajó en atención al cliente de esta marca en Argentina.");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
+		dato.guardar();
 
 		dato = new Marca();
 		dato.setNombre("Philips");
 		dato.setSitioWeb("www.philips.com.ar");
 		dato.setContacto("0800-888-7532 (Línea Gratuita)\nLunes a Viernes de 8:00 a 20:00 hs\nSábados de 8:00 a 14:00 hs.");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
+		dato.guardar();
 		
 		dato = new Marca();
 		dato.setNombre("Gafa");
 		dato.setSitioWeb("www.gafa.com.ar");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
+		dato.guardar();
 
 		dato = new Marca();
 		dato.setNombre("Domec");
 		dato.setContacto("Sitio: http://www.servicedomec.com.ar/\nTeléfono: (011) 4611-4882");
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
-	}
-	
-	public static void generarProducto() throws Exception {
-		Producto dato = new Producto();
-		dato.setNombre("Heladera X-56 Wirpool");
-		dato.setCodigo(1231232);
-		dato.setStock(100);
-		dato.setStockMinimo(10);
-		dato.setMarca("test");
-		dato.setTipoDeProducto("test");
-		dato.setPrecio(100);
-		dato.setGarantia(12);
-		if (dato.esValidoParaCrear()) {
-			SucursalUno.agregar(dato);
-		}
+		dato.guardar();
 	}
 }

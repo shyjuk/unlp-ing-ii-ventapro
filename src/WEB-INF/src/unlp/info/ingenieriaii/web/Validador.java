@@ -2,18 +2,41 @@ package unlp.info.ingenieriaii.web;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import unlp.info.ingenieriaii.modelo.Errores;
 import unlp.info.ingenieriaii.modelo.Marca;
 import unlp.info.ingenieriaii.modelo.Producto;
 import unlp.info.ingenieriaii.modelo.SucursalUno;
-import unlp.info.ingenieriaii.modelo.TipoDeProducto;
+import unlp.info.ingenieriaii.modelo.TipoProducto;
 
 public class Validador {
 
 	public static final String ERROR_GENERICO = "GENERICO";
 
-	public static boolean esValidoTipoDeProducto(TipoDeProducto tipoDeProducto,
+	public static boolean validarLongitud(Errores errores, String nombre,
+			String valor, int min, int max) {
+		int longitud = Utiles.longitud(valor);
+
+		if (longitud < min && min > 0) {
+			if (longitud <= 0)
+				errores.setErrorCampo(nombre, "Debe completar este campo.");
+			else
+				errores.setErrorCampo(nombre, String.format(
+						"Debe ingresar al menos %d caracteres.", min));
+		} else if (longitud > max)
+			errores.setErrorCampo(nombre, String.format(
+					"No debe ingresar más de %d caracteres. Usted ingresó %d.",
+					max, longitud));
+		else
+			return true;
+
+		return false;
+	}
+
+	public static boolean esValidoTipoDeProducto(TipoProducto tipoDeProducto,
 			HashMap<String, String> errores) {
 		errores.clear();
 		if (tipoDeProducto.getNombre() == null
@@ -38,15 +61,15 @@ public class Validador {
 	}
 
 	public static boolean esValidoMarca(Marca marca,
-			HashMap<String, String> errores) {
+			HashMap<String, String> errores) throws SQLException {
 		boolean resultado;
 		int longitud;
 		String sitioWeb;
 
 		errores.clear();
 
-		if ((resultado = estaCompletado("nombre", marca.getNombre(), errores))
-				&& Utiles.longitud(marca.getNombre()) > 50) {
+		if ((resultado = Utiles.estaCompletado("nombre", marca.getNombre(),
+				errores)) && Utiles.longitud(marca.getNombre()) > 50) {
 
 			errores.put("nombre", "El nombre excede los 50 caracteres.");
 			resultado = false;
@@ -59,7 +82,7 @@ public class Validador {
 				errores.put("sitioWeb",
 						"La URL del sitio web excede los 100 caracteres.");
 				resultado = false;
-			} 
+			}
 
 			try {
 				new URL(sitioWeb);
@@ -75,31 +98,30 @@ public class Validador {
 			errores.put("contacto",
 					"La información de contacto excede los 1000 caracteres");
 			resultado = false;
-		} 
+		}
 
 		if (Utiles.longitud(marca.getInfoAdicional()) > 1000) {
 
 			errores.put("infoAdicional",
 					"La información adicional excede los 1000 caracteres");
 			resultado = false;
-		} 
-
-		if (resultado & estaRepetido(marca)) {
-
-			errores.put("nombre", "La marca ya existe.");
-			resultado = false;
 		}
+
+		// if (resultado && estaRepetido(marca)) {
+		//
+		// errores.put("nombre", "La marca ya existe.");
+		// resultado = false;
+		// }
 
 		return resultado;
 	}
-	
 
 	public static boolean esValidoProducto(Producto producto,
 			HashMap<String, String> errores) {
 		errores.clear();
 		boolean resultado;
-		
-		resultado=true;
+
+		resultado = true;
 		if (producto.getCodigo() == 0) {
 			errores.put("codigo", "Codigo: Complete el campo.");
 			resultado = false;
@@ -112,7 +134,9 @@ public class Validador {
 			errores.put("marca", "Marca: Complete el campo.");
 			resultado = false;
 		}
-		if (producto.getTipoDeProducto() == null || producto.getTipoDeProducto().length() == 0 || producto.getTipoDeProducto() == " ") {
+		if (producto.getTipoDeProducto() == null
+				|| producto.getTipoDeProducto().length() == 0
+				|| producto.getTipoDeProducto() == " ") {
 			errores.put("tipoDeProducto", "Tipo: Complete el campo.");
 			resultado = false;
 		}
@@ -128,35 +152,23 @@ public class Validador {
 			errores.put("stock", "Stock: Complete el campo.");
 			resultado = false;
 		}
-		if (producto.getGarantia()==0) {
+		if (producto.getGarantia() == 0) {
 			errores.put("garantia", "Garantia: Complete el campo.");
 			resultado = false;
 		}
-		if (producto.getDescripcion() != null && producto.getDescripcion().length()>255) {
-			errores.put("descripcion", "Descripcion: Coloque entre 1 y 255 caracteres.");
+		if (producto.getDescripcion().length() > 255) {
+			errores.put("descripcion",
+					"Descripcion: Coloque entre 1 y 255 caracteres.");
 			resultado = false;
 		}
-		if (estaRepetido(producto)) {
-			errores.put("nombre", "El producto ya existe.");
-			resultado = false;
-		}
+
 		return resultado;
 	}
 
-	public static boolean estaCompletado(String nombreCampo, String valor,
-			HashMap<String, String> errores) {
-
-		if (!Utiles.esVacio(valor))
-			return true;
-
-		errores.put(nombreCampo, "Complete el campo.");
-		return false;
-	}
-
-	private static boolean estaRepetido(TipoDeProducto tipoDeProducto) {
-		ArrayList<TipoDeProducto> todos = SucursalUno.getSingleInstance()
+	private static boolean estaRepetido(TipoProducto tipoDeProducto) {
+		ArrayList<TipoProducto> todos = SucursalUno.getSingleInstance()
 				.getTiposDeProducto();
-		for (TipoDeProducto tipoProducto : todos) {
+		for (TipoProducto tipoProducto : todos) {
 			if (tipoProducto.getNombre().equalsIgnoreCase(
 					tipoDeProducto.getNombre())
 					&& tipoProducto.getId() != tipoDeProducto.getId()) {
@@ -165,31 +177,4 @@ public class Validador {
 		}
 		return false;
 	}
-
-	private static boolean estaRepetido(Marca marca) {
-		ArrayList<Marca> todos = SucursalUno.getSingleInstance().getMarcas();
-		String nombre = marca.getNombre();
-		int id = marca.getId();
-
-		for (Marca m : todos) {
-
-			if (m.getNombre().equalsIgnoreCase(nombre) && m.getId() != id)
-				return true;
-		}
-
-		return false;
-	}
-
-	private static boolean estaRepetido(Producto producto) {
-		ArrayList<Producto> todos = SucursalUno.getSingleInstance()
-				.getProductos();
-		for (Producto productos : todos) {
-			if (productos.getNombre().equalsIgnoreCase(producto.getNombre())
-					&& productos.getId() != producto.getId()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 }

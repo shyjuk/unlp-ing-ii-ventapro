@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>VentaPro - Agregar Marca</title>
+<title>VentaPro - Modificar Tipo de Producto</title>
 
 <link rel="stylesheet" type="text/css" href="basico.css" />
 <script src="funciones.js" type="text/javascript"></script>
@@ -35,8 +35,8 @@
 			<tr>
 				<td></td>
 				<td class="funcs funcsSecundarias"><a class="func"
-					href="buscarProducto.jsp">Producto</a> <a class="func funcAct"
-					href="#">Marca</a> <a class="func" href="buscarTipoProducto.jsp">Tipo
+					href="buscarProducto.jsp">Producto</a> <a class="func"
+					href="#">Marca</a> <a class="func funcAct" href="buscarTipoProducto.jsp">Tipo
 						de producto</a></td>
 			</tr>
 			<tr>
@@ -49,15 +49,17 @@
 
 				<td class="panelPrincipal">
 					<div class="subFuncs">
-						<a class="subFunc" href="buscarMarca.jsp">Buscar</a> <a
-							class="subFunc subFuncAct" href="#">Agregar</a>
+						<a class="subFunc" href="buscarTipoProducto.jsp">Buscar</a> <a
+							class="subFunc" href="agregarTipoProducto.jsp">Agregar</a><a
+							class="subFunc subFuncAct" href="#">Modificar</a>
 					</div>
 					<div class="helpText">
 						Si necesita ayuda haga <a
 							href="javascript:abrirPopUp('popupAyudaGenerica.html')">click
 							aquí</a>
-					</div> <jsp:include page="formularios/formularioDatosMarca.jsp"
-						flush="true" /><c:if test="${!empty errores.general}">
+					</div> <input type="hidden" name="id" value="${tipoProducto.id}" /> <jsp:include
+						page="formularios/formularioDatosTipoProducto.jsp" flush="true" /><c:if
+						test="${!empty errores.general}">
 						<div class="errorEntrada" style="text-align: center; margin: 2em;">
 							<c:out value="${errores.general}"></c:out>
 						</div>
@@ -70,8 +72,8 @@
 			<tr>
 				<td></td>
 				<td class="botonera"><input type="submit" value="Aceptar"
-					name="btnAceptar"></input> <input type="submit" value="Cancelar"
-					name="btnCancelar" onclick="cancelar();"></input></td>
+					name="btnAceptar" /> <input type="submit" value="Cancelar"
+					name="btnCancelar" onclick="cancelar();" /></td>
 			</tr>
 		</table>
 	</form>

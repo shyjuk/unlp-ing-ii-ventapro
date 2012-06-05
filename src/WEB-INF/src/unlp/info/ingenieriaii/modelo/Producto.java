@@ -1,8 +1,12 @@
 package unlp.info.ingenieriaii.modelo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import unlp.info.ingenieriaii.web.AccesoDb;
 import unlp.info.ingenieriaii.web.Validador;
 
-public class Producto extends ObjetoPersistente{
+public class Producto extends ObjetoPersistente<Producto, Integer>{
 
 	private int codigo;
 	private String nombre;
@@ -85,19 +89,60 @@ public class Producto extends ObjetoPersistente{
 		super();
 	}
 	
-	public boolean esValidoParaCrear()	{
-		return super.esValidoParaCrear() && Validador.esValidoProducto(this, this.getErrores());
-	}
-	
 	@Override
-	public boolean esValidoParaModificar() {
-		return super.esValidoParaModificar() && Validador.esValidoProducto(this, this.getErrores());
+	protected void prepararAlta(AccesoDb db) throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
-	
 	@Override
-	public boolean esValidoParaEliminar() {
-		// AGREGAR TODAS LAS VALIDACIONES DE DATOS REFERENCIALES
-		return super.esValidoParaEliminar();
+	protected void prepararModificacion(AccesoDb db) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void prepararBaja(AccesoDb db) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected Producto getCopia(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	protected Errores validarCampos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	protected void setId(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void manejarErrorDuplicado(Errores errores, Producto copia) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void manejarErrorEnUso(Errores errores) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void manejarErrorReferencia(Errores errores) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void setDatos(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void prepararLectura(AccesoDb db) throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

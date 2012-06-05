@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="unlp.info.ingenieriaii.modelo.*" %>
 <%@ page import="unlp.info.ingenieriaii.web.*" %>
@@ -26,12 +25,14 @@
 	
 <table width="100%">
 	<%
-		BuscadorTipoDeProducto buscadorTipoProd = (BuscadorTipoDeProducto)request.getAttribute("buscador");
-		if (buscadorTipoProd == null) {
-			buscadorTipoProd = new BuscadorTipoDeProducto();
-			buscadorTipoProd.ejecutarBusqueda();
-		}
-		java.util.HashMap<String, String> errores = buscadorTipoProd.getErrores(); 
+		java.util.HashMap<String, String> errores = (java.util.HashMap<String,String>)request.getAttribute("errores");
+			
+			BuscadorTipoProducto buscadorTipoProd = (BuscadorTipoProducto)request.getAttribute("buscador");
+			
+		//			buscadorTipoProd.setNombre((String)request.getParameter("nombre"));
+			//if (errores == null || errores.isEmpty()) {
+		//		buscadorTipoProd.ejecutarBusqueda();
+			//}
 	%>
 	<tr>
 		<td colspan="2" heigth="40">&nbsp</td>
@@ -61,9 +62,9 @@
 			<fieldset>
 				<legend>Resultado de la búsqueda</legend>
 				<%
-				java.util.ArrayList<ObjetoPersistente> resultado = buscadorTipoProd.getResultado();
+				java.util.ArrayList<TipoProducto> resultado = buscadorTipoProd.getResultado();
 				java.util.ArrayList<String> listId = new java.util.ArrayList<String>();
-				for (ObjetoPersistente object : resultado) {
+				for (TipoProducto object : resultado) {
 					listId.add(String.valueOf(object.getId()));
 				}
 				%>
@@ -75,11 +76,11 @@
 						<td align="center">Editar</td>
 						<td align="center">Borrar</td>
 					</tr>
-					<% for (ObjetoPersistente row : resultado) {%>
+					<% for (TipoProducto row : resultado) {%>
 						<tr>
 							<td align="center"><input type="checkbox" name="<%="seleccionados_" + row.getId()%>" id="<%="seleccionados_" + row.getId()%>" value="FALSE" onclick="javascript:changeSelection(this);"></input></td>
-							<td><%=Utiles.getNotNullValue(((TipoDeProducto)row).getNombre())%></td>
-							<td><%=Utiles.getNotNullValue(((TipoDeProducto)row).getDescripcion())%></td>
+							<td><%=Utiles.getNotNullValue(((TipoProducto)row).getNombre())%></td>
+							<td><%=Utiles.getNotNullValue(((TipoProducto)row).getDescripcion())%></td>
 							<td align="center"><img src="imagenes/iconos/edit.gif" onclick="javascript:editObject('<%=row.getId()%>')" alt="Editar" /></td>
 							<td align="center"><img src="imagenes/iconos/button_delete.gif" onclick="javascript:deleteObject('<%=row.getId()%>');" alt="Borrar"/></td>
 						</tr>
