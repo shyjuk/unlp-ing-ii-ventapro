@@ -33,7 +33,7 @@ public abstract class ObjetoPersistente<T extends ObjetoPersistente<T, PK>, PK> 
 
 	protected abstract void manejarErrorEnUso(Errores errores);
 
-	protected abstract void manejarErrorReferencia(Errores errores);
+	protected abstract void manejarErrorReferencia(Errores errores, ResultSet rs) throws SQLException;
 
 	protected final void errorGeneral(Errores errores) {
 
@@ -80,6 +80,9 @@ public abstract class ObjetoPersistente<T extends ObjetoPersistente<T, PK>, PK> 
 								this.manejarErrorDuplicado(errores,
 										this.getCopia(rs));
 								break;
+							case AccesoDb.ERROR_REFERENCIA:
+								this.manejarErrorReferencia(errores, rs);
+								break;
 							}
 						} else if (leerId)
 							this.setId(rs);
@@ -92,9 +95,6 @@ public abstract class ObjetoPersistente<T extends ObjetoPersistente<T, PK>, PK> 
 				switch (e.getErrorCode()) {
 				case AccesoDb.ER_ROW_IS_REFERENCED_2:
 					this.manejarErrorEnUso(errores);
-					break;
-				case AccesoDb.ER_NO_REFERENCED_ROW_2:
-					this.manejarErrorReferencia(errores);
 					break;
 				default:
 					e.printStackTrace();

@@ -1,7 +1,7 @@
 delimiter $$
 
 CREATE PROCEDURE `modificarProducto`(idProducto int, idMarca int, idTipoProducto int, codigo varchar(13), 
-    nombre varchar(100), precio decimal(7,2), garantia int, stock int, stockMinimo int, descripcion varchar(1000))
+    nombre varchar(100), precio decimal(7,2), garantia int, stock int, stockMinimo int, enVenta bit, descripcion varchar(1000))
 BEGIN
 -- Insertar solo si no hay duplicados y las FKs son válidas.
     UPDATE tbl_productos A LEFT JOIN tbl_productos B ON
@@ -14,6 +14,7 @@ BEGIN
         A.garantia = garantia,
         A.stock = stock,
         A.stockMinimo = stockMinimo,
+        A.enVenta = enVenta,
         A.descripcion = descripcion
     WHERE A.idProducto = idProducto AND 
         B.idProducto IS NULL AND -- Si hay duplicado entonces B.idProducto no va ser NULL
@@ -33,7 +34,7 @@ BEGIN
     
     -- Se trata de retornar los errores de FK:
         SELECT ERROR_REFERENCIA() AS CODIGO_ERROR, 
-            tbl_marcas.idMarca, tbl_tipos_producto.idTipoProducto
+            tbl_marcas.idMarca AS idMarca, tbl_tipos_producto.idTipoProducto AS idTipoProducto
         FROM (SELECT 1 FROM dual) D LEFT JOIN
             tbl_marcas ON tbl_marcas.idMarca = idMarca LEFT JOIN
             tbl_tipos_producto ON tbl_tipos_producto.idTipoProducto = idTipoProducto

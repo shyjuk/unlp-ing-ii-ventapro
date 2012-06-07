@@ -1,6 +1,7 @@
 package unlp.info.ingenieriaii.web;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.sql.*;
 
 import javax.servlet.ServletContext;
@@ -123,22 +124,31 @@ public class AccesoDb {
 		rs.close();
 	}
 
-	public static int getColumnaInt(ResultSet rs, String tabla, String columna)
-			throws SQLException {
+	public static Integer getColumnaInt(ResultSet rs, String tabla,
+			String columna) throws SQLException {
+		int valor = rs.getInt(tabla + "." + columna);
 
-		return rs.getInt(tabla + "." + columna);
+		return rs.wasNull() ? null : new Integer(valor);
 	}
 
-	public static byte getColumnaByte(ResultSet rs, String tabla, String columna)
+	public static Byte getColumnaByte(ResultSet rs, String tabla, String columna)
 			throws SQLException {
+		byte valor = rs.getByte(tabla + "." + columna);
 
-		return rs.getByte(tabla + "." + columna);
+		return rs.wasNull() ? null : new Byte(valor);
 	}
 
-	public static boolean getColumnaBoolean(ResultSet rs, String tabla,
+	public static Boolean getColumnaBoolean(ResultSet rs, String tabla,
+			String columna) throws SQLException {
+		boolean valor = rs.getBoolean(tabla + "." + columna);
+
+		return rs.wasNull() ? null : new Boolean(valor);
+	}
+
+	public static BigDecimal getColumnaDecimal(ResultSet rs, String tabla,
 			String columna) throws SQLException {
 
-		return rs.getBoolean(tabla + "." + columna);
+		return rs.getBigDecimal(tabla + "." + columna);
 	}
 
 	public static String getColumnaString(ResultSet rs, String tabla,
@@ -266,6 +276,14 @@ public class AccesoDb {
 			this.sentencia.setBoolean(pos, valor.booleanValue());
 		else
 			this.sentencia.setNull(pos, Types.TINYINT);
+	}
+	
+	public void setParamDecimal(int pos, BigDecimal valor) throws SQLException {
+		
+		if (valor != null)
+			this.sentencia.setBigDecimal(pos, valor);
+		else
+			this.sentencia.setNull(pos, Types.DECIMAL);
 	}
 
 	public void setParamVarchar(int pos, String valor) throws SQLException {

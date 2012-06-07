@@ -124,7 +124,7 @@ public class Marca extends ObjetoPersistente<Marca, Integer> {
 	}
 
 	@Override
-	protected void manejarErrorReferencia(Errores errores) {
+	protected void manejarErrorReferencia(Errores errores, ResultSet rs) {
 		// No debe ocurrir nunca este error.
 		this.errorGeneral(errores);
 	}

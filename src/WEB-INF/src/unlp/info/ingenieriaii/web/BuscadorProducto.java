@@ -44,18 +44,18 @@ public class BuscadorProducto extends Buscador<Producto>{
 	protected ArrayList<Producto> ejecutarBusqueda(AccesoDb db, Errores errores){
 		this.getResultado().clear();
 		
-		for (Producto prod : SucursalUno.getSingleInstance().getProductos()) {
-			if (this.getNombre() == null || this.getNombre().isEmpty()) {
-				this.getResultado().add(prod);
-				}else if (Utiles.like(prod.getNombre(), this.getNombre())) {
-					this.getResultado().add(prod);
-					}else if (prod.getCodigo() == this.getCodigo()) {
-							this.getResultado().add(prod);
-							}else if (Utiles.like(prod.getMarca(), this.getMarca())) {
-								this.getResultado().add(prod);}
-								else if (Utiles.like(prod.getTipoDeProducto(), this.getCategoria())) {
-									this.getResultado().add(prod);}
-			}
+//		for (Producto prod : SucursalUno.getSingleInstance().getProductos()) {
+//			if (this.getNombre() == null || this.getNombre().isEmpty()) {
+//				this.getResultado().add(prod);
+//				}else if (Utiles.like(prod.getNombre(), this.getNombre())) {
+//					this.getResultado().add(prod);
+//					}else if (prod.getCodigo() == this.getCodigo()) {
+//							this.getResultado().add(prod);
+//							}else if (Utiles.like(prod.getMarca(), this.getMarca())) {
+//								this.getResultado().add(prod);}
+//								else if (Utiles.like(prod.getTipoDeProducto(), this.getCategoria())) {
+//									this.getResultado().add(prod);}
+//			}
 		return this.getResultado();
 	}
 
