@@ -18,6 +18,7 @@ public class AppServlet implements ServletContextListener {
         try {
 			GeneradorDeDatos.generarTiposDeProductos();
 			GeneradorDeDatos.generarMarcas();
+			GeneradorDeDatos.generarProductos();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
