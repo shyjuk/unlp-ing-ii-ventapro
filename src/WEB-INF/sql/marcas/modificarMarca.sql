@@ -1,6 +1,6 @@
 delimiter $$
 
-CREATE DEFINER=`hernan`@`%` PROCEDURE `modificarMarca`(idMarca int, nombre varchar(50), sitioWeb varchar(100), 
+CREATE PROCEDURE `modificarMarca`(idMarca int, nombre varchar(50), sitioWeb varchar(100), 
                             contacto varchar(1000), infoAdicional varchar(1000))
 BEGIN
 -- Actualizar solo si no causa duplicación.
