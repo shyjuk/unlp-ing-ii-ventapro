@@ -36,26 +36,26 @@ public class AgregarProductoServlet extends ServletPagina{
 	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
 		Producto object = new Producto();
 		
-		if (AgregarProductoServlet.isInteger(req.getParameter("codigo"))){
-			object.setCodigo(Integer.valueOf(req.getParameter("codigo")).intValue());}
-		else object.setCodigo(0);
-		object.setNombre(req.getParameter("nombre"));
-		if (AgregarProductoServlet.isInteger(req.getParameter("precio"))){
-			object.setPrecio(Float.parseFloat(req.getParameter("precio")));}
-		else object.setPrecio(0);
-		object.setMarca(req.getParameter("marca"));
-		object.setTipoDeProducto(req.getParameter("tipoDeProducto"));
-		if (AgregarProductoServlet.isInteger(req.getParameter("garantia"))){
-			object.setGarantia(Integer.valueOf(req.getParameter("garantia")).intValue());}
-		else object.setGarantia(0);
-		if (AgregarProductoServlet.isInteger(req.getParameter("stock"))){
-			object.setStock(Integer.valueOf(req.getParameter("stock")).intValue());}
-		else object.setStock(0);
-		if (AgregarProductoServlet.isInteger(req.getParameter("stockMinimo"))){
-			object.setStockMinimo(Integer.valueOf(req.getParameter("stockMinimo")).intValue());}
-		else object.setStockMinimo(0);
-		object.setEnVenta("Si");
-		object.setDescripcion(req.getParameter("descripcion"));
+//		if (AgregarProductoServlet.isInteger(req.getParameter("codigo"))){
+//			object.setCodigo(Integer.valueOf(req.getParameter("codigo")).intValue());}
+//		else object.setCodigo(0);
+//		object.setNombre(req.getParameter("nombre"));
+//		if (AgregarProductoServlet.isInteger(req.getParameter("precio"))){
+//			object.setPrecio(Float.parseFloat(req.getParameter("precio")));}
+//		else object.setPrecio(0);
+//		object.setMarca(req.getParameter("marca"));
+//		object.setTipoDeProducto(req.getParameter("tipoDeProducto"));
+//		if (AgregarProductoServlet.isInteger(req.getParameter("garantia"))){
+//			object.setGarantia(Integer.valueOf(req.getParameter("garantia")).intValue());}
+//		else object.setGarantia(0);
+//		if (AgregarProductoServlet.isInteger(req.getParameter("stock"))){
+//			object.setStock(Integer.valueOf(req.getParameter("stock")).intValue());}
+//		else object.setStock(0);
+//		if (AgregarProductoServlet.isInteger(req.getParameter("stockMinimo"))){
+//			object.setStockMinimo(Integer.valueOf(req.getParameter("stockMinimo")).intValue());}
+//		else object.setStockMinimo(0);
+//		object.setEnVenta("Si");
+//		object.setDescripcion(req.getParameter("descripcion"));
 //		if (object.esValidoParaCrear()) {
 //			try {
 //				SucursalUno.getSingleInstance().agregar(object);

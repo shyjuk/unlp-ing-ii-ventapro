@@ -26,16 +26,14 @@ public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 	protected void setDatos(ResultSet rs) throws SQLException {
 
 		this.setId(rs);
-		this.setNombre(rs.getString("nombre"));
-		this.setDescripcion(rs.getString("descripcion"));
+		this.setNombre(rs);
+		this.setDescripcion(rs);
 	}
 
 	@Override
 	protected TipoProducto getCopia(ResultSet rs) throws SQLException {
-		TipoProducto tipoProducto = new TipoProducto();
 
-		tipoProducto.setDatos(rs);
-		return tipoProducto;
+		return new TipoProducto(rs);
 	}
 
 	@Override
@@ -99,7 +97,7 @@ public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 	}
 
 	@Override
-	protected void manejarErrorReferencia(Errores errores) {
+	protected void manejarErrorReferencia(Errores errores, ResultSet rs) {
 		// No debe ocurrir nunca este error.
 		this.errorGeneral(errores);
 	}
@@ -110,7 +108,7 @@ public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 				"nombre"));
 	}
 
-	protected void setSitioWeb(ResultSet rs) throws SQLException {
+	protected void setDescripcion(ResultSet rs) throws SQLException {
 
 		this.setDescripcion(AccesoDb.getColumnaString(rs, TABLA_TIPOS_PRODUCTO,
 				"descripcion"));

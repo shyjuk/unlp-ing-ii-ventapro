@@ -56,7 +56,7 @@ public class Usuario extends ObjetoPersistente<Usuario, Integer>{
 	}
 
 	@Override
-	protected void manejarErrorReferencia(Errores errores) {
+	protected void manejarErrorReferencia(Errores errores, ResultSet rs) {
 		// TODO Auto-generated method stub
 		
 	}

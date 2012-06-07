@@ -1,13 +1,13 @@
 delimiter $$
 
 CREATE PROCEDURE `agregarProducto`(idMarca int, idTipoProducto int, codigo varchar(13), nombre varchar(100),
-    precio decimal(7,2), garantia int, stock int, stockMinimo int, descripcion varchar(1000))
+    precio decimal(7,2), garantia int, stock int, stockMinimo int, enVenta bit, descripcion varchar(1000))
 BEGIN
 -- Insertar solo si no hay duplicados y las FKs son válidas.
     INSERT INTO tbl_productos(idMarca, idTipoProducto, codigo, nombre, 
-        precio, garantia, stock, stockMinimo, descripcion)
+        precio, garantia, stock, stockMinimo, enVenta, descripcion)
     SELECT idMarca, idTipoProducto, codigo, nombre, 
-        precio, garantia, stock, stockMinimo, descripcion
+        precio, garantia, stock, stockMinimo, enVenta, descripcion
     FROM dual
     WHERE NOT EXISTS ( -- Acá se comprueban duplicados.
         SELECT * 
@@ -26,7 +26,7 @@ BEGIN
     
     -- Se trata de retornar los errores de FK:
         SELECT ERROR_REFERENCIA() AS CODIGO_ERROR, 
-            tbl_marcas.idMarca, tbl_tipos_producto.idTipoProducto
+            tbl_marcas.idMarca AS idMarca, tbl_tipos_producto.idTipoProducto AS idTipoProducto
         FROM (SELECT 1 FROM dual) D LEFT JOIN
             tbl_marcas ON tbl_marcas.idMarca = idMarca LEFT JOIN
             tbl_tipos_producto ON tbl_tipos_producto.idTipoProducto = idTipoProducto
