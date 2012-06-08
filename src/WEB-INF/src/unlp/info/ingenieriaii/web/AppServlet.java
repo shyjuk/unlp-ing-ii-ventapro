@@ -9,13 +9,17 @@ public class AppServlet implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent e) {
 		try {
 			AccesoDb.cargarConfig(e.getServletContext());
+
+			// Esto cuando el producto sea definitivo se podría sacar, por ahora
+			// es conveniente que siempre se regenere todo.
+			AccesoDb.regenerarRutinas(e.getServletContext());
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			System.out.println("NO SE PUDO CARGAR LA CONFIG DE LA BD!!!");
 		}
-		
-        try {
+
+		try {
 			GeneradorDeDatos.generarTiposDeProductos();
 			GeneradorDeDatos.generarMarcas();
 			GeneradorDeDatos.generarProductos();
@@ -23,7 +27,6 @@ public class AppServlet implements ServletContextListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        
 
 		System.out.println("Applicación iniciada");
 	}

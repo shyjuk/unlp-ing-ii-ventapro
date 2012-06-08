@@ -3,6 +3,7 @@ package unlp.info.ingenieriaii.web;
 import java.io.*;
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 
@@ -23,6 +24,7 @@ public class AccesoDb {
 
 	private static final String DRIVER = "org.gjt.mm.mysql.Driver";
 	private static final String ARCHIVO_CONFIG = "/WEB-INF/settings/MySql.txt";
+	private static final String PATH_SQL = "/WEB-INF/sql";
 
 	private static String connectionString;
 
@@ -37,25 +39,70 @@ public class AccesoDb {
 
 	}
 
-	public static void cargarConfig(ServletContext context) throws IOException {
-		InputStream config = context.getResourceAsStream(ARCHIVO_CONFIG);
+	private static void colectarArchivos(ArrayList<File> archivos, String path,
+			String extension) {
+		File archivo = new File(path);
+
+		if (!archivo.isDirectory()) {
+			if (archivo.getName().endsWith(extension))
+				archivos.add(archivo);
+		} else {
+			for (File file : archivo.listFiles())
+				colectarArchivos(archivos, file.getAbsolutePath(), extension);
+		}
+	}
+
+	private static String leerArchivo(String path) throws IOException {
+		FileInputStream archivo = new FileInputStream(path);
 
 		// Al parecer en Java es así de dificil convertir un stream a String...
 		Writer writer = new StringWriter();
 
 		char[] buffer = new char[1024];
 		try {
-			Reader reader = new BufferedReader(new InputStreamReader(config,
+			Reader reader = new BufferedReader(new InputStreamReader(archivo,
 					"UTF-8"));
 			int n;
 			while ((n = reader.read(buffer)) != -1) {
 				writer.write(buffer, 0, n);
 			}
 		} finally {
-			config.close();
+			archivo.close();
 		}
 
-		AccesoDb.connectionString = writer.toString().trim();
+		return writer.toString();
+	}
+
+	public static void cargarConfig(ServletContext context) throws IOException {
+
+		AccesoDb.connectionString = leerArchivo(
+				context.getRealPath(ARCHIVO_CONFIG)).trim();
+	}
+
+	public static void regenerarRutinas(ServletContext context)
+			throws SQLException, IOException {
+		ArrayList<File> archivos = new ArrayList<File>();
+		AccesoDb db = new AccesoDb();
+
+		colectarArchivos(archivos, context.getRealPath(PATH_SQL), ".sql");
+
+		for (File archivo : archivos) {
+			String nombre = archivo.getName().substring(0,
+					archivo.getName().length() - 4);
+
+			// Primero droppear lo que esté con el mismo nombre
+			final String[] TIPOS_RUTINA = { "FUNCTION", "PROCEDURE" };
+			for (String tipoRutina : TIPOS_RUTINA)
+				try {
+					db.ejecutarScript(
+							"DROP " + tipoRutina + " " + nombre + ";", ";");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+
+			// Ahora volver a crear:
+			db.ejecutarScript(leerArchivo(archivo.getAbsolutePath()), "$$");
+		}
 	}
 
 	private Connection conexion;
@@ -224,6 +271,16 @@ public class AccesoDb {
 		return this.ejecutarQueryMultiSet();
 	}
 
+	public void ejecutarScript(String script, String delimitador)
+			throws IOException, SQLException {
+		ScriptRunner runner;
+
+		this.reset();
+
+		runner = new ScriptRunner(this.conexion, true, true);
+		runner.runScript(new BufferedReader(new StringReader(script)));
+	}
+
 	public ResultSet proximoResultSet() throws SQLException {
 
 		if (this.resultado != null)
@@ -277,9 +334,9 @@ public class AccesoDb {
 		else
 			this.sentencia.setNull(pos, Types.TINYINT);
 	}
-	
+
 	public void setParamDecimal(int pos, BigDecimal valor) throws SQLException {
-		
+
 		if (valor != null)
 			this.sentencia.setBigDecimal(pos, valor);
 		else
