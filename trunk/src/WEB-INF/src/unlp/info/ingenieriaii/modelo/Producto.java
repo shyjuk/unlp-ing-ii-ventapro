@@ -10,7 +10,7 @@ import unlp.info.ingenieriaii.web.Validador;
 
 public class Producto extends ObjetoPersistente<Producto, Integer> {
 
-	private static final String TABLA_PRODUCTOS = "tbl_marcas";
+	private static final String TABLA_PRODUCTOS = "tbl_productos";
 
 	private static final String QUERY_LECTURA = "{call leerProducto (?)}";
 
@@ -203,8 +203,8 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 				"descripcion"));
 	}
 
-	public static ArrayList<Producto> buscarProductos(AccesoDb db, int idMarca,
-			int idTipoProducto, String codigo, String nombre, boolean enVenta)
+	public static ArrayList<Producto> buscarProductos(AccesoDb db, Integer idMarca,
+			Integer idTipoProducto, String codigo, String nombre, Boolean enVenta)
 			throws SQLException {
 		ArrayList<Producto> resultado = new ArrayList<Producto>();
 		ResultSet rs;
