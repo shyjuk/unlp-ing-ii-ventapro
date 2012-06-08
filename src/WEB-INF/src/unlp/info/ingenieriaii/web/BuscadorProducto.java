@@ -4,84 +4,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import unlp.info.ingenieriaii.modelo.Errores;
-import unlp.info.ingenieriaii.modelo.Marca;
-import unlp.info.ingenieriaii.modelo.ObjetoPersistente;
 import unlp.info.ingenieriaii.modelo.Producto;
-import unlp.info.ingenieriaii.modelo.SucursalUno;
 
-public class BuscadorProducto extends Buscador<Producto>{
-	
+public class BuscadorProducto extends Buscador<Producto> {
+
 	private String nombre;
-	private int codigo;
-	private String marca;
-	private String categoria;
-	
-	public BuscadorProducto() {
-		super();
-	}
-	
-	public boolean esValidoParaBuscar () {
-		
-		boolean esValido = true;
-//		this.getErrores().clear();
-//		if (nombre == null || nombre.length() == 0) {
-//			this.getErrores().put(Validador.ERROR_GENERICO, "Complete algún parametro para realizar la búsqueda.");
-//			esValido=false;}
-//			else if (codigo == 0) {
-//				this.getErrores().put(Validador.ERROR_GENERICO, "Complete algún parametro para realizar la búsqueda.");
-//				esValido=false;
-//				} else if (marca == null || marca.length() == 0) {
-//					this.getErrores().put(Validador.ERROR_GENERICO, "Complete algún parametro para realizar la búsqueda.");
-//					esValido=false;
-//					} else if (nombre == null || nombre.length() == 0) {
-//						this.getErrores().put(Validador.ERROR_GENERICO, "Complete algún parametro para realizar la búsqueda.");
-//						esValido=false;
-//					}		
-		return esValido;
+	private String codigo;
+	private Integer idMarca;
+	private Integer idTipoProducto;
+	private Boolean enVenta;
+
+	@Override
+	protected ArrayList<Producto> ejecutarBusqueda(AccesoDb db, Errores errores)
+			throws SQLException {
+
+		return Producto.buscarProductos(db, this.getIdMarca(),
+				this.getIdTipoProducto(), this.getCodigo(), this.getNombre(),
+				this.getEnVenta());
 	}
 
 	@Override
-	protected ArrayList<Producto> ejecutarBusqueda(AccesoDb db, Errores errores){
-		this.getResultado().clear();
-		
-//		for (Producto prod : SucursalUno.getSingleInstance().getProductos()) {
-//			if (this.getNombre() == null || this.getNombre().isEmpty()) {
-//				this.getResultado().add(prod);
-//				}else if (Utiles.like(prod.getNombre(), this.getNombre())) {
-//					this.getResultado().add(prod);
-//					}else if (prod.getCodigo() == this.getCodigo()) {
-//							this.getResultado().add(prod);
-//							}else if (Utiles.like(prod.getMarca(), this.getMarca())) {
-//								this.getResultado().add(prod);}
-//								else if (Utiles.like(prod.getTipoDeProducto(), this.getCategoria())) {
-//									this.getResultado().add(prod);}
-//			}
-		return this.getResultado();
+	protected void validarCriterios(Errores errores) {
+		// TODO: FALTA IMPLEMENTAR ESTO.
 	}
-
-	public int getCodigo() {
-				return codigo;
-			}
-
-			public void setCodigo(int codigo) {
-				this.codigo = codigo;
-			}
-
-			public String getMarca() {
-				return marca;
-			}
-
-			public void setMarca(String marca) {
-				this.marca = marca;
-			}
-
-			public String getCategoria() {
-				return categoria;
-			}
-
-			public void setCategoria(String categoria) {
-				this.categoria = categoria;
-			}
 
 	public String getNombre() {
 		return nombre;
@@ -91,13 +36,35 @@ public class BuscadorProducto extends Buscador<Producto>{
 		this.nombre = nombre;
 	}
 
-	@Override
-	protected void validarCriterios(Errores errores) {
-		// TODO Auto-generated method stub
-		
+	public String getCodigo() {
+		return codigo;
 	}
-	
-	
-	
-	
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public Integer getIdMarca() {
+		return idMarca;
+	}
+
+	public void setIdMarca(Integer idMarca) {
+		this.idMarca = idMarca;
+	}
+
+	public Integer getIdTipoProducto() {
+		return idTipoProducto;
+	}
+
+	public void setIdTipoProducto(Integer idTipoProducto) {
+		this.idTipoProducto = idTipoProducto;
+	}
+
+	public Boolean getEnVenta() {
+		return enVenta;
+	}
+
+	public void setEnVenta(Boolean enVenta) {
+		this.enVenta = enVenta;
+	}
 }

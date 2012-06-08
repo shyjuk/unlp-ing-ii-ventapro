@@ -133,7 +133,7 @@
 				<td class="botonera"><input type="submit" value="Aceptar"
 					name="btnAceptar" /> <input type="submit" value="Borrar"
 					name="btnBorrar"
-					onclick="return confirm('¿Esta seguro que desea borrar las marcas seleccionadas?')" /></td>
+					onclick="return confirm('¿Esta seguro que desea borrar los tipos de producto seleccionados?')" /></td>
 			</tr>
 		</table>
 	</form>
