@@ -90,7 +90,7 @@
 									value="FALSE"
 									onclick="javascript:changeAllSelection(this,${listaId});" /></td>
 								<td>Nombre</td>
-								<td>Sitio web</td>
+								<td>Descripción</td>
 								<td>Editar</td>
 								<td>Eliminar</td>
 							</tr>
