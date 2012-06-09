@@ -18,7 +18,7 @@ BEGIN
             T.nombre AS TipoProducto_nombre,
             T.descripcion AS TipoProducto_descripcion
         FROM tbl_tipos_producto T
-        WHERE UPPER(tbl_tipos_producto.nombre) = UPPER(nombre) COLLATE utf8_bin;
+        WHERE UPPER(T.nombre) = UPPER(nombre) COLLATE utf8_bin;
     ELSE -- Si se insertó entonces se retorna el ID del tipo de producto nuevo.
         SELECT 0 AS CODIGO_ERROR, 
             T.idTipoProducto AS TipoProducto_idTipoProducto
