@@ -17,10 +17,14 @@ BEGIN
 -- ROW_COUNT() retorna 0 si lo que se actualiza ya tenía los mismos datos así que no se puede usar acá.
 
 -- Si no se actualizó nada entonces se retorna el existente.
-    SELECT ERROR_VALOR_DUPLICADO() AS CODIGO_ERROR, tbl_marcas.*
-    FROM tbl_marcas
-    WHERE UPPER(tbl_marcas.nombre) = UPPER(nombre) AND
-            tbl_marcas.idMarca <> idMarca;
+	SELECT ERROR_VALOR_DUPLICADO() AS CODIGO_ERROR,
+    	M.idMarca AS Marca_idMarca,
+    	M.nombre AS Marca_nombre,
+    	M.sitioWeb AS Marca_sitioWeb,
+    	M.contacto AS Marca_contacto,
+    	M.infoAdicional AS Marca_infoAdicional
+    FROM tbl_marcas M
+    WHERE UPPER(M.nombre) = UPPER(nombre) AND M.idMarca <> idMarca;
             
 -- Si se actualizó entonces se indica el éxito de la operación.
     SELECT 0 AS CODIGO_ERROR

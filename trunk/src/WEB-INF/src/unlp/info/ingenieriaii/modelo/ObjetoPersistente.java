@@ -1,5 +1,6 @@
 package unlp.info.ingenieriaii.modelo;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -33,7 +34,8 @@ public abstract class ObjetoPersistente<T extends ObjetoPersistente<T, PK>, PK> 
 
 	protected abstract void manejarErrorEnUso(Errores errores);
 
-	protected abstract void manejarErrorReferencia(Errores errores, ResultSet rs) throws SQLException;
+	protected abstract void manejarErrorReferencia(Errores errores, ResultSet rs)
+			throws SQLException;
 
 	protected final void errorGeneral(Errores errores) {
 
@@ -149,6 +151,41 @@ public abstract class ObjetoPersistente<T extends ObjetoPersistente<T, PK>, PK> 
 			e.printStackTrace();
 			this.errorGeneral(errores);
 		}
+	}
+
+	private String getNombreEntidad() {
+
+		return this.getClass().getSimpleName();
+	}
+
+	protected Integer getColumnaInt(ResultSet rs, String columna)
+			throws SQLException {
+
+		return AccesoDb.getColumnaInt(rs, this.getNombreEntidad(), columna);
+	}
+
+	protected Byte getColumnaByte(ResultSet rs, String columna)
+			throws SQLException {
+
+		return AccesoDb.getColumnaByte(rs, this.getNombreEntidad(), columna);
+	}
+
+	protected Boolean getColumnaBoolean(ResultSet rs, String columna)
+			throws SQLException {
+
+		return AccesoDb.getColumnaBoolean(rs, this.getNombreEntidad(), columna);
+	}
+
+	protected BigDecimal getColumnaDecimal(ResultSet rs, String columna)
+			throws SQLException {
+
+		return AccesoDb.getColumnaDecimal(rs, this.getNombreEntidad(), columna);
+	}
+
+	protected String getColumnaString(ResultSet rs, String columna)
+			throws SQLException {
+
+		return AccesoDb.getColumnaString(rs, this.getNombreEntidad(), columna);
 	}
 
 	public PK getId() {

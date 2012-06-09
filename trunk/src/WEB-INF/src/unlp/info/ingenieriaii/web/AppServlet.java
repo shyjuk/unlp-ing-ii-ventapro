@@ -9,14 +9,21 @@ public class AppServlet implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent e) {
 		try {
 			AccesoDb.cargarConfig(e.getServletContext());
-
-			// Esto cuando el producto sea definitivo se podría sacar, por ahora
-			// es conveniente que siempre se regenere todo.
-			AccesoDb.regenerarRutinas(e.getServletContext());
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+
 			e1.printStackTrace();
 			System.out.println("NO SE PUDO CARGAR LA CONFIG DE LA BD!!!");
+		}
+		
+		// Esto cuando el producto sea definitivo se podría sacar, por ahora
+		// es conveniente que siempre se regenere todo.
+		
+		try {
+			AccesoDb.regenerarRutinas(e.getServletContext());
+		} catch (Exception e2) {
+			
+			e2.printStackTrace();
+			System.out.println("NO SE PUDO REGENERAR LOS STORED PROCEDURES/FUNCTIONS DE LA BD!!!");
 		}
 
 		try {

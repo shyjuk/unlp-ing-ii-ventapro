@@ -14,12 +14,18 @@ BEGIN
     );
 
     IF ROW_COUNT() = 0 THEN -- Si no se insertó nada entonces se retorna el existente.
-        SELECT ERROR_VALOR_DUPLICADO() AS CODIGO_ERROR, tbl_marcas.*
-        FROM tbl_marcas
-        WHERE UPPER(tbl_marcas.nombre) = UPPER(nombre) COLLATE utf8_bin;
+        SELECT ERROR_VALOR_DUPLICADO() AS CODIGO_ERROR,
+    		M.idMarca AS Marca_idMarca,
+    		M.nombre AS Marca_nombre,
+    		M.sitioWeb AS Marca_sitioWeb,
+    		M.contacto AS Marca_contacto,
+    		M.infoAdicional AS Marca_infoAdicional
+    	FROM tbl_marcas M
+        WHERE UPPER(M.nombre) = UPPER(nombre) COLLATE utf8_bin;
     ELSE -- Si se insertó entonces se retorna el ID de la marca nueva.
-        SELECT 0 AS CODIGO_ERROR, idMarca
-        FROM tbl_marcas
-        WHERE tbl_marcas.idMarca = LAST_INSERT_ID();
+        SELECT 0 AS CODIGO_ERROR,
+        	M.idMarca AS Marca_idMarca
+        FROM tbl_marcas M
+        WHERE M.idMarca = LAST_INSERT_ID();
     END IF;
 END$$

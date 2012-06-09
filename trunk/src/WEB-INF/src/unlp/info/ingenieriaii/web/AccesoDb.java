@@ -91,17 +91,12 @@ public class AccesoDb {
 					archivo.getName().length() - 4);
 
 			// Primero droppear lo que esté con el mismo nombre
-			final String[] TIPOS_RUTINA = { "FUNCTION", "PROCEDURE" };
-			for (String tipoRutina : TIPOS_RUTINA)
-				try {
-					db.ejecutarScript(
-							"DROP " + tipoRutina + " " + nombre + ";", ";");
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+			db.ejecutarScript(String
+					.format("DROP PROCEDURE IF EXISTS %s;\n DROP FUNCTION IF EXISTS %s;",
+							nombre, nombre));
 
 			// Ahora volver a crear:
-			db.ejecutarScript(leerArchivo(archivo.getAbsolutePath()), "$$");
+			db.ejecutarScript(leerArchivo(archivo.getAbsolutePath()));
 		}
 	}
 
@@ -171,37 +166,37 @@ public class AccesoDb {
 		rs.close();
 	}
 
-	public static Integer getColumnaInt(ResultSet rs, String tabla,
+	public static Integer getColumnaInt(ResultSet rs, String entidad,
 			String columna) throws SQLException {
-		int valor = rs.getInt(tabla + "." + columna);
+		int valor = rs.getInt(entidad + "_" + columna);
 
 		return rs.wasNull() ? null : new Integer(valor);
 	}
 
-	public static Byte getColumnaByte(ResultSet rs, String tabla, String columna)
-			throws SQLException {
-		byte valor = rs.getByte(tabla + "." + columna);
+	public static Byte getColumnaByte(ResultSet rs, String entidad,
+			String columna) throws SQLException {
+		byte valor = rs.getByte(entidad + "_" + columna);
 
 		return rs.wasNull() ? null : new Byte(valor);
 	}
 
-	public static Boolean getColumnaBoolean(ResultSet rs, String tabla,
+	public static Boolean getColumnaBoolean(ResultSet rs, String entidad,
 			String columna) throws SQLException {
-		boolean valor = rs.getBoolean(tabla + "." + columna);
+		boolean valor = rs.getBoolean(entidad + "_" + columna);
 
 		return rs.wasNull() ? null : new Boolean(valor);
 	}
 
-	public static BigDecimal getColumnaDecimal(ResultSet rs, String tabla,
+	public static BigDecimal getColumnaDecimal(ResultSet rs, String entidad,
 			String columna) throws SQLException {
 
-		return rs.getBigDecimal(tabla + "." + columna);
+		return rs.getBigDecimal(entidad + "_" + columna);
 	}
 
-	public static String getColumnaString(ResultSet rs, String tabla,
+	public static String getColumnaString(ResultSet rs, String entidad,
 			String columna) throws SQLException {
 
-		return rs.getString(tabla + "." + columna);
+		return rs.getString(entidad + "_" + columna);
 	}
 
 	public AccesoDb() {
@@ -271,13 +266,13 @@ public class AccesoDb {
 		return this.ejecutarQueryMultiSet();
 	}
 
-	public void ejecutarScript(String script, String delimitador)
-			throws IOException, SQLException {
+	public void ejecutarScript(String script) throws IOException, SQLException {
 		ScriptRunner runner;
 
 		this.reset();
 
 		runner = new ScriptRunner(this.conexion, true, true);
+		runner.setLogWriter(null);
 		runner.runScript(new BufferedReader(new StringReader(script)));
 	}
 
