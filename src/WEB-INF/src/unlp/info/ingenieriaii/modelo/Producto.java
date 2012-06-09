@@ -10,8 +10,6 @@ import unlp.info.ingenieriaii.web.Validador;
 
 public class Producto extends ObjetoPersistente<Producto, Integer> {
 
-	private static final String TABLA_PRODUCTOS = "tbl_productos";
-
 	private static final String QUERY_LECTURA = "{call leerProducto (?)}";
 
 	private static final String QUERY_BUSQUEDA = "{call buscarProducto (?, ?, ?, ?, ?)}";
@@ -108,7 +106,7 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 	@Override
 	protected void setId(ResultSet rs) throws SQLException {
 
-		this.setId(AccesoDb.getColumnaInt(rs, TABLA_PRODUCTOS, "idProducto"));
+		this.setId(this.getColumnaInt(rs, "idProducto"));
 	}
 
 	@Override
@@ -147,19 +145,17 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 
 	protected void setCodigo(ResultSet rs) throws SQLException {
 
-		this.setCodigo(String.valueOf(AccesoDb.getColumnaInt(rs,
-				TABLA_PRODUCTOS, "codigo")));
+		this.setCodigo(String.valueOf(this.getColumnaInt(rs, "codigo")));
 	}
 
 	protected void setNombre(ResultSet rs) throws SQLException {
 
-		this.setNombre(AccesoDb.getColumnaString(rs, TABLA_PRODUCTOS, "nombre"));
+		this.setNombre(this.getColumnaString(rs, "nombre"));
 	}
 
 	protected void setPrecio(ResultSet rs) throws SQLException {
 
-		this.setPrecio(AccesoDb
-				.getColumnaDecimal(rs, TABLA_PRODUCTOS, "precio").toString());
+		this.setPrecio(this.getColumnaDecimal(rs, "precio").toString());
 	}
 
 	protected void setMarca(ResultSet rs) throws SQLException {
@@ -173,39 +169,35 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 	}
 
 	protected void setGarantia(ResultSet rs) throws SQLException {
-		Integer valor = AccesoDb.getColumnaInt(rs, TABLA_PRODUCTOS, "garantia");
+		Integer valor = this.getColumnaInt(rs, "garantia");
 
 		this.setGarantia(valor != null ? valor.toString() : null);
 	}
 
 	protected void setStock(ResultSet rs) throws SQLException {
 
-		this.setStock(String.valueOf(AccesoDb.getColumnaInt(rs,
-				TABLA_PRODUCTOS, "stock")));
+		this.setStock(String.valueOf(this.getColumnaInt(rs, "stock")));
 	}
 
 	protected void setStockMinimo(ResultSet rs) throws SQLException {
-		Integer valor = AccesoDb.getColumnaInt(rs, TABLA_PRODUCTOS,
-				"stockMinimo");
+		Integer valor = this.getColumnaInt(rs, "stockMinimo");
 
 		this.setStockMinimo(valor != null ? valor.toString() : null);
 	}
 
 	protected void setEnVenta(ResultSet rs) throws SQLException {
 
-		this.setEnVenta(String.valueOf(AccesoDb.getColumnaBoolean(rs,
-				TABLA_PRODUCTOS, "enVenta")));
+		this.setEnVenta(String.valueOf(this.getColumnaBoolean(rs, "enVenta")));
 	}
 
 	protected void setDescripcion(ResultSet rs) throws SQLException {
 
-		this.setDescripcion(AccesoDb.getColumnaString(rs, TABLA_PRODUCTOS,
-				"descripcion"));
+		this.setDescripcion(this.getColumnaString(rs, "descripcion"));
 	}
 
-	public static ArrayList<Producto> buscarProductos(AccesoDb db, Integer idMarca,
-			Integer idTipoProducto, String codigo, String nombre, Boolean enVenta)
-			throws SQLException {
+	public static ArrayList<Producto> buscarProductos(AccesoDb db,
+			Integer idMarca, Integer idTipoProducto, String codigo,
+			String nombre, Boolean enVenta) throws SQLException {
 		ArrayList<Producto> resultado = new ArrayList<Producto>();
 		ResultSet rs;
 

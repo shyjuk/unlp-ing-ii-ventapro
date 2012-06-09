@@ -9,8 +9,6 @@ import unlp.info.ingenieriaii.web.Validador;
 
 public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 
-	private static final String TABLA_TIPOS_PRODUCTO = "tbl_tipos_producto";
-
 	private static final String QUERY_LECTURA = "{call leerTipoProducto (?)}";
 
 	private static final String QUERY_BUSQUEDA = "{call buscarTipoProducto (?)}";
@@ -70,7 +68,7 @@ public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 	@Override
 	protected void setId(ResultSet rs) throws SQLException {
 
-		this.setId(AccesoDb.getColumnaInt(rs, TABLA_TIPOS_PRODUCTO, "idTipoProducto"));
+		this.setId(this.getColumnaInt(rs, "idTipoProducto"));
 	}
 
 	@Override
@@ -104,14 +102,12 @@ public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 
 	protected void setNombre(ResultSet rs) throws SQLException {
 
-		this.setNombre(AccesoDb.getColumnaString(rs, TABLA_TIPOS_PRODUCTO,
-				"nombre"));
+		this.setNombre(this.getColumnaString(rs, "nombre"));
 	}
 
 	protected void setDescripcion(ResultSet rs) throws SQLException {
 
-		this.setDescripcion(AccesoDb.getColumnaString(rs, TABLA_TIPOS_PRODUCTO,
-				"descripcion"));
+		this.setDescripcion(this.getColumnaString(rs, "descripcion"));
 	}
 
 	public static ArrayList<TipoProducto> buscarTiposProducto(AccesoDb db,
@@ -151,7 +147,7 @@ public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 	public void setNombre(String nombre) {
 
 		this.nombre = nombre;
-		
+
 		if (this.nombre != null)
 			this.nombre = this.nombre.trim();
 	}
@@ -164,7 +160,7 @@ public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 	public void setDescripcion(String descripcion) {
 
 		this.descripcion = descripcion;
-		
+
 		if (this.descripcion != null)
 			this.descripcion = this.descripcion.trim();
 	}

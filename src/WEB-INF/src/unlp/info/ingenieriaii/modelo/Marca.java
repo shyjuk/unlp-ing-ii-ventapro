@@ -12,8 +12,6 @@ import unlp.info.ingenieriaii.web.Validador;
 
 public class Marca extends ObjetoPersistente<Marca, Integer> {
 
-	private static final String TABLA_MARCAS = "tbl_marcas";
-
 	private static final String QUERY_LECTURA = "{call leerMarca (?)}";
 
 	private static final String QUERY_BUSQUEDA = "{call buscarMarca (?)}";
@@ -81,7 +79,7 @@ public class Marca extends ObjetoPersistente<Marca, Integer> {
 	@Override
 	protected void setId(ResultSet rs) throws SQLException {
 
-		this.setId(AccesoDb.getColumnaInt(rs, TABLA_MARCAS, "idMarca"));
+		this.setId(this.getColumnaInt(rs, "idMarca"));
 	}
 
 	@Override
@@ -131,25 +129,22 @@ public class Marca extends ObjetoPersistente<Marca, Integer> {
 
 	protected void setNombre(ResultSet rs) throws SQLException {
 
-		this.setNombre(AccesoDb.getColumnaString(rs, TABLA_MARCAS, "nombre"));
+		this.setNombre(this.getColumnaString(rs, "nombre"));
 	}
 
 	protected void setSitioWeb(ResultSet rs) throws SQLException {
 
-		this.setSitioWeb(AccesoDb
-				.getColumnaString(rs, TABLA_MARCAS, "sitioWeb"));
+		this.setSitioWeb(this.getColumnaString(rs, "sitioWeb"));
 	}
 
 	protected void setContacto(ResultSet rs) throws SQLException {
 
-		this.setContacto(AccesoDb
-				.getColumnaString(rs, TABLA_MARCAS, "contacto"));
+		this.setContacto(this.getColumnaString(rs, "contacto"));
 	}
 
 	protected void setInfoAdicional(ResultSet rs) throws SQLException {
 
-		this.setInfoAdicional(AccesoDb.getColumnaString(rs, TABLA_MARCAS,
-				"infoAdicional"));
+		this.setInfoAdicional(this.getColumnaString(rs, "infoAdicional"));
 	}
 
 	public static ArrayList<Marca> buscarMarcas(AccesoDb db, String nombre)

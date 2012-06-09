@@ -177,7 +177,7 @@ public class ScriptRunner {
 					}
 					command.append(line.substring(0,
 							line.lastIndexOf(getDelimiter())));
-					command.append(" ");
+					command.append("\n");
 					Statement statement = conn.createStatement();
 
 					println(command);
@@ -248,7 +248,7 @@ public class ScriptRunner {
 							line = line.substring(0, pos);
 					}
 					command.append(line);
-					command.append(" ");
+					command.append("\n");
 				}
 			}
 			if (!autoCommit) {

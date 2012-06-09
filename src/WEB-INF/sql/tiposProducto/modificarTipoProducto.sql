@@ -14,10 +14,13 @@ BEGIN
 -- ROW_COUNT() retorna 0 si lo que se actualiza ya tenía los mismos datos así que no se puede usar acá.
 
 -- Si no se actualizó nada entonces se retorna el existente.
-    SELECT ERROR_VALOR_DUPLICADO() AS CODIGO_ERROR, tbl_tipos_producto.*
-    FROM tbl_tipos_producto
-    WHERE UPPER(tbl_tipos_producto.nombre) = UPPER(nombre) AND
-            tbl_tipos_producto.idTipoProducto <> idTipoProducto;
+    SELECT ERROR_VALOR_DUPLICADO() AS CODIGO_ERROR,  
+        T.idTipoProducto AS TipoProducto_idTipoProducto,
+        T.nombre AS TipoProducto_nombre,
+        T.descripcion AS TipoProducto_descripcion
+    FROM tbl_tipos_producto T
+    WHERE UPPER(T.nombre) = UPPER(nombre) AND
+            T.idTipoProducto <> idTipoProducto;
             
 -- Si se actualizó entonces se indica el éxito de la operación.
     SELECT 0 AS CODIGO_ERROR
