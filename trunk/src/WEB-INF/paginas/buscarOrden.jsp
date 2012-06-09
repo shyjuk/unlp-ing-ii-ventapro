@@ -57,7 +57,7 @@
 			</tr>
 			<tr>
 				<td class="funcs funcsPrincipales">
-					<a class="funcPrincipal" href="#">Gestión de productos</a> 
+					<a class="funcPrincipal" href="buscarProducto.jsp">Gestión de productos</a> 
 					<a class="funcPrincipal funcPrincipalAct" href="#">Ventas</a> 
 					<a class="funcPrincipal" href="#">Administración de clientes</a> 
 					<a class="funcPrincipal" href="#">Reportes</a> 
@@ -98,7 +98,7 @@
 									<td><c:out value="${row.vendedor}" /></td>
 									<td><c:out value="${row.cantProductos}" /></td>
 									<td><c:out value="${row.montoTotal}" /></td>
-									<td align="center"><img src="imagenes/iconos/glasses.gif" onclick="javascript:viewDetails('${row.id}')" alt="Ver" /></td>
+									<td align="center"><img src="imagenes/iconos/glasses.gif" onclick="javascript:abrirPopUpConParam('popupDetalleOrden.jsp','idOrden','${row.id}')" alt="Ver" /></td>
 									<td align="center">
 										<% if (true) {%>
 											<img src="imagenes/iconos/delete.gif" onclick="javascript:anularObject('${row.id}');" alt="Anular" />
