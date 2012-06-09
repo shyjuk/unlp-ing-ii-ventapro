@@ -1,9 +1,11 @@
 package unlp.info.ingenieriaii.modelo;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
 import unlp.info.ingenieriaii.web.BuscadorOrden;
@@ -16,6 +18,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private Integer idCliente;
 	private Integer idUsuario;
 	private Integer idFactura;
+	private List<Item> items;
 	
 	// input - esto deberia modificarse usando los objetos reales
 	private String comprador;
@@ -23,6 +26,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	
 	
 	private static final String QUERY_BUSQUEDA = "{call buscarOrden (?,?,?,?,?,?)}";
+	private static final String QUERY_BUSQUEDA_ITEMS = "{call buscarItemsDeOrden (?)}";
 	
 	public OrdenDeVenta(ResultSet rs) throws SQLException {
 
@@ -143,10 +147,18 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		rs = db.ejecutarQuery();
 
 		while (rs.next()) {
-
 			resultado.add(new OrdenDeVenta(rs));
 		}
-
+		
+		for (OrdenDeVenta orden : resultado) {
+			db.prepararLlamada(QUERY_BUSQUEDA_ITEMS);
+			db.setParamInt(1, orden.getId());
+			rs = db.ejecutarQuery();
+			while (rs.next()) {
+				orden.getItems().add(new Item(rs));
+			}
+		}
+		
 		db.cerrarQuery();
 		return resultado;
 	}
@@ -186,13 +198,31 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	}
 	
 	public String getCantProductos () {
-		// DAIANA COMPLETAR
-		return "";
+		int cantidadTotal = 0;
+		for (Item item : this.getItems()) {
+			cantidadTotal=+ item.getCantidad();
+		}
+		return String.valueOf(cantidadTotal);
 	}
 	
 	public String getMontoTotal () {
-		// DAIANA COMPLETAR
-		return "";
+		BigDecimal montoTotal = BigDecimal.ZERO;
+		for (Item item : this.getItems()) {
+			montoTotal= (item.getPrecio().multiply(new BigDecimal(item.getCantidad()))).add(montoTotal);
+		}
+		return String.valueOf(montoTotal);
 	}
+
+	public List<Item> getItems() {
+		if (items == null) {
+			items = new ArrayList<Item>();
+		}
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	
 
 }
