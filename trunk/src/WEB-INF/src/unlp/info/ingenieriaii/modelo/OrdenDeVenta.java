@@ -79,6 +79,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		this.setEstado(rs);
 		this.setComprador(rs);
 		this.setVendedor(rs);
+		this.setFecha(rs);
 	}
 	@Override
 	protected OrdenDeVenta getCopia(ResultSet rs) throws SQLException {
@@ -179,6 +180,10 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	
 	public void setVendedor(ResultSet rs) throws SQLException {
 		this.setVendedor(this.getColumnaString(rs, "vendedor"));
+	}
+	
+	public void setFecha(ResultSet rs) throws SQLException {
+		this.setFecha(this.getColumnaDate(rs, "fechaHora"));
 	}
 
 	public String getComprador() {

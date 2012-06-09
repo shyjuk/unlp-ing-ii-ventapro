@@ -1,6 +1,7 @@
 package unlp.info.ingenieriaii.modelo;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -188,6 +189,12 @@ public abstract class ObjetoPersistente<T extends ObjetoPersistente<T, PK>, PK> 
 		return AccesoDb.getColumnaString(rs, this.getNombreEntidad(), columna);
 	}
 
+	protected Date getColumnaDate(ResultSet rs, String columna)
+			throws SQLException {
+
+		return AccesoDb.getColumnaDate(rs, this.getNombreEntidad(), columna);
+	}
+	
 	public PK getId() {
 		return id;
 	}

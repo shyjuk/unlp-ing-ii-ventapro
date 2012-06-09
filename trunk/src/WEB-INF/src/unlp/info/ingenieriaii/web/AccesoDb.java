@@ -198,6 +198,12 @@ public class AccesoDb {
 
 		return rs.getString(entidad + "_" + columna);
 	}
+	
+	public static Date getColumnaDate(ResultSet rs, String entidad,
+			String columna) throws SQLException {
+
+		return rs.getDate(entidad + "_" + columna);
+	}
 
 	public AccesoDb() {
 
