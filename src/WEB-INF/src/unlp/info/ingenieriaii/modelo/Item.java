@@ -3,6 +3,7 @@ package unlp.info.ingenieriaii.modelo;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
 
@@ -15,6 +16,8 @@ public class Item extends ObjetoPersistente<Item, Integer>{
 	private Integer idOrden;
 	
 	private Producto producto;
+	
+	private static final String QUERY_BUSQUEDA_ITEMS = "{call buscarItemsDeOrden (?)}";
 	
 	public Item() {
 		// TODO Auto-generated constructor stub
@@ -112,6 +115,27 @@ public class Item extends ObjetoPersistente<Item, Integer>{
 			throws SQLException {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static ArrayList<Item> buscarItems(int idOrden) throws SQLException {
+		return buscarItem(new AccesoDb(), idOrden);
+	}
+	
+	public static ArrayList<Item> buscarItem(AccesoDb db, int idOrden) throws SQLException {
+		ArrayList<Item> resultado = new ArrayList<Item>();
+		ResultSet rs;
+		 
+		db.prepararLlamada(QUERY_BUSQUEDA_ITEMS);
+		db.setParamInt(1,idOrden);
+		
+		rs = db.ejecutarQuery();
+
+		while (rs.next()) {
+			resultado.add(new Item(rs));
+		}
+		
+		db.cerrarQuery();
+		return resultado;
 	}
 	
 	public void setCantidad (ResultSet rs) throws SQLException {

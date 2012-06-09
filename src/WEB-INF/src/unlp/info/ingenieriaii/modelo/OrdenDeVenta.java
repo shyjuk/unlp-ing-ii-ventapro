@@ -217,6 +217,14 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		}
 		return String.valueOf(montoTotal);
 	}
+	
+	public String getDetalle () {
+		return "<b>asdasd</b>";
+	}
+	
+	public String getMontoDetalle () {
+		return "";
+	}
 
 	public List<Item> getItems() {
 		if (items == null) {
