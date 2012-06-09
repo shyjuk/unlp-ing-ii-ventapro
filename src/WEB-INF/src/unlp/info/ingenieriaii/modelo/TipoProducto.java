@@ -129,6 +129,12 @@ public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 		return resultado;
 	}
 
+	public static ArrayList<TipoProducto> buscarTiposProducto(String nombre)
+			throws SQLException {
+
+		return buscarTiposProducto(new AccesoDb(), nombre);
+	}
+
 	public TipoProducto() {
 
 		super();

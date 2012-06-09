@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import unlp.info.ingenieriaii.modelo.Errores;
+import unlp.info.ingenieriaii.modelo.Marca;
 import unlp.info.ingenieriaii.modelo.Producto;
+import unlp.info.ingenieriaii.modelo.TipoProducto;
 
 public class BuscarProductoServlet extends ServletPagina {
 
@@ -26,23 +28,39 @@ public class BuscarProductoServlet extends ServletPagina {
 		return lista.toString();
 	}
 
-	private void setBuscador(HttpServletRequest req, boolean validar)
-			throws SQLException {
+	private void setBuscador(String nombre, String codigo, String idMarca,
+			String idTipoProducto, String incluirOcultos,
+			HttpServletRequest req, boolean validar) throws SQLException {
 		BuscadorProducto buscadorProducto = new BuscadorProducto();
+		Integer intIdMarca = Utiles.esVacio(idMarca) ? null : new Integer(
+				idMarca);
+		Integer intIdTipoProducto = Utiles.esVacio(idTipoProducto) ? null
+				: new Integer(idTipoProducto);
+		Boolean blnIncluirOcultos = Utiles.esVacio(incluirOcultos) ? Boolean.FALSE
+				: new Boolean(incluirOcultos);
 		Errores errores;
 
+		buscadorProducto.setNombre(Utiles.esVacio(nombre) ? null:nombre);
+		buscadorProducto.setCodigo(Utiles.esVacio(codigo) ? null: codigo);
+		buscadorProducto.setIdMarca(intIdMarca);
+		buscadorProducto.setIdTipoProducto(intIdTipoProducto);
+		buscadorProducto.setEnVenta(blnIncluirOcultos ? null : Boolean.TRUE);
 		errores = buscadorProducto.buscar(validar);
 
 		req.setAttribute("buscador", buscadorProducto);
 		req.setAttribute("errores", errores);
 		req.setAttribute("listaId", this.setListaId(buscadorProducto));
+
+		req.setAttribute("marcas", Marca.buscarMarcas(null));
+		req.setAttribute("tiposProducto",
+				TipoProducto.buscarTiposProducto(null));
 	}
 
 	@Override
 	protected void procesarGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, SQLException {
 
-		this.setBuscador(req, false);
+		this.setBuscador(null, null, null, null, null, req, false);
 		super.procesarGet(req, resp);
 	}
 
@@ -68,7 +86,11 @@ public class BuscarProductoServlet extends ServletPagina {
 			}
 		}
 
-		this.setBuscador(req, req.getParameter("btnAceptar") != null);
+		this.setBuscador(req.getParameter("nombre"),
+				req.getParameter("codigo"), req.getParameter("idMarca"),
+				req.getParameter("idTipoProducto"),
+				req.getParameter("chkIncluir"), req,
+				req.getParameter("btnAceptar") != null);
 		super.procesarPost(req, resp);
 	}
 }

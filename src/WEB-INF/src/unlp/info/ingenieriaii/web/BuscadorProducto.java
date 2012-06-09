@@ -25,7 +25,10 @@ public class BuscadorProducto extends Buscador<Producto> {
 
 	@Override
 	protected void validarCriterios(Errores errores) {
-		// TODO: FALTA IMPLEMENTAR ESTO.
+
+		if (Utiles.esVacio(nombre) && Utiles.esVacio(codigo) && idMarca == null
+				&& idTipoProducto == null)
+			errores.setGeneral("Debe completar al menos uno de los criterios de búsqueda.");
 	}
 
 	public String getNombre() {

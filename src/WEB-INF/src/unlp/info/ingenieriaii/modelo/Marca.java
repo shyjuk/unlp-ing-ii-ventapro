@@ -166,6 +166,12 @@ public class Marca extends ObjetoPersistente<Marca, Integer> {
 		return resultado;
 	}
 
+	public static ArrayList<Marca> buscarMarcas(String nombre)
+			throws SQLException {
+
+		return buscarMarcas(new AccesoDb(), nombre);
+	}
+
 	public Marca() {
 
 		super();

@@ -34,6 +34,7 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 
 		this.setId(rs);
 		this.setCodigo(rs);
+		this.setNombre(rs);
 		this.setPrecio(rs);
 		this.setMarca(rs);
 		this.setTipoProducto(rs);
@@ -217,6 +218,14 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 
 		db.cerrarQuery();
 		return resultado;
+	}
+
+	public static ArrayList<Producto> buscarProductos(Integer idMarca,
+			Integer idTipoProducto, String codigo, String nombre,
+			Boolean enVenta) throws SQLException {
+
+		return buscarProductos(new AccesoDb(), idMarca, idTipoProducto, codigo,
+				nombre, enVenta);
 	}
 
 	public Producto() {
