@@ -10,18 +10,16 @@ public class BuscadorOrden extends Buscador<OrdenDeVenta>  {
 
 	private String dni;
 	private String nombre;
-	private String apellido;
 	private String vendedor;
 	private String producto;
 	private String dia;
 	private String mes;
 	private String anio;
-	
+	private String estado;
 	
 	@Override
 	protected ArrayList<OrdenDeVenta> ejecutarBusqueda(AccesoDb db, Errores errores) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return OrdenDeVenta.buscarOrdenes(db, this);
 	}
 
 	@Override
@@ -50,14 +48,6 @@ public class BuscadorOrden extends Buscador<OrdenDeVenta>  {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
 	}
 
 	public String getVendedor() {
@@ -100,5 +90,14 @@ public class BuscadorOrden extends Buscador<OrdenDeVenta>  {
 		this.anio = anio;
 	}
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	
 	
 }
