@@ -80,25 +80,43 @@
 								</c:if></td>
 							<td class="labelForm"></td>
 							<td class="labelForm">Marca:</td>
-							<td><select name="marca" style="width: 30ex"
+							<td><select name="idMarca" style="width: 30ex"
 								onchange="redirect(this.options.selectedIndex)">
-									<option selected="selected">SIN IMPLEMENTAR</option>
+									<option
+										<c:if
+									test="${empty buscador.idMarca}">selected="selected"</c:if>
+										value=""></option>
+									<c:forEach items="${marcas}" var="marca">
+										<option
+											<c:if
+									test="${buscador.idMarca == marca.id}">selected="selected"</c:if>
+											value="${marca.id}">${marca.nombre}</option>
+									</c:forEach>
 							</select> * <c:if test="${!empty errores.campo.nombre}">
 									<div class="errorEntrada">${errores.campo.nombre}</div>
 								</c:if></td>
 						</tr>
 						<tr>
 							<td class="labelForm">Código:</td>
-							<td><input type="text" name="nombre" id="nombre" size="25"
-								value="${buscador.nombre}" /> * <c:if
+							<td><input type="text" name="codigo" id="codigo" size="25"
+								value="${buscador.codigo}" /> * <c:if
 									test="${!empty errores.campo.nombre}">
 									<div class="errorEntrada">${errores.campo.nombre}</div>
 								</c:if></td>
 							<td class="labelForm"></td>
 							<td class="labelForm">Tipo de producto:</td>
-							<td><select name="tipoDeProducto" style="width: 30ex"
+							<td><select name="idTipoProducto" style="width: 30ex"
 								onchange="redirect(this.options.selectedIndex)">
-									<option selected="selected">SIN IMPLEMENTAR</option>
+									<option
+										<c:if
+									test="${empty buscador.idTipoProducto}">selected="selected"</c:if>
+										value=""></option>
+									<c:forEach items="${tiposProducto}" var="tipoProducto">
+										<option
+											<c:if
+									test="${buscador.idTipoProducto == tipoProducto.id}">selected="selected"</c:if>
+											value="${tipoProducto.id}">${tipoProducto.nombre}</option>
+									</c:forEach>
 							</select> * <c:if test="${!empty errores.campo.nombre}">
 									<div class="errorEntrada">${errores.campo.nombre}</div>
 								</c:if></td>
@@ -107,7 +125,10 @@
 							<td colspan="5" class="separador"></td>
 						</tr>
 						<tr>
-							<td colspan="5"><input name="enVenta" type="checkbox" />Incluir
+							<td colspan="5"><input name="chkIncluir" type="checkbox"
+								value="true"
+								<c:if
+									test="${empty buscador.enVenta}">checked="checked"</c:if> />Incluir
 								productos que no es encuentren a la venta.</td>
 						</tr>
 						<tr>
@@ -144,8 +165,8 @@
 									<td><c:out value="${producto.codigo}" /></td>
 									<td><c:out value="${producto.nombre}" /></td>
 									<td><c:out value="${producto.precio}" /></td>
-									<td><c:out value="${producto.marca}" /></td>
-									<td><c:out value="${producto.tipoProducto}" /></td>
+									<td><c:out value="${producto.marca.nombre}" /></td>
+									<td><c:out value="${producto.tipoProducto.nombre}" /></td>
 									<td><c:out value="${producto.garantia}" /></td>
 									<td><c:out value="${producto.stock}" /></td>
 									<td><c:out value="${producto.stockMinimo}" /></td>
@@ -169,8 +190,6 @@
 							<c:out value="${erroresEliminar.general}"></c:out>
 						</div>
 					</c:if>
-					<div class="errorEntrada" style="text-align: center; margin: 2em;">
-						La búsqueda no procesa los campos aún.</div>
 				</td>
 			</tr>
 			<tr>
