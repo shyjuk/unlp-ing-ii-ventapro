@@ -1,8 +1,12 @@
 package unlp.info.ingenieriaii.modelo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
-public class OrdenDeVenta {
+import unlp.info.ingenieriaii.web.AccesoDb;
+
+public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	
 	private String numero;
 	private Date fecha;
@@ -47,6 +51,64 @@ public class OrdenDeVenta {
 	public void setIdFactura(Integer idFactura) {
 		this.idFactura = idFactura;
 	}
+	@Override
+	protected void setDatos(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected OrdenDeVenta getCopia(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	protected void prepararLectura(AccesoDb db) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void prepararAlta(AccesoDb db) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void prepararModificacion(AccesoDb db) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void prepararBaja(AccesoDb db) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void setId(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected Errores validarCampos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	protected void manejarErrorDuplicado(Errores errores, OrdenDeVenta copia) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void manejarErrorEnUso(Errores errores) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void manejarErrorReferencia(Errores errores, ResultSet rs)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 	
 
 }

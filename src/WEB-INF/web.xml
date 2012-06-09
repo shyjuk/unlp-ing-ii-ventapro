@@ -43,6 +43,17 @@
 		<servlet-name>BuscarProductoServlet</servlet-name>
 		<servlet-class>unlp.info.ingenieriaii.web.BuscarProductoServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>BuscarOrdenServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.BuscarOrdenServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CobrarOrdenServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.CobrarOrdenServlet</servlet-class>
+	</servlet>
+	
+	
+	 
 
 
 	<servlet-mapping>
@@ -81,5 +92,14 @@
 		<servlet-name>BuscarProductoServlet</servlet-name>
 		<url-pattern>/paginas/buscarProducto.jsp</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BuscarOrdenServlet</servlet-name>
+		<url-pattern>/paginas/buscarOrden.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CobrarOrdenServlet</servlet-name>
+		<url-pattern>/paginas/cobrarOrden.jsp</url-pattern>
+	</servlet-mapping>
+	
 
 </web-app>
