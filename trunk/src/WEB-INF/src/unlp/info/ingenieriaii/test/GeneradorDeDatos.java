@@ -2,7 +2,6 @@ package unlp.info.ingenieriaii.test;
 
 import unlp.info.ingenieriaii.modelo.Marca;
 import unlp.info.ingenieriaii.modelo.Producto;
-import unlp.info.ingenieriaii.modelo.SucursalUno;
 import unlp.info.ingenieriaii.modelo.TipoProducto;
 import unlp.info.ingenieriaii.web.AccesoDb;
 
@@ -53,7 +52,7 @@ public class GeneradorDeDatos {
 		Producto dato = new Producto();
 		AccesoDb db = new AccesoDb();
 		
-		dato.setCodigo("12345678");
+		dato.setCodigo("000000000000");
 		dato.setDescripcion("Esto es una descripción");
 		dato.setEnVenta("true");
 		// Agarrar cualquier marca y tipo de producto
