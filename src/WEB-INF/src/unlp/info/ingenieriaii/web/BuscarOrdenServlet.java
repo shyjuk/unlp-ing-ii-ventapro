@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import unlp.info.ingenieriaii.modelo.Errores;
+import unlp.info.ingenieriaii.modelo.Estados;
 import unlp.info.ingenieriaii.modelo.OrdenDeVenta;
+import unlp.info.ingenieriaii.modelo.Usuario;
 
 public class BuscarOrdenServlet extends ServletPagina{
 
@@ -24,16 +26,18 @@ public class BuscarOrdenServlet extends ServletPagina{
 		return lista.toString();
 	}
 
-	private void setBuscador(String nombre, HttpServletRequest req,
+	private void setBuscador(String dni, HttpServletRequest req,
 			boolean validar) throws SQLException {
 		BuscadorOrden buscador = new BuscadorOrden();
 		Errores errores;
 		// TODO FALTA
-		buscador.setNombre(nombre);
+		buscador.setDni(dni);
 		errores = buscador.buscar(validar);
 
 		req.setAttribute("buscador", buscador);
 		req.setAttribute("errores", errores);
+		req.setAttribute("vendedores", Usuario.buscarUsuarios());
+		req.setAttribute("estados", Estados.todosLosEstados());
 		req.setAttribute("listaId", this.setListaId(buscador));
 	}
 
@@ -58,7 +62,7 @@ public class BuscarOrdenServlet extends ServletPagina{
 
 		} 
 
-		this.setBuscador(req.getParameter("nombre"), req, req.getParameter("btnAceptar") != null);
+		this.setBuscador(req.getParameter("dni"), req, req.getParameter("btnBuscar") != null);
 		super.procesarPost(req, resp);
 	}
 

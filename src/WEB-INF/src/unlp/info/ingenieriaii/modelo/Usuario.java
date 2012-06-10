@@ -2,10 +2,19 @@ package unlp.info.ingenieriaii.modelo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
 
 public class Usuario extends ObjetoPersistente<Usuario, Integer>{
+	
+	private String nombre;
+	
+	private static final String QUERY_BUSQUEDA = "{call buscarUsuario (?)}";
+	
+	public Usuario(ResultSet rs) throws SQLException {
+		this.setDatos(rs);
+	}
 
 	@Override
 	protected Usuario getCopia(ResultSet rs) throws SQLException {
@@ -39,8 +48,7 @@ public class Usuario extends ObjetoPersistente<Usuario, Integer>{
 
 	@Override
 	protected void setId(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		this.setId(this.getColumnaInt(rs, "idUsuario"));
 	}
 
 	@Override
@@ -63,8 +71,8 @@ public class Usuario extends ObjetoPersistente<Usuario, Integer>{
 
 	@Override
 	protected void setDatos(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		this.setId(rs);
+		this.setNombre(rs);
 	}
 
 	@Override
@@ -72,6 +80,42 @@ public class Usuario extends ObjetoPersistente<Usuario, Integer>{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	public void setNombre(ResultSet rs) throws SQLException {
+		this.setNombre(this.getColumnaString(rs, "nombre"));
+	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public static ArrayList<Usuario> buscarUsuarios(AccesoDb db) throws SQLException {
+		ArrayList<Usuario> resultado = new ArrayList<Usuario>();
+		ResultSet rs;
+		 
+		db.prepararLlamada(QUERY_BUSQUEDA);
+		db.setParamVarchar(1, null);
+		rs = db.ejecutarQuery();
+
+		while (rs.next()) {
+			resultado.add(new Usuario(rs));
+		}
+		
+		db.cerrarQuery();
+		return resultado;
+	}
+
+	public static ArrayList<Usuario> buscarUsuarios()
+			throws SQLException {
+
+		return buscarUsuarios(new AccesoDb());
+	}
+
+	
 	
 }

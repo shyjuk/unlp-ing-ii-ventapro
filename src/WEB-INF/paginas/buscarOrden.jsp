@@ -68,10 +68,58 @@
 					</div>
 					<table>
 						<tr>
-							<td class="labelForm">DNI:</td>
-							<td><input type="text" name="dni" id="dni" size="50" value="${buscador.dni}" /> * 
+							<td class="labelForm">DNI Comprador:</td>
+							<td><input type="text" name="dni" id="dni" size="50" value="${buscador.dni}" onkeypress="return isNumberKey(event)"/>
 								<c:if test="${!empty errores.campo.dni}">
 									<div class="errorEntrada">${errores.campo.dni}</div>
+								</c:if></td>
+						</tr>
+						<tr>
+							<td class="labelForm">Vendedor:</td>
+							<td><select name="vendedor" style="width: 30ex" onchange="redirect(this.options.selectedIndex)">
+									<option
+										<c:if test="${empty buscador.vendedor}">selected="selected"</c:if> value=""></option>
+										<c:forEach items="${vendedores}" var="vrow">
+										<option <c:if test="${buscador.vendedor == vrow.id}">selected="selected"</c:if> value="${vrow.id}">${vrow.nombre}
+										</option>
+									</c:forEach>
+								</select> 
+								<c:if test="${!empty errores.campo.vendedor}">
+									<div class="errorEntrada">${errores.campo.vendedor}</div>
+								</c:if></td>
+						</tr>
+						<tr>
+							<td class="labelForm">Cod. Producto:</td>
+							<td><input type="text" name="producto" id="producto" size="50" value="${buscador.producto}" />
+								<c:if test="${!empty errores.campo.producto}">
+									<div class="errorEntrada">${errores.campo.producto}</div>
+								</c:if></td>
+						</tr>
+						<tr>
+							<td class="labelForm">Fecha:</td>
+							<td><input type="text" name="dia" id="dia" size="2" value="${buscador.dia}" />
+								<input type="text" name="mes" id="mes" size="2" value="${buscador.mes}" />
+								<input type="text" name="anio" id="anio" size="4" value="${buscador.anio}" />
+								<c:if test="${!empty errores.campo.fecha}">
+									<div class="errorEntrada">${errores.campo.fecha}</div>
+								</c:if></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="comment">dd/mm/yyy</td>
+						</tr>
+						<tr>
+							<td class="labelForm">Estado:</td>
+							<td><select name="estado" style="width: 30ex" onchange="redirect(this.options.selectedIndex)">
+									<option
+										<c:if test="${empty buscador.estado}">selected="selected"</c:if> value=""></option>
+										<c:forEach items="${estados}" var="erow">
+										<option <c:if test="${buscador.estado == erow.id}">selected="selected"</c:if> value="${erow.id}">${erow.descripcion}
+										</option>
+									</c:forEach>
+								</select> 
+								<c:if test="${!empty errores.campo.vendedor}">
+									<div class="errorEntrada">${errores.campo.vendedor}</div>
 								</c:if></td>
 						</tr>
 						<tr>
@@ -100,11 +148,11 @@
 									<td><c:out value="${row.montoTotal}" /></td>
 									<td align="center"><img src="imagenes/iconos/glasses.gif" onclick="javascript:abrirPopUpConParam('popupDetalleOrden.jsp','idOrden','${row.id}')" alt="Ver" /></td>
 									<td align="center">
-										<% if (true) {%>
+										<c:if test="${row.estado == 1}">
 											<img src="imagenes/iconos/delete.gif" onclick="javascript:anularObject('${row.id}');" alt="Anular" />
-										<% } else { %>
+										</c:if><c:if test="${row.estado != 1}">
 											<img src="imagenes/iconos/delete-off.gif"/>
-										<% } %>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>
@@ -128,7 +176,7 @@
 			<tr>
 				<td></td>
 				<td class="botonera">
-					<input type="submit" value="Aceptar" name="btnAceptar" /> 
+					<input type="submit" value="Buscar" name="btnBuscar" /> 
 				</td>
 			</tr>
 		</table>
