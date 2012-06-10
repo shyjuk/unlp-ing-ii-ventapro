@@ -160,7 +160,7 @@
 										onclick="javascript:changeSelection(this);" /></td>
 									<td><c:out value="${producto.codigo}" /></td>
 									<td><c:out value="${producto.nombre}" /></td>
-									<td><c:out value="${producto.precio}" /></td>
+									<td>$<c:out value="${producto.precio}" /></td>
 									<td><c:out value="${producto.marca.nombre}" /></td>
 									<td><c:out value="${producto.tipoProducto.nombre}" /></td>
 									<td><c:out value="${producto.garantia}" /></td>

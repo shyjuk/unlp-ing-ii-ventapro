@@ -27,5 +27,5 @@ BEGIN
     FROM tbl_productos P INNER JOIN
         tbl_marcas M ON P.idMarca = M.idMarca INNER JOIN
         tbl_tipos_producto T ON P.idTipoProducto = T.idTipoProducto
-    WHERE tbl_productos.idProducto = idProducto;
+    WHERE P.idProducto = idProducto;
 END$$
