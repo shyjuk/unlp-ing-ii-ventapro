@@ -1,3 +1,5 @@
+
+
 DELIMITER $$
 
 CREATE PROCEDURE `buscarOrden`(
@@ -16,19 +18,26 @@ BEGIN
 	      o.fechaHora as OrdenDeVenta_fechaHora,
 	      o.estado as OrdenDeVenta_estado,
 	      concat(P.nroDocumento,' - ',P.nombre) as OrdenDeVenta_comprador,
-      	u.nombre as OrdenDeVenta_vendedor
-    FROM db_ventapro.tbl_ordenes_venta O,
-        db_ventapro.tbl_personas P,
-        db_ventapro.tbl_usuarios u
+      	u.nombre as OrdenDeVenta_vendedor,
+        f.idFactura as Factura_idFactura,
+        f.tipo as Factura_tipo,
+        f.monto as Factura_monto,
+        f.medioPago as Factura_medioPago,
+        f.anulada  as Factura_anulada
+    FROM tbl_ordenes_venta O,
+        tbl_personas P,
+        tbl_usuarios u,
+        tbl_factura f
     WHERE o.idcliente = p.idpersona
     and o.idVendedor = u.idUsuario
+    and f.idOrdenVenta = o.idOrdenVenta
     and o.idvendedor = IFNULL(vend_id,O.idvendedor)
     and P.nroDocumento = IFNULL(comp_dni,p.nroDocumento)
     and P.nombre like concat('%',IFNULL(comp_nombre,P.nombre),'%')
     and DATEDIFF(DATE_FORMAT(o.fechaHora, '%Y-%m-%d'),IFNULL(DATE_FORMAT(fecha, '%Y-%m-%d'),DATE_FORMAT(o.fechaHora, '%Y-%m-%d'))) = 0
     and O.estado = IFNULL(estado,O.estado)
-    and (prod_code is null or exists (select 1 from db_ventapro.tbl_items i,
-        db_ventapro.tbl_productos prod
+    and (prod_code is null or exists (select 1 from tbl_items i,
+        tbl_productos prod
         where i.idordenventa = o.idordenventa
         and i.idproducto = prod.idproducto
         and prod.codigo = prod_code))
