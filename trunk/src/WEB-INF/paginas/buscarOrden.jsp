@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="unlp.info.ingenieriaii.modelo.SucursalUno"%>
+<%@ page import="unlp.info.ingenieriaii.modelo.*"%>
 <%@ page import="unlp.info.ingenieriaii.web.Validador"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -21,23 +21,12 @@
 		}
 	}
 	
-	function viewDetails (idObject) {
-		
-		
-	}
-
-	function editObject(idObject) {
-		document.form.id.value = idObject;
-		document.form.action = "modificarMarca.jsp";
-		document.form.accion.value = 'editar';
-		document.form.submit();
-	}
 </script>
 </head>
 <body>
 	<form method="post" name="form">
-		<input type="hidden" name="id" value="" /> <input type="hidden"
-			name="accion" value="" />
+		<input type="hidden" name="id" value="" /> 
+		<input type="hidden" name="accion" value="" />
 		<div class="header">
 			<div class="nombreSucursal"><%=SucursalUno.getSingleInstance().getNombre()%></div>
 			<div class="nombreUsuario">

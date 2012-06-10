@@ -63,11 +63,9 @@ public class BuscarOrdenServlet extends ServletPagina{
 
 		if ("anular".equals(req.getParameter("accion"))) {
 			OrdenDeVenta orden = new OrdenDeVenta();
-
-			orden.setId(Integer.parseInt(req.getParameter("id")));
-			// ACA VA PROCESO ANULAR UPDATE
-			//req.setAttribute("erroresEliminar", orden.eliminar());
-
+			orden.setId(Utiles.esVacio(req.getParameter("id")) ? null : Integer.parseInt(req.getParameter("id")));
+			orden.setEstado(String.valueOf(Estados.ANULADA.getId()));
+			orden.guardar(); // no hay errores
 		} 
 
 		this.setBuscador(req.getParameter("dni"), req.getParameter("nombre"), req.getParameter("producto"), req.getParameter("estado"), req.getParameter("vendedor"),

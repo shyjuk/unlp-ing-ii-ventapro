@@ -64,7 +64,6 @@
 							<tr>
 								<td>Comprador</td>
 								<td>Vendedor</td>
-								<td>Detalle</td>
 								<td>Monto</td>
 								<td>Medio de pago</td>
 								<td>Pagar</td>
@@ -73,7 +72,6 @@
 								<tr>
 									<td><c:out value="${row.comprador}" /></td>
 									<td><c:out value="${row.vendedor}" /></td>
-									<td><c:out value="${row.detalle}" /></td>
 									<td><c:out value="${row.montoTotal}" /></td>
 									<td><c:out value="${row.montoDetalle}" /></td>
 									<td align="center"><img src="imagenes/iconos/dolar.gif" onclick="javascript:pagar('${row.id}')" alt="Pagar" /></td>

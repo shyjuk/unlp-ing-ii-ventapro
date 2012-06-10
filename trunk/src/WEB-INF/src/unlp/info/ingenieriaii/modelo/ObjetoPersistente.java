@@ -62,7 +62,7 @@ public abstract class ObjetoPersistente<T extends ObjetoPersistente<T, PK>, PK> 
 		}
 	}
 
-	private void ejecutarAbm(AccesoDb db, Errores errores, boolean leerId) {
+	protected void ejecutarAbm(AccesoDb db, Errores errores, boolean leerId) {
 		int codigo = AccesoDb.ERROR_DESCONOCIDO;
 		int i = REINTENTOS;
 		boolean huboRespuesta = false;

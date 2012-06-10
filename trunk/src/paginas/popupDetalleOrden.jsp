@@ -31,7 +31,8 @@
 						BigDecimal total = BigDecimal.ZERO; 
 						for (Item item : items) {%>
 							<tr>
-								<td align="center"><c:out value="<%=item.getProducto().getNombre() + item.getProducto().getMarca().getNombre()%>" /></td>
+								<% String detalleProducto = "(" + item.getProducto().getCodigo() + ") " + item.getProducto().getNombre() + " - " + item.getProducto().getMarca().getNombre();%>
+								<td align="center"><c:out value="<%=detalleProducto%>" /></td>
 								<td align="center"><c:out value="<%=item.getCantidad() %>" /></td>
 								<td align="center"><c:out value="<%=item.getPrecio()%>" /></td>
 								<% 	BigDecimal subtotal = item.getPrecio().multiply(new BigDecimal(item.getCantidad()));
