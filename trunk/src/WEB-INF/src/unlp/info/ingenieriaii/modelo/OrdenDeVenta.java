@@ -9,6 +9,7 @@ import java.util.List;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
 import unlp.info.ingenieriaii.web.BuscadorOrden;
+import unlp.info.ingenieriaii.web.Utiles;
 
 public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	
@@ -142,7 +143,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		db.setParamVarchar(2, buscador.getNombre());
 		db.setParamVarchar(3, buscador.getVendedor());
 		db.setParamVarchar(4, buscador.getProducto());
-		db.setParamVarchar(5, null);
+		db.setParamDate(5, buscador.getFecha());
 		db.setParamVarchar(6, buscador.getEstado());
 
 		rs = db.ejecutarQuery();
@@ -235,6 +236,13 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 
 	public void setItems(List<Item> items) {
 		this.items = items;
+	}
+	
+	public String getEstadoDescripcion () {
+		if (Utiles.esVacio(this.getEstado())) {
+			return "";
+		}
+		return Estados.getDescripcionPara(Integer.valueOf(this.getEstado()));
 	}
 	
 

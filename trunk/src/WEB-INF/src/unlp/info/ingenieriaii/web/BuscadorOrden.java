@@ -1,5 +1,6 @@
 package unlp.info.ingenieriaii.web;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -31,7 +32,25 @@ public class BuscadorOrden extends Buscador<OrdenDeVenta>  {
 				errores.setErrorCampo("dni", "Ingrese solo caracteres númericos.");
 			}
 		}
-			
+		if (!Utiles.esVacio(this.getNombre())) {
+			if (this.getNombre().trim().length() > 100) {
+				errores.setErrorCampo("nombre", "Ingrese hasta 100 caracteres para el nombre.");
+			}
+		}
+		if (!Utiles.esVacio(this.getDia()) || !Utiles.esVacio(this.getMes()) || !Utiles.esVacio(this.getAnio())) {
+			if (!Utiles.esFecha(this.getDia(), this.getMes(), this.getAnio())) {
+				errores.setErrorCampo("fecha", "La fecha es invalida.");
+			}
+		}	
+	}
+	
+	public Date getFecha () {
+		if (!Utiles.esVacio(this.getDia()) && !Utiles.esVacio(this.getMes()) && !Utiles.esVacio(this.getAnio())) {
+			if (Utiles.esFecha(this.getDia(), this.getMes(), this.getAnio())) {
+				return new Date(Integer.valueOf(anio) -1900, Integer.valueOf(mes) -1 ,Integer.valueOf(dia));
+			}
+		}	
+		return null;
 	}
 
 	public String getDni() {

@@ -24,6 +24,8 @@ BEGIN
     and o.idVendedor = u.idUsuario
     and o.idvendedor = IFNULL(vend_id,O.idvendedor)
     and P.nroDocumento = IFNULL(comp_dni,p.nroDocumento)
+    and P.nombre like concat('%',IFNULL(comp_nombre,P.nombre),'%')
+    and DATEDIFF(DATE_FORMAT(o.fechaHora, '%Y-%m-%d'),IFNULL(DATE_FORMAT(fecha, '%Y-%m-%d'),DATE_FORMAT(o.fechaHora, '%Y-%m-%d'))) = 0
     and O.estado = IFNULL(estado,O.estado)
     and (prod_code is null or exists (select 1 from db_ventapro.tbl_items i,
         db_ventapro.tbl_productos prod

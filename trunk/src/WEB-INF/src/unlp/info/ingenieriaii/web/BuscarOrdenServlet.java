@@ -26,12 +26,20 @@ public class BuscarOrdenServlet extends ServletPagina{
 		return lista.toString();
 	}
 
-	private void setBuscador(String dni, HttpServletRequest req,
+	private void setBuscador(String dni, String nombre, String producto,  String estado, String vendedor,
+			String dia, String mes, String anio,
+			HttpServletRequest req,
 			boolean validar) throws SQLException {
 		BuscadorOrden buscador = new BuscadorOrden();
 		Errores errores;
-		// TODO FALTA
 		buscador.setDni(dni);
+		buscador.setNombre(nombre);
+		buscador.setProducto(producto);
+		buscador.setEstado(estado);
+		buscador.setVendedor(vendedor);
+		buscador.setDia(dia);
+		buscador.setMes(mes);
+		buscador.setAnio(anio);
 		errores = buscador.buscar(validar);
 
 		req.setAttribute("buscador", buscador);
@@ -45,7 +53,7 @@ public class BuscarOrdenServlet extends ServletPagina{
 	protected void procesarGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, SQLException {
 
-		this.setBuscador(null, req, false);
+		this.setBuscador(null, null, null,null,null,null,null, null,req, false);
 		super.procesarGet(req, resp);
 	}
 
@@ -62,7 +70,9 @@ public class BuscarOrdenServlet extends ServletPagina{
 
 		} 
 
-		this.setBuscador(req.getParameter("dni"), req, req.getParameter("btnBuscar") != null);
+		this.setBuscador(req.getParameter("dni"), req.getParameter("nombre"), req.getParameter("producto"), req.getParameter("estado"), req.getParameter("vendedor"),
+				req.getParameter("dia"), req.getParameter("mes"), req.getParameter("anio"),
+				req, req.getParameter("btnBuscar") != null);
 		super.procesarPost(req, resp);
 	}
 
