@@ -136,6 +136,7 @@
 								<td>Vendedor</td>
 								<td>Cant. Productos</td>
 								<td>Monto</td>
+								<td>Estado</td>
 								<td>Detalles</td>
 								<td>Anular</td>
 							</tr>
@@ -146,6 +147,7 @@
 									<td><c:out value="${row.vendedor}" /></td>
 									<td><c:out value="${row.cantProductos}" /></td>
 									<td><c:out value="${row.montoTotal}" /></td>
+									<td><c:out value="${row.estadoDescripcion}" /></td>
 									<td align="center"><img src="imagenes/iconos/glasses.gif" onclick="javascript:abrirPopUpConParam('popupDetalleOrden.jsp','idOrden','${row.id}')" alt="Ver" /></td>
 									<td align="center">
 										<c:if test="${row.estado == 1}">

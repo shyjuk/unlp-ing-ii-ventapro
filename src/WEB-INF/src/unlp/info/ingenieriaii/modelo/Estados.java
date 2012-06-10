@@ -49,4 +49,15 @@ public enum Estados {
 		todos.add(Estados.PAGADA);
 		return todos;
 	}
+	
+	public static String getDescripcionPara (int id) {
+		if (PENDIENTE.getId() == id) {
+			return PENDIENTE.getDescripcion();
+		}else if (ANULADA.getId() == id) {
+			return ANULADA.getDescripcion();
+		}else if (PAGADA.getId() == id) {
+			return PAGADA.getDescripcion();
+		}
+		return "";
+	}
 }

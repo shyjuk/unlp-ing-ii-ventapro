@@ -346,10 +346,18 @@ public class AccesoDb {
 
 	public void setParamVarchar(int pos, String valor) throws SQLException {
 
-		if (valor != null)
+		if (!Utiles.esVacio(valor))
 			this.sentencia.setString(pos, valor);
 		else
 			this.sentencia.setNull(pos, Types.VARCHAR);
+	}
+	
+	public void setParamDate(int pos, Date valor) throws SQLException {
+
+		if (valor != null)
+			this.sentencia.setDate(pos, valor);
+		else
+			this.sentencia.setNull(pos, Types.DATE);
 	}
 
 }
