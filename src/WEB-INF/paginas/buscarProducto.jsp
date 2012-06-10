@@ -73,23 +73,21 @@
 						</tr>
 						<tr>
 							<td class="labelForm">Nombre:</td>
-							<td><input type="text" name="nombre" id="nombre" size="50"
-								value="${buscador.nombre}" /> * <c:if
+							<td><input type="text" style="width: 300px" name="nombre"
+								id="nombre" value="${buscador.nombre}" /> * <c:if
 									test="${!empty errores.campo.nombre}">
 									<div class="errorEntrada">${errores.campo.nombre}</div>
 								</c:if></td>
 							<td class="labelForm"></td>
 							<td class="labelForm">Marca:</td>
-							<td><select name="idMarca" style="width: 30ex"
+							<td><select style="width: 200px" name="idMarca"
 								onchange="redirect(this.options.selectedIndex)">
 									<option
-										<c:if
-									test="${empty buscador.idMarca}">selected="selected"</c:if>
+										<c:if test="${empty buscador.idMarca}">selected="selected"</c:if>
 										value=""></option>
 									<c:forEach items="${marcas}" var="marca">
 										<option
-											<c:if
-									test="${buscador.idMarca == marca.id}">selected="selected"</c:if>
+											<c:if test="${buscador.idMarca == marca.id}">selected="selected"</c:if>
 											value="${marca.id}">${marca.nombre}</option>
 									</c:forEach>
 							</select> * <c:if test="${!empty errores.campo.nombre}">
@@ -98,23 +96,21 @@
 						</tr>
 						<tr>
 							<td class="labelForm">Código:</td>
-							<td><input type="text" name="codigo" id="codigo" size="25"
-								value="${buscador.codigo}" /> * <c:if
+							<td><input type="text" style="width: 100px" name="codigo"
+								id="codigo" value="${buscador.codigo}" /> * <c:if
 									test="${!empty errores.campo.nombre}">
 									<div class="errorEntrada">${errores.campo.nombre}</div>
 								</c:if></td>
 							<td class="labelForm"></td>
 							<td class="labelForm">Tipo de producto:</td>
-							<td><select name="idTipoProducto" style="width: 30ex"
+							<td><select style="width: 200px" name="idTipoProducto" 
 								onchange="redirect(this.options.selectedIndex)">
 									<option
-										<c:if
-									test="${empty buscador.idTipoProducto}">selected="selected"</c:if>
+										<c:if test="${empty buscador.idTipoProducto}">selected="selected"</c:if>
 										value=""></option>
 									<c:forEach items="${tiposProducto}" var="tipoProducto">
 										<option
-											<c:if
-									test="${buscador.idTipoProducto == tipoProducto.id}">selected="selected"</c:if>
+											<c:if test="${buscador.idTipoProducto == tipoProducto.id}">selected="selected"</c:if>
 											value="${tipoProducto.id}">${tipoProducto.nombre}</option>
 									</c:forEach>
 							</select> * <c:if test="${!empty errores.campo.nombre}">

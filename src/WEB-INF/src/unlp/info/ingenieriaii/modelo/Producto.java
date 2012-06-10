@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
+import unlp.info.ingenieriaii.web.Utiles;
 import unlp.info.ingenieriaii.web.Validador;
 
 public class Producto extends ObjetoPersistente<Producto, Integer> {
@@ -60,7 +61,8 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 
 	@Override
 	protected void prepararAlta(AccesoDb db) throws SQLException {
-		String tmp;
+		String garantia = this.getGarantia();
+		String stockMinimo = this.getStockMinimo();
 
 		db.prepararLlamada(QUERY_ALTA);
 		db.setParamInt(1, this.getMarca().getId());
@@ -68,18 +70,19 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 		db.setParamVarchar(3, this.getCodigo());
 		db.setParamVarchar(4, this.getNombre());
 		db.setParamDecimal(5, new BigDecimal(this.getPrecio()));
-		db.setParamInt(6, (tmp = this.getGarantia()) != null ? new Integer(tmp)
+		db.setParamInt(6, !Utiles.esVacio(garantia) ? new Integer(garantia)
 				: null);
 		db.setParamInt(7, new Integer(this.getStock()));
-		db.setParamInt(8, (tmp = this.getStockMinimo()) != null ? new Integer(
-				tmp) : null);
+		db.setParamInt(8, !Utiles.esVacio(stockMinimo) ? new Integer(
+				stockMinimo) : null);
 		db.setParamBoolean(9, new Boolean(this.getEnVenta()));
 		db.setParamVarchar(10, this.getDescripcion());
 	}
 
 	@Override
 	protected void prepararModificacion(AccesoDb db) throws SQLException {
-		String tmp;
+		String garantia = this.getGarantia();
+		String stockMinimo = this.getStockMinimo();
 
 		db.prepararLlamada(QUERY_MODIFICACION);
 		db.setParamInt(1, this.getId());
@@ -88,11 +91,11 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 		db.setParamVarchar(4, this.getCodigo());
 		db.setParamVarchar(5, this.getNombre());
 		db.setParamDecimal(6, new BigDecimal(this.getPrecio()));
-		db.setParamInt(7, (tmp = this.getGarantia()) != null ? new Integer(tmp)
+		db.setParamInt(7, !Utiles.esVacio(garantia) ? new Integer(garantia)
 				: null);
 		db.setParamInt(8, new Integer(this.getStock()));
-		db.setParamInt(9, (tmp = this.getStockMinimo()) != null ? new Integer(
-				tmp) : null);
+		db.setParamInt(9, !Utiles.esVacio(stockMinimo) ? new Integer(
+				stockMinimo) : null);
 		db.setParamBoolean(10, new Boolean(this.getEnVenta()));
 		db.setParamVarchar(11, this.getDescripcion());
 	}
@@ -112,8 +115,30 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 
 	@Override
 	protected Errores validarCampos() {
-		// TODO Auto-generated method stub
-		return new Errores();
+		Errores errores = new Errores();
+
+		if (this.getMarca() == null)
+			errores.setErrorCampo("idMarca", "Debe seleccionar una marca.");
+
+		if (this.getTipoProducto() == null)
+			errores.setErrorCampo("idTipoProducto",
+					"Debe seleccionar un tipo de producto.");
+
+		Validador.validarEntero(errores, "codigo", this.getCodigo(), 0,
+				9999999999999L, 12, false);
+		Validador.validarLongitud(errores, "nombre", this.getNombre(), 1, 100);
+		Validador.validarDecimal(errores, "precio", this.getPrecio(), 0, 50000,
+				2, false);
+		Validador.validarEntero(errores, "garantia", this.getGarantia(), 0,
+				12 * 5, true);
+		Validador.validarEntero(errores, "stock", this.getStock(), 0, 1000,
+				false);
+		Validador.validarEntero(errores, "stockMinimo", this.getStockMinimo(),
+				0, 1000, true);
+		Validador.validarLongitud(errores, "descripcion",
+				this.getDescripcion(), 0, 1000);
+
+		return errores;
 	}
 
 	@Override
@@ -146,7 +171,7 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 
 	protected void setCodigo(ResultSet rs) throws SQLException {
 
-		this.setCodigo(String.valueOf(this.getColumnaInt(rs, "codigo")));
+		this.setCodigo(this.getColumnaString(rs, "codigo"));
 	}
 
 	protected void setNombre(ResultSet rs) throws SQLException {
@@ -270,12 +295,32 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 		this.marca = marca;
 	}
 
+	public void setMarca(Integer id, boolean recuperar) {
+
+		if (id != null) {
+			this.marca = new Marca();
+			this.marca.setId(id);
+			if (recuperar)
+				this.recuperar();
+		}
+	}
+
 	public TipoProducto getTipoProducto() {
 		return tipoProducto;
 	}
 
 	public void setTipoProducto(TipoProducto tipoProducto) {
 		this.tipoProducto = tipoProducto;
+	}
+
+	public void setTipoProducto(Integer id, boolean recuperar) {
+
+		if (id != null) {
+			this.tipoProducto = new TipoProducto();
+			this.tipoProducto.setId(id);
+			if (recuperar)
+				this.recuperar();
+		}
 	}
 
 	public String getGarantia() {

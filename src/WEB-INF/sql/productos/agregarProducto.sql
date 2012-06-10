@@ -56,7 +56,7 @@ BEGIN
         WHERE tbl_marcas.idMarca IS NULL OR tbl_tipos_producto.idTipoProducto IS NULL;
     ELSE -- Si se insertó entonces se retorna el ID del producto nuevo.
         SELECT 0 AS CODIGO_ERROR, 
-        	P.idProducto AS Producto_codigo
+        	P.idProducto AS Producto_idProducto
         FROM tbl_productos P
         WHERE P.idProducto = LAST_INSERT_ID();
     END IF;
