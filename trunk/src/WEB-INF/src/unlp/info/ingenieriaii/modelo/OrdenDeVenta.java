@@ -20,6 +20,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private Integer idUsuario;
 	private Integer idFactura;
 	private List<Item> items;
+	private Factura factura;
 	
 	// input - esto deberia modificarse usando los objetos reales
 	private String comprador;
@@ -82,6 +83,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		this.setComprador(rs);
 		this.setVendedor(rs);
 		this.setFecha(rs);
+		this.setFactura(rs);
 	}
 	@Override
 	protected OrdenDeVenta getCopia(ResultSet rs) throws SQLException {
@@ -235,7 +237,8 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	}
 	
 	public String getMontoDetalle () {
-		return "";
+		String mp = this.getFactura().getMedioPago();
+		return MediosDePago.getDescripcionPara(Integer.valueOf(mp));
 	}
 
 	public List<Item> getItems() {
@@ -255,6 +258,18 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		}
 		return Estados.getDescripcionPara(Integer.valueOf(this.getEstado()));
 	}
+
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
 	
+	protected void setFactura(ResultSet rs) throws SQLException {
+
+		this.setFactura(new Factura(rs));
+	}
 
 }
