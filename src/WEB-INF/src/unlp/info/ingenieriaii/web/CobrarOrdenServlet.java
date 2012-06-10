@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import unlp.info.ingenieriaii.modelo.Errores;
+import unlp.info.ingenieriaii.modelo.Estados;
 import unlp.info.ingenieriaii.modelo.OrdenDeVenta;
 
 public class CobrarOrdenServlet extends ServletPagina{
@@ -29,6 +30,7 @@ public class CobrarOrdenServlet extends ServletPagina{
 			boolean validar) throws SQLException {
 		BuscadorOrden buscador = new BuscadorOrden();
 		Errores errores;
+		buscador.setEstado("1"); // solo muestro estado PENDIENTE
 		errores = buscador.buscar(validar);
 
 		req.setAttribute("buscador", buscador);
@@ -50,11 +52,9 @@ public class CobrarOrdenServlet extends ServletPagina{
 
 		if ("pagar".equals(req.getParameter("accion"))) {
 			OrdenDeVenta orden = new OrdenDeVenta();
-
-			orden.setId(Integer.parseInt(req.getParameter("id")));
-			// ACA VA PROCESO ANULAR UPDATE
-			//req.setAttribute("erroresEliminar", orden.eliminar());
-
+			orden.setId(Utiles.esVacio(req.getParameter("id")) ? null : Integer.parseInt(req.getParameter("id")));
+			orden.setEstado(String.valueOf(Estados.PAGADA.getId()));
+			orden.guardar(); // no hay errores
 		} 
 		
 		// agrgar boton refrescar

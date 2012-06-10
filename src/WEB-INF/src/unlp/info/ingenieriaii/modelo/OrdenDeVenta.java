@@ -28,6 +28,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	
 	private static final String QUERY_BUSQUEDA = "{call buscarOrden (?,?,?,?,?,?)}";
 	private static final String QUERY_BUSQUEDA_ITEMS = "{call buscarItemsDeOrden (?)}";
+	private static final String UPDATE_ESTADO = "{call modificarEstadoOrden(?,?)}";
 	
 	public OrdenDeVenta(ResultSet rs) throws SQLException {
 
@@ -99,8 +100,9 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	}
 	@Override
 	protected void prepararModificacion(AccesoDb db) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		db.prepararLlamada(UPDATE_ESTADO);
+		db.setParamInt(1, this.getId());
+		db.setParamInt(2, Integer.valueOf(this.getEstado()));
 	}
 	@Override
 	protected void prepararBaja(AccesoDb db) throws SQLException {
@@ -113,8 +115,21 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	}
 	@Override
 	protected Errores validarCampos() {
-		// TODO Auto-generated method stub
-		return null;
+		Errores errores = new Errores();
+		// AGREGAR VALIDACIONES FALTANTES
+		if (Utiles.esVacio(this.getEstado())) {
+			errores.setErrorCampo("estado", "El estado es vacio");
+		}else {
+			try {
+				int num = Integer.valueOf(this.getEstado());
+				if (!(Estados.PENDIENTE.getId() == num) && !(Estados.ANULADA.getId() == num) && !(Estados.PAGADA.getId() == num)) {
+					errores.setErrorCampo("estado", "El estado es invalido");
+				}
+			} catch (Exception e) {
+				errores.setErrorCampo("estado", "El estado es invalido");
+			}
+		}
+		return errores;
 	}
 	@Override
 	protected void manejarErrorDuplicado(Errores errores, OrdenDeVenta copia) {
@@ -132,7 +147,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		// TODO Auto-generated method stub
 		
 	}
-	
+		
 	public static ArrayList<OrdenDeVenta> buscarOrdenes(AccesoDb db, BuscadorOrden buscador)
 			throws SQLException {
 		ArrayList<OrdenDeVenta> resultado = new ArrayList<OrdenDeVenta>();
@@ -217,10 +232,6 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 			montoTotal= (item.getPrecio().multiply(new BigDecimal(item.getCantidad()))).add(montoTotal);
 		}
 		return String.valueOf(montoTotal);
-	}
-	
-	public String getDetalle () {
-		return "<b>asdasd</b>";
 	}
 	
 	public String getMontoDetalle () {
