@@ -12,13 +12,6 @@
 
 <link rel="stylesheet" type="text/css" href="basico.css" />
 <script src="funciones.js" type="text/javascript"></script>
-<script type="text/javascript">
-	function cancelar() {
-		if (confirm("¿Esta seguro que desea cancelar la operación?")) {
-			submit();
-		}
-	}
-</script>
 </head>
 <body>
 	<form method="post">
@@ -76,7 +69,7 @@
 				<td></td>
 				<td class="botonera"><input type="submit" value="Aceptar"
 					name="btnAceptar" /> <input type="submit" value="Cancelar"
-					name="btnCancelar" onclick="cancelar();" /></td>
+					name="btnCancelar" onclick="return confirm('¿Esta seguro que desea cancelar la operación?')" /></td>
 			</tr>
 		</table>
 	</form>
