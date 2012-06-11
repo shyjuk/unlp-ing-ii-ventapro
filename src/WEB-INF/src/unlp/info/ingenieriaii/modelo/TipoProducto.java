@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
+import unlp.info.ingenieriaii.web.Utiles;
 import unlp.info.ingenieriaii.web.Validador;
 
 public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
@@ -152,10 +153,7 @@ public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 
 	public void setNombre(String nombre) {
 
-		this.nombre = nombre;
-
-		if (this.nombre != null)
-			this.nombre = this.nombre.trim();
+		this.nombre = Utiles.trim(nombre);
 	}
 
 	public String getDescripcion() {
@@ -165,9 +163,6 @@ public class TipoProducto extends ObjetoPersistente<TipoProducto, Integer> {
 
 	public void setDescripcion(String descripcion) {
 
-		this.descripcion = descripcion;
-
-		if (this.descripcion != null)
-			this.descripcion = this.descripcion.trim();
+		this.descripcion = Utiles.trim(descripcion);
 	}
 }
