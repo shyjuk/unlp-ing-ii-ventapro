@@ -26,23 +26,27 @@ public class AgregarTipoProductoServlet extends ServletPagina {
 	@Override
 	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, SQLException {
-		TipoProducto tipoProducto = new TipoProducto();
-		Errores errores;
 
-		tipoProducto.setNombre(req.getParameter("nombre"));
-		tipoProducto.setDescripcion(req.getParameter("descripcion"));
+		if (req.getParameter("btnAceptar") != null) {
+			TipoProducto tipoProducto= new TipoProducto();
+			Errores errores;
+			
+			tipoProducto.setNombre(req.getParameter("nombre"));
+			tipoProducto.setDescripcion(req.getParameter("descripcion"));
 
-		errores = tipoProducto.guardar();
+			errores = tipoProducto.guardar();
 
-		if (errores.esVacio()) {
+			if (errores.esVacio()) {
 
+				resp.sendRedirect("buscarTipoProducto.jsp");
+			} else {
+
+				req.setAttribute("tipoProducto", tipoProducto);
+				req.setAttribute("errores", errores);
+				super.procesarPost(req, resp);
+			}
+		} else
 			resp.sendRedirect("buscarTipoProducto.jsp");
-		} else {
-
-			req.setAttribute("tipoProducto", tipoProducto);
-			req.setAttribute("errores", errores);
-			super.procesarPost(req, resp);
-		}
 	}
 
 }
