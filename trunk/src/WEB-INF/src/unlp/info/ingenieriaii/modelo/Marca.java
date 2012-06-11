@@ -187,10 +187,8 @@ public class Marca extends ObjetoPersistente<Marca, Integer> {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
-
-		if (this.nombre != null)
-			this.nombre = this.nombre.trim();
+		
+		this.nombre = Utiles.trim(nombre);
 	}
 
 	public String getSitioWeb() {
