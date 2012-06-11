@@ -27,6 +27,7 @@
 		document.form.accion.value = 'editar';
 		document.form.submit();
 	}
+	
 </script>
 </head>
 <body>
@@ -53,8 +54,8 @@
 			<tr>
 				<td class="funcs funcsPrincipales"><a
 					class="funcPrincipal funcPrincipalAct" href="#">Gestión de
-						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
-					class="funcPrincipal" href="#">Administración de clientes</a> <a
+						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a>
+					<a class="funcPrincipal" href="#">Administración de clientes</a> <a
 					class="funcPrincipal" href="#">Reportes</a> <a
 					class="funcPrincipal" href="#">Administración de usuarios</a></td>
 
@@ -84,41 +85,42 @@
 
 					<fieldset>
 						<legend>Resultado de la búsqueda</legend>
-						<table border="1" width="100%" cellspacing="0">
-							<tr>
-								<td><input type="checkbox" name="seleccionados_TODOS"
-									value="FALSE"
+						<table width="100%" style="border-collapse: collapse;">
+							<tr style="background-color: #4AA; color: White;">
+								<td
+									style="width: 15px; text-align: center; border: 1px solid #CCC"><input
+									type="checkbox" name="seleccionados_TODOS" value="FALSE"
 									onclick="javascript:changeAllSelection(this,${listaId});" /></td>
-								<td>Nombre</td>
-								<td>Descripción</td>
-								<td>Editar</td>
-								<td>Eliminar</td>
+								<td
+									style="width: 250px; text-align: center; border: 1px solid #CCC">Nombre</td>
+								<td style="text-align: center; border: 1px solid #CCC">Descripción</td>
+								<td style="width: 100px; border: 1px solid #CCC"></td>
 							</tr>
 							<c:forEach items="${buscador.resultado}" var="tipoProducto">
 								<tr>
-									<td><input type="checkbox"
+									<td style="border: 1px solid #CCC"><input type="checkbox"
 										name="seleccionados_${tipoProducto.id}"
 										id="seleccionados_${tipoProducto.id}" value="FALSE"
 										onclick="javascript:changeSelection(this);" /></td>
-									<td><c:out value="${tipoProducto.nombre}" /></td>
-									<td><c:out value="${tipoProducto.descripcion}" /></td>
-									<td align="center"><img src="imagenes/iconos/edit.gif"
+									<td style="padding-left: 1em; border: 1px solid #CCC"><c:out
+											value="${tipoProducto.nombre}" /></td>
+									<td style="padding-left: 1em; border: 1px solid #CCC"><c:out
+											value="${tipoProducto.descripcion}" /></td>
+									<td align="center" style="border: 1px solid #CCC"><img
+										src="imagenes/iconos/edit.gif"
 										onclick="javascript:editObject('${tipoProducto.id}')"
-										alt="Editar" /></td>
-									<td align="center"><img
+										alt="Editar" style="margin-right: 8px" /> <img
 										src="imagenes/iconos/button_delete.gif"
 										onclick="javascript:deleteObject('${tipoProducto.id}');"
 										alt="Borrar" /></td>
 								</tr>
 							</c:forEach>
 						</table>
-					</fieldset>
-					<c:if test="${!empty errores.general}">
+					</fieldset> <c:if test="${!empty errores.general}">
 						<div class="errorEntrada" style="text-align: center; margin: 2em;">
 							<c:out value="${errores.general}"></c:out>
 						</div>
-					</c:if>
-					<c:if test="${!empty erroresEliminar.general}">
+					</c:if> <c:if test="${!empty erroresEliminar.general}">
 						<div class="errorEntrada" style="text-align: center; margin: 2em;">
 							<c:out value="${erroresEliminar.general}"></c:out>
 						</div>
