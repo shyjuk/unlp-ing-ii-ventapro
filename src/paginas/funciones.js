@@ -34,7 +34,7 @@ function changeAllSelection(element, list) {
 
 function isNumberKey(evt) {
 	var charCode = (evt.which) ? evt.which : event.keyCode;
-	
+
 	if (charCode > 31 && (charCode < 48 || charCode > 57))
 		return false;
 
@@ -43,9 +43,50 @@ function isNumberKey(evt) {
 
 function isDecimalNumberKey(evt) {
 	var charCode = (evt.which) ? evt.which : event.keyCode;
-	
-	if (charCode >= 48 && charCode <= 57 || charCode == 44 || charCode == 46)
+
+	if (charCode <= 31 || charCode >= 48 && charCode <= 57 || charCode == 44
+			|| charCode == 46)
 		return true;
 
 	return false;
+}
+
+// No usen las siguientes tres funciones porque no fueron probadas y algunas no las logré hacer andar bien...
+
+function checkearLongitud(valor, max) {
+
+	if (valor.replace(/^\s+|\s+$/g, "").length > max)
+		return false;
+
+	return true;
+}
+
+function mascaraNumero(evt, max) {
+
+	return isNumberKey(evt) && checkearLongitud(evt.target.value, max);
+}
+
+function mascaraNumeroDecimal(evt, maxInt, maxDec) {
+	var charCode = (evt.which) ? evt.which : event.keyCode;
+	var valor = evt.target.value;
+	var punto = Math.max(valor.indexOf("."), valor.indexOf(","));
+
+	if (!isDecimalNumberKey(evt))
+		return false;
+
+	if (punto > 0) {
+
+		if (charCode == 44 || charCode == 46)
+			return false;
+
+		if (!(checkearLongitud(valor.substring(0, punto), maxInt) && checkearLongitud(
+				valor.substring(punto + 1, valor.length + 1), maxDec)))
+			return false;
+
+	} else if (!checkearLongitud(valor, maxInt)) {
+
+		return false;
+	}
+
+	return true;
 }
