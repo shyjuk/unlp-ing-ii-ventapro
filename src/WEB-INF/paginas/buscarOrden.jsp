@@ -40,14 +40,14 @@
 			<tr>
 				<td></td>
 				<td class="funcs funcsSecundarias">
-				<a class="func" href="buscarProducto.jsp">TODO</a> 
+				<a class="func" href="generarOrden.jsp">Generar Orden</a> 
 				<a class="func funcAct" href="#">Buscar Orden</a> 
 				<a class="func" href="cobrarOrden.jsp">Cobrar Orden</a></td>
 			</tr>
 			<tr>
 				<td class="funcs funcsPrincipales">
 					<a class="funcPrincipal" href="buscarProducto.jsp">Gestión de productos</a> 
-					<a class="funcPrincipal funcPrincipalAct" href="#">Ventas</a> 
+					<a class="funcPrincipal funcPrincipalAct" href="generarOrden.jsp">Ventas</a> 
 					<a class="funcPrincipal" href="#">Administración de clientes</a> 
 					<a class="funcPrincipal" href="#">Reportes</a> 
 					<a class="funcPrincipal" href="#">Administración de usuarios</a></td>
