@@ -55,6 +55,10 @@
 		<servlet-name>CobrarOrdenServlet</servlet-name>
 		<servlet-class>unlp.info.ingenieriaii.web.CobrarOrdenServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GenerarOrdenServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.GenerarOrdenServlet</servlet-class>
+	</servlet>
 	
 	
 	 
@@ -107,5 +111,9 @@
 	<servlet-mapping>
 		<servlet-name>CobrarOrdenServlet</servlet-name>
 		<url-pattern>/paginas/cobrarOrden.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GenerarOrdenServlet</servlet-name>
+		<url-pattern>/paginas/generarOrden.jsp</url-pattern>
 	</servlet-mapping>
 </web-app>
