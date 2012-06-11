@@ -1,154 +1,156 @@
 @CHARSET "utf-8";
 
-		body {
-			width: 70em;
-			margin: auto;
-			font-family: Sans-serif;
-		}
-		
-		.clear{
-			clear: both;
-		}
-		
-		.header {
-			background-color: #359;
-			color: white;
-			padding: 8px;
-			font-weight: bold;
-		}
-		
-		.nombreSucursal {
-			float: left;
-		}
-		
-		.nombreUsuario {
-			float: right;
-		}
-		
-		table.principal {
-			width: 100%;
-			border-collapse:collapse;
-		}
-		
-		.funcs {
-			color: white;
-			font-variant: small-caps;
-			margin: 0;
-			padding: 0;
-		}
-		
-		.funcsPrincipales {
-			width: 10em;
-			margin: 0;
-			padding: 0;
-			padding-top: 1ex;
-			padding-bottom: 10em;
-			vertical-align: top;
-		}
-		
-		.funcsSecundarias {
-			padding-top: 1ex;
-			padding-left: 1ex;
-		}
-		
-		a.func {
-			display: inline-block;
-			background-color:#4AA;
-			padding: 1ex;
-			margin-right: 1em;
-			text-decoration:none;
-			color: white;			
-		}
-		
-		a.funcAct {
-			border-top: 4px solid #255;
-		}
+body {
+	width: 70em;
+	margin: auto;
+	font-family: Sans-serif;
+}
 
-		a.funcPrincipal {
-			display: block;
-			background-color:#4AA; 
-			padding: 1ex;
-			margin-right: 1em;
-			margin: 4px;
-			margin-right: 0px;
-			text-decoration:none;
-			color: white;
-			border-left: 8px solid #4AA;			
-		}
-		
-		a.funcPrincipalAct {
-			border-left: 8px solid #255;			
-		}
-		
-		.panelPrincipal {
-			border: 1px solid #CCC;
-			border-top-width: 4px;
-			margin: 0;
-			padding-left: 1ex;
-			vertical-align: top;		
-		}
-		
-		.subFuncs {
-			position: relative; 
-			top: -1px;
-			margin-bottom: 1em;
-		}
-		
-		a.subFunc {
-			display: inline-block;
-			margin-right: 1ex;
-			padding: 1ex;
-			border-left: 1px solid #CCC;
-			border-right: 1px solid #CCC;
-			border-bottom: 1px solid #CCC;
-			font-size: 12px;
-			font-weight: bold;
-			text-decoration:none;
-			color: black;			
-		}
-		
-		a.subFuncAct {
-			border-left: 1px solid #AAA;
-			border-right: 1px solid #AAA;
-			border-bottom: 4px solid #AAA;
-		}
-		
-		td.separador {
-			height: 8px; 
-			margin: 0; 
-			padding: 0;
-		}
-		
-		.botonera {
-			border: 1px solid #CCC; 
-			text-align: center;
-			padding: 3px;
-		}
-		
-		.invisible {
-			visibility: hidden;
-		}
-		
-		.errorEntrada {
-			color: red;
-			font-size: 12px;
-		}
-		
-		.labelForm {
-			padding-right: 2em;
-		}
-		
-		.helpText {
-			color: blue;
-			font-size: 12px;
-			text-align: right;
-			margin-right: 1ex;
-		}
-		
-		.comment {
-			color: #A9BCF5;
-			font-size: 12px;
-			margin-right: 1ex;
-		}
-		
-		
+.clear {
+	clear: both;
+}
+
+.header {
+	background-color: #359;
+	color: white;
+	padding: 8px;
+	font-weight: bold;
+}
+
+.nombreSucursal {
+	float: left;
+}
+
+.nombreUsuario {
+	float: right;
+}
+
+table.principal {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.funcs {
+	color: white;
+	font-variant: small-caps;
+	margin: 0;
+	padding: 0;
+}
+
+.funcsPrincipales {
+	width: 10em;
+	margin: 0;
+	padding: 0;
+	padding-top: 1ex;
+	padding-bottom: 10em;
+	vertical-align: top;
+}
+
+.funcsSecundarias {
+	padding-top: 1ex;
+	padding-left: 1ex;
+}
+
+a.func {
+	display: inline-block;
+	background-color: #4AA;
+	padding: 1ex;
+	margin-right: 1em;
+	text-decoration: none;
+	color: white;
+}
+
+a.funcAct {
+	border-top: 4px solid #255;
+}
+
+a.funcPrincipal {
+	display: block;
+	background-color: #4AA;
+	padding: 1ex;
+	margin-right: 1em;
+	margin: 4px;
+	margin-right: 0px;
+	text-decoration: none;
+	color: white;
+	border-left: 8px solid #4AA;
+}
+
+a.funcPrincipalAct {
+	border-left: 8px solid #255;
+}
+
+.panelPrincipal {
+	border: 1px solid #CCC;
+	border-top-width: 4px;
+	margin: 0;
+	padding-left: 1ex;
+	vertical-align: top;
+}
+
+.subFuncs {
+	position: relative;
+	top: -1px;
+	margin-bottom: 1em;
+}
+
+a.subFunc {
+	display: inline-block;
+	margin-right: 1ex;
+	padding: 1ex;
+	border-left: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+}
+
+a.subFuncAct {
+	border-left: 1px solid #AAA;
+	border-right: 1px solid #AAA;
+	border-bottom: 4px solid #AAA;
+}
+
+td.separador {
+	height: 8px;
+	margin: 0;
+	padding: 0;
+}
+
+.botonera {
+	border: 1px solid #CCC;
+	text-align: center;
+	padding: 3px;
+}
+
+.invisible {
+	visibility: hidden;
+}
+
+.errorEntrada {
+	color: red;
+	font-size: 12px;
+}
+
+.labelForm {
+	padding-right: 2em;
+}
+
+.helpText {
+	color: blue;
+	font-size: 12px;
+	text-align: right;
+	margin-right: 1ex;
+}
+
+.comment {
+	color: #A9BCF5;
+	font-size: 12px;
+	margin-right: 1ex;
+}
+
+.oculto {
+	display: none;
+}
