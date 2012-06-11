@@ -264,53 +264,53 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 	}
 
 	public String getCodigo() {
-		
+
 		return codigo;
 	}
 
 	public void setCodigo(String codigo) {
-		
+
 		this.codigo = Utiles.trim(codigo);
 	}
 
 	public String getNombre() {
-		
+
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		
+
 		this.nombre = Utiles.trim(nombre);
 	}
 
 	public String getPrecio() {
-		
+
 		return precio;
 	}
 
 	public void setPrecio(String precio) {
 
 		this.precio = precio;
-		if (this.precio != null){
+		if (this.precio != null) {
 			int c = 0;
-			
+
 			this.precio = this.precio.trim();
-			
+
 			for (int i = 0; i < this.precio.length(); i++)
 				c += this.precio.charAt(i) == ',' ? 1 : 0;
-			
-			if (c < 2)
+
+			if (c == 1 && this.precio.indexOf('.') < 0)
 				this.precio = this.precio.replace(',', '.');
 		}
 	}
 
 	public Marca getMarca() {
-		
+
 		return marca;
 	}
 
 	public void setMarca(Marca marca) {
-		
+
 		this.marca = marca;
 	}
 
@@ -325,12 +325,12 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 	}
 
 	public TipoProducto getTipoProducto() {
-		
+
 		return tipoProducto;
 	}
 
 	public void setTipoProducto(TipoProducto tipoProducto) {
-		
+
 		this.tipoProducto = tipoProducto;
 	}
 

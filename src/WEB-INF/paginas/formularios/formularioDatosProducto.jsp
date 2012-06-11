@@ -15,7 +15,7 @@
 		<td class="labelForm">Código:</td>
 		<td></td>
 		<td><input type="text" style="width: 120px" name="codigo"
-			id="codigo" value="<c:out value="${producto.codigo}" />" /> * <c:if
+			id="codigo" value="<c:out value="${producto.codigo}" />" onkeypress="return isNumberKey(event);" /> * <c:if
 				test="${!empty errores.campo.codigo}">
 				<div class="errorEntrada">${errores.campo.codigo}</div>
 			</c:if></td>
@@ -58,7 +58,7 @@
 		<td class="labelForm">Precio:</td>
 		<td>$</td>
 		<td><input type="text" style="width: 120px" name="precio"
-			id="precio" value="<c:out value="${producto.precio}" />" /> * <c:if
+			id="precio" value="<c:out value="${producto.precio}" />" onkeypress="return isDecimalNumberKey(event);" /> * <c:if
 				test="${!empty errores.campo.precio}">
 				<div class="errorEntrada">${errores.campo.precio}</div>
 			</c:if></td>
@@ -67,7 +67,7 @@
 		<td class="labelForm">Garantía:</td>
 		<td></td>
 		<td><input type="text" style="width: 120px" name="garantia"
-			id="garantia" value="<c:out value="${producto.garantia}" />" />
+			id="garantia" value="<c:out value="${producto.garantia}" />" onkeypress="return isNumberKey(event);"/>
 			meses <c:if test="${!empty errores.campo.garantia}">
 				<div class="errorEntrada">${errores.campo.garantia}</div>
 			</c:if></td>
@@ -86,7 +86,7 @@
 		<td></td>
 		<td><input type="text" style="width: 120px" name="stockMinimo"
 			id="stockMinimo"
-			value="<c:out value="${producto.stockMinimo}" />" /> unidades <c:if
+			value="<c:out value="${producto.stockMinimo}" />" onkeypress="return isNumberKey(event);" /> unidades <c:if
 				test="${!empty errores.campo.stockMinimo}">
 				<div class="errorEntrada">${errores.campo.stockMinimo}</div>
 			</c:if></td>
