@@ -1,6 +1,6 @@
 DELIMITER $$
 
-CREATE PROCEDURE `buscarUsuario`(id_usuario int)
+CREATE PROCEDURE `buscarVendedores`(id_usuario int)
 BEGIN
     select u.idUsuario as Vendedor_idVendedor,
         P.nombre as Vendedor_nombre

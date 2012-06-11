@@ -31,7 +31,7 @@ BEGIN
     		P.codPostal AS Persona_codPostal,
     		P.email AS Persona_email,
     	
-    		U.nombre AS Usuario_nombre,
+    		U.nombre AS Usuario_nombre
     	FROM tbl_ordenes_venta O INNER JOIN
 	        tbl_personas P ON O.idCliente = P.idPersona INNER JOIN
     	    tbl_usuarios U ON O.idVendedor = T.idUsuario
