@@ -50,7 +50,7 @@
 		<tr>
 			<td class="funcs funcsPrincipales">
 				<a class="funcPrincipal funcPrincipalAct" href="#">Gestión de productos</a>
-				<a class="funcPrincipal" href="#">Ventas</a>
+				<a class="funcPrincipal" href="generarOrden.jsp">Ventas</a>
 				<a class="funcPrincipal" href="#">Administración de clientes</a>
 				<a class="funcPrincipal" href="#">Reportes</a>
 				<a class="funcPrincipal" href="#">Administración de usuarios</a>

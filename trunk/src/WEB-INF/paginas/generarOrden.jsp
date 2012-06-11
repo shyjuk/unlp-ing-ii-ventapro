@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="unlp.info.ingenieriaii.modelo.SucursalUno"%>
+<%@ page import="unlp.info.ingenieriaii.modelo.*"%>
+<%@ page import="unlp.info.ingenieriaii.web.Validador"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -8,15 +11,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>VentaPro - Modificar Tipo de Producto</title>
+<title>VentaPro - Generar Orden</title>
 
 <link rel="stylesheet" type="text/css" href="basico.css" />
-<script src="funciones.js" type="text/javascript"></script>
+
 <script type="text/javascript">
-	function cancelar() {
-		if (confirm("¿Esta seguro que desea cancelar la operación?")) {
-			submit();
+	function deleteObject (idObject) {
+		if (confirm("¿Esta seguro que desea borrarlo?")){
+			document.test.id.value = idObject;
+			document.test.action.value = 'borrar';
+			document.test.submit();
 		}
+	}
+	
+	function editObject (idObject) {
+		document.test.id.value = idObject;
+		document.test.action.value = 'editar';
+		document.test.submit();
+	}
+	
+	function deleteAllSelectedObjecs () {
+		document.test.action.value = 'borrarSeleccionados';
+		document.test.submit();
 	}
 </script>
 </head>
@@ -24,8 +40,7 @@
 	<form method="post">
 		<div class="header">
 			<div class="nombreSucursal"><%=SucursalUno.getSingleInstance().getNombre()%></div>
-			<div class="nombreUsuario">
-				<%=("Rodolfo Perez")%>
+			<div class="nombreUsuario"><%=("Rodolfo Perez")%>
 				<input type="submit" value="Cerrar sesión" name="btnCerrarSesion"></input>
 			</div>
 			<div class="clear"></div>
@@ -35,30 +50,30 @@
 			<tr>
 				<td></td>
 				<td class="funcs funcsSecundarias"><a class="func"
-					href="buscarProducto.jsp">Producto</a> <a class="func"
-					href="#">Marca</a> <a class="func funcAct" href="buscarTipoProducto.jsp">Tipo
+					href="buscarProducto.jsp">Producto</a> <a class="func funcAct"
+					href="#">Marca</a> <a class="func" href="buscarTipoProducto.jsp">Tipo
 						de producto</a></td>
 			</tr>
 			<tr>
-				<td class="funcs funcsPrincipales"><a
-					class="funcPrincipal funcPrincipalAct" href="#">Gestión de
-						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
+				<td class="funcs funcsPrincipales">
+					<a class="funcPrincipal" href="#">Gestión de productos</a> 
+					<a class="funcPrincipal funcPrincipalAct"  href="generarOrden.jsp">Ventas</a> <a
 					class="funcPrincipal" href="#">Administración de clientes</a> <a
 					class="funcPrincipal" href="#">Reportes</a> <a
 					class="funcPrincipal" href="#">Administración de usuarios</a></td>
 
 				<td class="panelPrincipal">
 					<div class="subFuncs">
-						<a class="subFunc" href="buscarTipoProducto.jsp">Buscar</a> <a
-							class="subFunc" href="agregarTipoProducto.jsp">Agregar</a><a
-							class="subFunc subFuncAct" href="#">Modificar</a>
+						<a class="subFunc  subFuncAct" href="generarOrden.jsp">Generar Orden</a> <a
+							class="subFunc" href="cobrarOrden.jsp">Cobrar Orden</a><a
+							class="subFunc" href="buscarOrden.jsp">Buscar Orden</a>
 					</div>
 					<div class="helpText">
 						Si necesita ayuda haga <a
 							href="javascript:abrirPopUp('popupAyudaGenerica.html')">click
 							aquí</a>
-					</div> <input type="hidden" name="id" value="${tipoProducto.id}" /> <jsp:include
-						page="formularios/formularioDatosTipoProducto.jsp" flush="true" /><c:if
+					</div> <input type="hidden" name="id" value="${marca.id}" /> <jsp:include
+						page="formularios/formularioGenerarOrden.jsp" flush="true" /><c:if
 						test="${!empty errores.general}">
 						<div class="errorEntrada" style="text-align: center; margin: 2em;">
 							<c:out value="${errores.general}"></c:out>
@@ -71,7 +86,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td class="botonera"><input type="submit" value="Aceptar"
+				<td class="botonera"><input type="submit" value="Generar Orden"
 					name="btnAceptar" /> <input type="submit" value="Cancelar"
 					name="btnCancelar" onclick="cancelar();" /></td>
 			</tr>
