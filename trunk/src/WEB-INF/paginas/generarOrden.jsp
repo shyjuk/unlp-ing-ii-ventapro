@@ -49,10 +49,9 @@
 		<table class="principal">
 			<tr>
 				<td></td>
-				<td class="funcs funcsSecundarias"><a class="func"
-					href="buscarProducto.jsp">Producto</a> <a class="func funcAct"
-					href="#">Marca</a> <a class="func" href="buscarTipoProducto.jsp">Tipo
-						de producto</a></td>
+				<td class="funcs funcsSecundarias"><a class="func funcAct"
+					href="generarOrden.jsp">Generar Orden</a> <a class="func"
+					href="buscarOrden.jsp">Buscar Orden</a> <a class="func" href="cobrarOrden.jsp">Cobrar Orden</a></td>
 			</tr>
 			<tr>
 				<td class="funcs funcsPrincipales">
@@ -63,11 +62,6 @@
 					class="funcPrincipal" href="#">Administración de usuarios</a></td>
 
 				<td class="panelPrincipal">
-					<div class="subFuncs">
-						<a class="subFunc  subFuncAct" href="generarOrden.jsp">Generar Orden</a> <a
-							class="subFunc" href="cobrarOrden.jsp">Cobrar Orden</a><a
-							class="subFunc" href="buscarOrden.jsp">Buscar Orden</a>
-					</div>
 					<div class="helpText">
 						Si necesita ayuda haga <a
 							href="javascript:abrirPopUp('popupAyudaGenerica.html')">click
