@@ -26,48 +26,70 @@ public class BuscadorProducto extends Buscador<Producto> {
 	@Override
 	protected void validarCriterios(Errores errores) {
 
-		if (Utiles.esVacio(nombre) && Utiles.esVacio(codigo) && idMarca == null
-				&& idTipoProducto == null)
+		if (Utiles.esVacio(this.getNombre())
+				&& Utiles.esVacio(this.getCodigo())
+				&& this.getIdMarca() == null
+				&& this.getIdTipoProducto() == null) {
+
 			errores.setGeneral("Debe completar al menos uno de los criterios de búsqueda.");
+		} else {
+
+			if (!Utiles.esVacio(this.getCodigo()))
+				Validador.validarEntero(errores, "codigo", this.getCodigo(), 0,
+						9999999999999L, 12, false);
+			if (!Utiles.esVacio(this.getNombre()))
+				Validador.validarLongitud(errores, "nombre", this.getNombre(),
+						0, 100);
+		}
 	}
 
 	public String getNombre() {
+		
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		
+		this.nombre = Utiles.trim(nombre);
 	}
 
 	public String getCodigo() {
+		
 		return codigo;
 	}
 
 	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		
+		this.codigo = Utiles.trim(codigo);
 	}
 
 	public Integer getIdMarca() {
+		
 		return idMarca;
 	}
 
 	public void setIdMarca(Integer idMarca) {
+		
 		this.idMarca = idMarca;
 	}
 
 	public Integer getIdTipoProducto() {
+		
 		return idTipoProducto;
 	}
 
 	public void setIdTipoProducto(Integer idTipoProducto) {
+		
 		this.idTipoProducto = idTipoProducto;
 	}
 
 	public Boolean getEnVenta() {
+		
 		return enVenta;
 	}
 
 	public void setEnVenta(Boolean enVenta) {
+		
 		this.enVenta = enVenta;
 	}
 }

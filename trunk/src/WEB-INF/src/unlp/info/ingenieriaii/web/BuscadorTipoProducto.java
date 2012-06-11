@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import unlp.info.ingenieriaii.modelo.Errores;
 import unlp.info.ingenieriaii.modelo.TipoProducto;
 
-public class BuscadorTipoProducto extends Buscador<TipoProducto>{
-	
+public class BuscadorTipoProducto extends Buscador<TipoProducto> {
+
 	private String nombre;
-	
+
 	@Override
 	protected ArrayList<TipoProducto> ejecutarBusqueda(AccesoDb db,
 			Errores errores) throws SQLException {
@@ -20,17 +20,24 @@ public class BuscadorTipoProducto extends Buscador<TipoProducto>{
 	@Override
 	protected void validarCriterios(Errores errores) {
 
-		if (Utiles.esVacio(this.getNombre()))
+		if (Utiles.esVacio(this.getNombre())) {
+
 			errores.setErrorCampo(
 					"nombre",
-					"Debe indicar el nombre del tipo de producto (o parte del mismo) para realizar la búsqueda.");		
+					"Debe indicar el nombre del tipo de producto (o parte de la mismo) para realizar la búsqueda.");
+		} else {
+			Validador.validarLongitud(errores, "nombre", this.getNombre(), 0,
+					50);
+		}
 	}
 
 	public String getNombre() {
+		
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}	
+		
+		this.nombre = Utiles.trim(nombre);
+	}
 }

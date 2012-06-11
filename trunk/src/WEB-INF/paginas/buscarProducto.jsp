@@ -74,7 +74,7 @@
 						<tr>
 							<td class="labelForm">Nombre:</td>
 							<td><input type="text" style="width: 300px" name="nombre"
-								id="nombre" value="${buscador.nombre}" /> * <c:if
+								id="nombre" value="${buscador.nombre}" /> <c:if
 									test="${!empty errores.campo.nombre}">
 									<div class="errorEntrada">${errores.campo.nombre}</div>
 								</c:if></td>
@@ -90,16 +90,14 @@
 											<c:if test="${buscador.idMarca == marca.id}">selected="selected"</c:if>
 											value="${marca.id}">${marca.nombre}</option>
 									</c:forEach>
-							</select> * <c:if test="${!empty errores.campo.nombre}">
-									<div class="errorEntrada">${errores.campo.nombre}</div>
-								</c:if></td>
+							</select></td>
 						</tr>
 						<tr>
 							<td class="labelForm">Código:</td>
 							<td><input type="text" style="width: 100px" name="codigo"
-								id="codigo" value="${buscador.codigo}" /> * <c:if
-									test="${!empty errores.campo.nombre}">
-									<div class="errorEntrada">${errores.campo.nombre}</div>
+								id="codigo" value="${buscador.codigo}" /> <c:if
+									test="${!empty errores.campo.codigo}">
+									<div class="errorEntrada">${errores.campo.codigo}</div>
 								</c:if></td>
 							<td class="labelForm"></td>
 							<td class="labelForm">Tipo de producto:</td>
@@ -113,9 +111,7 @@
 											<c:if test="${buscador.idTipoProducto == tipoProducto.id}">selected="selected"</c:if>
 											value="${tipoProducto.id}">${tipoProducto.nombre}</option>
 									</c:forEach>
-							</select> * <c:if test="${!empty errores.campo.nombre}">
-									<div class="errorEntrada">${errores.campo.nombre}</div>
-								</c:if></td>
+							</select></td>
 						</tr>
 						<tr>
 							<td colspan="5" class="separador"></td>

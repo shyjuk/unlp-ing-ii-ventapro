@@ -20,10 +20,15 @@ public class BuscadorMarca extends Buscador<Marca> {
 	@Override
 	protected void validarCriterios(Errores errores) {
 
-		if (Utiles.esVacio(this.getNombre()))
+		if (Utiles.esVacio(this.getNombre())) {
+
 			errores.setErrorCampo(
 					"nombre",
 					"Debe indicar el nombre de la marca (o parte de la misma) para realizar la búsqueda.");
+		} else {
+			Validador.validarLongitud(errores, "nombre", this.getNombre(), 0,
+					50);
+		}
 	}
 
 	public String getNombre() {
@@ -33,6 +38,6 @@ public class BuscadorMarca extends Buscador<Marca> {
 
 	public void setNombre(String nombre) {
 
-		this.nombre = nombre;
+		this.nombre = Utiles.trim(nombre);
 	}
 }
