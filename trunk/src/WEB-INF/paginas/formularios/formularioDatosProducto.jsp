@@ -67,7 +67,7 @@
 		<td class="labelForm">Garantía:</td>
 		<td></td>
 		<td><input type="text" style="width: 120px" name="garantia"
-			id="garantia" value="<c:out value="${producto.garantia}" />" onkeypress="return isNumberKey(event);"/>
+			id="garantia" value="<c:out value="${producto.garantia}" />" onkeypress="return isNumberKey(event);" />
 			meses <c:if test="${!empty errores.campo.garantia}">
 				<div class="errorEntrada">${errores.campo.garantia}</div>
 			</c:if></td>
@@ -76,7 +76,7 @@
 		<td class="labelForm">Stock:</td>
 		<td></td>
 		<td><input type="text" style="width: 120px" name="stock"
-			id="stock" value="<c:out value="${producto.stock}" />" /> unidades *<c:if
+			id="stock" value="<c:out value="${producto.stock}" />" onkeypress="return isNumberKey(event);" /> unidades *<c:if
 				test="${!empty errores.campo.stock}">
 				<div class="errorEntrada">${errores.campo.stock}</div>
 			</c:if></td>
