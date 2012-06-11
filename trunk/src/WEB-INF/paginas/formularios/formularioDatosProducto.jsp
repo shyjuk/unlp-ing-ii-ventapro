@@ -86,7 +86,7 @@
 		<td></td>
 		<td><input type="text" style="width: 120px" name="stockMinimo"
 			id="stockMinimo"
-			value="<c:out value="${tipoProducto.stockMinimo}" />" /> unidades <c:if
+			value="<c:out value="${producto.stockMinimo}" />" /> unidades <c:if
 				test="${!empty errores.campo.stockMinimo}">
 				<div class="errorEntrada">${errores.campo.stockMinimo}</div>
 			</c:if></td>
