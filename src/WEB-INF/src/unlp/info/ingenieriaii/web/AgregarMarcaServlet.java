@@ -29,24 +29,28 @@ public class AgregarMarcaServlet extends ServletPagina {
 	@Override
 	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, SQLException {
-		Marca marca = new Marca();
-		Errores errores;
 
-		marca.setNombre(req.getParameter("nombre"));
-		marca.setSitioWeb(req.getParameter("sitioWeb"));
-		marca.setContacto(req.getParameter("contacto"));
-		marca.setInfoAdicional(req.getParameter("infoAdicional"));
+		if (req.getParameter("btnAceptar") != null) {
+			Marca marca = new Marca();
+			Errores errores;
 
-		errores = marca.guardar();
+			marca.setNombre(req.getParameter("nombre"));
+			marca.setSitioWeb(req.getParameter("sitioWeb"));
+			marca.setContacto(req.getParameter("contacto"));
+			marca.setInfoAdicional(req.getParameter("infoAdicional"));
 
-		if (errores.esVacio()) {
-			
+			errores = marca.guardar();
+
+			if (errores.esVacio()) {
+
+				resp.sendRedirect("buscarMarca.jsp");
+			} else {
+
+				req.setAttribute("marca", marca);
+				req.setAttribute("errores", errores);
+				super.procesarPost(req, resp);
+			}
+		} else
 			resp.sendRedirect("buscarMarca.jsp");
-		} else {
-			
-			req.setAttribute("marca", marca);
-			req.setAttribute("errores", errores);
-			super.procesarPost(req, resp);
-		}
 	}
 }
