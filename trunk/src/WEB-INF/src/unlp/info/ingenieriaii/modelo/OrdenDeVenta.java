@@ -12,7 +12,7 @@ import unlp.info.ingenieriaii.web.BuscadorOrden;
 import unlp.info.ingenieriaii.web.Utiles;
 
 public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
-	
+
 	private String numero;
 	private Date fecha;
 	private String estado;
@@ -21,61 +21,73 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private Integer idFactura;
 	private List<Item> items;
 	private Factura factura;
-	
+
 	// input - esto deberia modificarse usando los objetos reales
 	private String comprador;
 	private String vendedor;
-	
-	
+
 	private static final String QUERY_BUSQUEDA = "{call buscarOrden (?,?,?,?,?,?)}";
 	private static final String QUERY_BUSQUEDA_ITEMS = "{call buscarItemsDeOrden (?)}";
 	private static final String UPDATE_ESTADO = "{call modificarEstadoOrden(?,?)}";
-	
+	private static final String QUERY_ALTA = "{call agregarOrden(?)}";
+
 	public OrdenDeVenta(ResultSet rs) throws SQLException {
 
 		this.setDatos(rs);
 	}
-	
+
 	public OrdenDeVenta() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public String getNumero() {
 		return numero;
 	}
+
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+
 	public Date getFecha() {
 		return fecha;
 	}
+
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+
 	public String getEstado() {
 		return estado;
 	}
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
 	public Integer getIdCliente() {
 		return idCliente;
 	}
+
 	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
+
 	public Integer getIdUsuario() {
 		return idUsuario;
 	}
+
 	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+
 	public Integer getIdFactura() {
 		return idFactura;
 	}
+
 	public void setIdFactura(Integer idFactura) {
 		this.idFactura = idFactura;
 	}
+
 	@Override
 	protected void setDatos(ResultSet rs) throws SQLException {
 		this.setId(rs);
@@ -85,46 +97,56 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		this.setFecha(rs);
 		this.setFactura(rs);
 	}
+
 	@Override
 	protected OrdenDeVenta getCopia(ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	protected void prepararLectura(AccesoDb db) throws SQLException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	protected void prepararAlta(AccesoDb db) throws SQLException {
-		// TODO Auto-generated method stub
-		
+
+		db.prepararLlamada(QUERY_ALTA);
+		db.setParamDate(1, (java.sql.Date) new Date());
 	}
+
 	@Override
 	protected void prepararModificacion(AccesoDb db) throws SQLException {
 		db.prepararLlamada(UPDATE_ESTADO);
 		db.setParamInt(1, this.getId());
 		db.setParamInt(2, Integer.valueOf(this.getEstado()));
 	}
+
 	@Override
 	protected void prepararBaja(AccesoDb db) throws SQLException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	protected void setId(ResultSet rs) throws SQLException {
 		this.setId(this.getColumnaInt(rs, "idOrdenVenta"));
 	}
+
 	@Override
 	protected Errores validarCampos() {
 		Errores errores = new Errores();
 		// AGREGAR VALIDACIONES FALTANTES
 		if (Utiles.esVacio(this.getEstado())) {
 			errores.setErrorCampo("estado", "El estado es vacio");
-		}else {
+		} else {
 			try {
 				int num = Integer.valueOf(this.getEstado());
-				if (!(Estados.PENDIENTE.getId() == num) && !(Estados.ANULADA.getId() == num) && !(Estados.PAGADA.getId() == num)) {
+				if (!(Estados.PENDIENTE.getId() == num)
+						&& !(Estados.ANULADA.getId() == num)
+						&& !(Estados.PAGADA.getId() == num)) {
 					errores.setErrorCampo("estado", "El estado es invalido");
 				}
 			} catch (Exception e) {
@@ -133,28 +155,31 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		}
 		return errores;
 	}
+
 	@Override
 	protected void manejarErrorDuplicado(Errores errores, OrdenDeVenta copia) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	protected void manejarErrorEnUso(Errores errores) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	protected void manejarErrorReferencia(Errores errores, ResultSet rs)
 			throws SQLException {
 		// TODO Auto-generated method stub
-		
+
 	}
-		
-	public static ArrayList<OrdenDeVenta> buscarOrdenes(AccesoDb db, BuscadorOrden buscador)
-			throws SQLException {
+
+	public static ArrayList<OrdenDeVenta> buscarOrdenes(AccesoDb db,
+			BuscadorOrden buscador) throws SQLException {
 		ArrayList<OrdenDeVenta> resultado = new ArrayList<OrdenDeVenta>();
 		ResultSet rs;
-		 
+
 		db.prepararLlamada(QUERY_BUSQUEDA);
 		db.setParamVarchar(1, buscador.getDni());
 		db.setParamVarchar(2, buscador.getNombre());
@@ -168,7 +193,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		while (rs.next()) {
 			resultado.add(new OrdenDeVenta(rs));
 		}
-		
+
 		for (OrdenDeVenta orden : resultado) {
 			db.prepararLlamada(QUERY_BUSQUEDA_ITEMS);
 			db.setParamInt(1, orden.getId());
@@ -177,7 +202,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 				orden.getItems().add(new Item(rs));
 			}
 		}
-		
+
 		db.cerrarQuery();
 		return resultado;
 	}
@@ -187,7 +212,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 
 		return buscarOrdenes(new AccesoDb(), buscador);
 	}
-	
+
 	public void setEstado(ResultSet rs) throws SQLException {
 		this.setEstado(this.getColumnaString(rs, "estado"));
 	}
@@ -195,11 +220,11 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	public void setComprador(ResultSet rs) throws SQLException {
 		this.setComprador(this.getColumnaString(rs, "comprador"));
 	}
-	
+
 	public void setVendedor(ResultSet rs) throws SQLException {
 		this.setVendedor(this.getColumnaString(rs, "vendedor"));
 	}
-	
+
 	public void setFecha(ResultSet rs) throws SQLException {
 		this.setFecha(this.getColumnaDate(rs, "fechaHora"));
 	}
@@ -219,24 +244,25 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	public void setVendedor(String vendedor) {
 		this.vendedor = vendedor;
 	}
-	
-	public String getCantProductos () {
+
+	public String getCantProductos() {
 		int cantidadTotal = 0;
 		for (Item item : this.getItems()) {
-			cantidadTotal=+ item.getCantidad();
+			cantidadTotal = +item.getCantidad();
 		}
 		return String.valueOf(cantidadTotal);
 	}
-	
-	public String getMontoTotal () {
+
+	public String getMontoTotal() {
 		BigDecimal montoTotal = BigDecimal.ZERO;
 		for (Item item : this.getItems()) {
-			montoTotal= (item.getPrecio().multiply(new BigDecimal(item.getCantidad()))).add(montoTotal);
+			montoTotal = (item.getPrecio().multiply(new BigDecimal(item
+					.getCantidad()))).add(montoTotal);
 		}
 		return String.valueOf(montoTotal);
 	}
-	
-	public String getMontoDetalle () {
+
+	public String getMontoDetalle() {
 		String mp = this.getFactura().getMedioPago();
 		return MediosDePago.getDescripcionPara(Integer.valueOf(mp));
 	}
@@ -251,8 +277,8 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
-	
-	public String getEstadoDescripcion () {
+
+	public String getEstadoDescripcion() {
 		if (Utiles.esVacio(this.getEstado())) {
 			return "";
 		}
@@ -266,7 +292,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	public void setFactura(Factura factura) {
 		this.factura = factura;
 	}
-	
+
 	protected void setFactura(ResultSet rs) throws SQLException {
 
 		this.setFactura(new Factura(rs));
