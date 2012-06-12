@@ -37,14 +37,12 @@ public class GenerarOrdenServlet extends ServletPagina {
 	}
 	
 
-	@SuppressWarnings("unused")
 	private void setAll(HttpServletRequest req, boolean validar) throws SQLException {
 		BuscadorProducto buscadorProducto = new BuscadorProducto();
 		Errores errores = new Errores();
-		buscadorProducto.ejecutarBusquedaAll(new AccesoDb());
+		buscadorProducto.buscar(false);
 		
 		req.setAttribute("errores", errores);
-		req.setAttribute("vendedores", Usuario.buscarVendedores(null));
 		req.setAttribute("listaId", this.setListaId(buscadorProducto));
 		req.setAttribute("clientes", Usuario.buscarUsuarios());
 		java.util.Date fechaActual = new java.util.Date(); 
