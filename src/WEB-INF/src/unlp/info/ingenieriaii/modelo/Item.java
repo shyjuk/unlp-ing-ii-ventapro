@@ -7,13 +7,12 @@ import java.util.ArrayList;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
 
-public class Item extends ObjetoPersistente<Item, Integer>{
+public class Item extends ObjetoPersistente<Item, ParEntero>{
 
-	private Integer idItem;
+	private ParEntero idItem;
 	private BigDecimal precio;
 	private Integer cantidad;
 	private Integer idProducto;
-	private Integer idOrden;
 	
 	private Producto producto;
 	
@@ -29,10 +28,10 @@ public class Item extends ObjetoPersistente<Item, Integer>{
 	}
 	
 	
-	public Integer getIdItem() {
+	public ParEntero getIdItem() {
 		return idItem;
 	}
-	public void setIdItem(Integer idItem) {
+	public void setIdItem(ParEntero idItem) {
 		this.idItem = idItem;
 	}
 	public BigDecimal getPrecio() {
@@ -54,10 +53,10 @@ public class Item extends ObjetoPersistente<Item, Integer>{
 		this.idProducto = idProducto;
 	}
 	public Integer getIdOrden() {
-		return idOrden;
+		return this.getId().getPrimero();
 	}
 	public void setIdOrden(Integer idOrden) {
-		this.idOrden = idOrden;
+		this.getId().setPrimero(idOrden);
 	}
 	@Override
 	protected void setDatos(ResultSet rs) throws SQLException {
@@ -93,7 +92,12 @@ public class Item extends ObjetoPersistente<Item, Integer>{
 	}
 	@Override
 	protected void setId(ResultSet rs) throws SQLException {
-		this.setId(this.getColumnaInt(rs, "idOrdenVenta"));
+		ParEntero par = new ParEntero();
+		
+		par.setPrimero(this.getColumnaInt(rs, "idOrdenVenta"));
+		par.setSegundo(this.getColumnaInt(rs, "numero"));
+		
+		this.setId(par);
 	}
 	@Override
 	protected Errores validarCampos() {
