@@ -13,7 +13,7 @@ BEGIN
     WHERE NOT EXISTS ( -- Acá se comprueban duplicados.
         SELECT * 
         FROM tbl_items I
-        WHERE I.idOrdenVenta <> idOrdenVenta AND I.idProducto = idProducto;
+        WHERE I.idOrdenVenta <> idOrdenVenta AND I.idProducto = idProducto
     );
 
     IF ROW_COUNT() = 0 THEN -- Si no se insertó nada entonces se actualiza el existente.
@@ -25,7 +25,7 @@ BEGIN
         	I.idOrdenVenta AS Item_idOrdenVenta,
         	I.numero AS Item_numero
         FROM tbl_item I
-        WHERE I.idOrdenVenta = idOrdenVenta AND I.idProducto = idProducto
+        WHERE I.idOrdenVenta = idOrdenVenta AND I.idProducto = idProducto;
     ELSE -- Si se insertó entonces se retorna el ID del item nuevo.
         SELECT 0 AS CODIGO_ERROR,
         	I.idOrdenVenta AS Item_idOrdenVenta,
