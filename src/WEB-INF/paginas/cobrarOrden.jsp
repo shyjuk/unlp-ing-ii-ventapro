@@ -61,20 +61,20 @@
 					<fieldset>
 						<legend>Ordenes pendientes</legend>
 						<table border="1" width="100%" cellspacing="0">
-							<tr>
-								<td>Comprador</td>
-								<td>Vendedor</td>
-								<td>Monto</td>
-								<td>Medio de pago</td>
-								<td>Pagar</td>
+							<tr  style="background-color: #4AA; color: White;">
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Comprador</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Vendedor</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Monto</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Medio de pago</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Pagar</td>
 							</tr>
 							<c:forEach items="${buscador.resultado}" var="row">
 								<tr>
-									<td><c:out value="${row.comprador}" /></td>
-									<td><c:out value="${row.vendedor}" /></td>
-									<td><c:out value="${row.montoTotal}" /></td>
-									<td><c:out value="${row.montoDetalle}" /></td>
-									<td align="center"><img src="imagenes/iconos/dolar.gif" onclick="javascript:pagar('${row.id}')" alt="Pagar" /></td>
+									<td style="border: 1px solid #CCC"><c:out value="${row.comprador}" /></td>
+									<td style="border: 1px solid #CCC"><c:out value="${row.vendedor}" /></td>
+									<td style="border: 1px solid #CCC"><c:out value="${row.montoTotal}" /></td>
+									<td style="border: 1px solid #CCC"><c:out value="${row.montoDetalle}" /></td>
+									<td style="border: 1px solid #CCC" align="center"><img src="imagenes/iconos/dolar.gif" onclick="javascript:pagar('${row.id}')" alt="Pagar" /></td>
 								</tr>
 							</c:forEach>
 						</table>

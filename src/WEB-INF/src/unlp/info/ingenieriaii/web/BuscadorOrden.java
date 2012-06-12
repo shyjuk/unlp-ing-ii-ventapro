@@ -26,8 +26,8 @@ public class BuscadorOrden extends Buscador<OrdenDeVenta>  {
 	@Override
 	protected void validarCriterios(Errores errores) {
 		if (!Utiles.esVacio(this.getDni())){
-			if (this.getDni().trim().length() < 7 || this.getDni().trim().length() > 10) {
-				errores.setErrorCampo("dni", "Ingrese entre 7 y 9 digitos numericos para el dni.");	
+			if (!(this.getDni().trim().length() >= 7 && this.getDni().trim().length() <= 8)) {
+				errores.setErrorCampo("dni", "Ingrese entre 7 y 8 digitos numericos para el dni.");	
 			}else if (!this.getDni().trim().matches("[0-9]*")) {
 				errores.setErrorCampo("dni", "Ingrese solo caracteres númericos.");
 			}
@@ -42,6 +42,14 @@ public class BuscadorOrden extends Buscador<OrdenDeVenta>  {
 				errores.setErrorCampo("fecha", "La fecha es invalida.");
 			}
 		}	
+		if (!Utiles.esVacio(this.getProducto())){
+			if (!(this.getProducto().trim().length() >= 12 && this.getProducto().trim().length() <= 13)) {
+				errores.setErrorCampo("producto", "Ingrese entre 12 y 13 digitos numericos para el codigo del producto.");	
+			}else if (!this.getProducto().trim().matches("[0-9]*")) {
+				errores.setErrorCampo("producto", "Ingrese solo caracteres númericos.");
+			}
+		}
+		
 	}
 	
 	public Date getFecha () {
