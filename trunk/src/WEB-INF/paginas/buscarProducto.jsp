@@ -27,6 +27,18 @@
 		document.form.accion.value = 'editar';
 		document.form.submit();
 	}
+	
+	function mostrarDetalles(idObject){
+		document.getElementById('detalles_' + idObject).className = "";
+		document.getElementById('mas_' + idObject).className = "oculto";
+		document.getElementById('menos_' + idObject).className = "";
+	}
+	
+	function ocultarDetalles(idObject){
+		document.getElementById('detalles_' + idObject).className = "oculto";
+		document.getElementById('mas_' + idObject).className = "";
+		document.getElementById('menos_' + idObject).className = "oculto";
+	}	
 </script>
 </head>
 <body>
@@ -52,8 +64,8 @@
 			<tr>
 				<td class="funcs funcsPrincipales"><a
 					class="funcPrincipal funcPrincipalAct" href="#">Gestión de
-						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
-					class="funcPrincipal" href="#">Administración de clientes</a> <a
+						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a>
+					<a class="funcPrincipal" href="#">Administración de clientes</a> <a
 					class="funcPrincipal" href="#">Reportes</a> <a
 					class="funcPrincipal" href="#">Administración de usuarios</a></td>
 
@@ -101,7 +113,7 @@
 								</c:if></td>
 							<td class="labelForm"></td>
 							<td class="labelForm">Tipo de producto:</td>
-							<td><select style="width: 200px" name="idTipoProducto" 
+							<td><select style="width: 200px" name="idTipoProducto"
 								onchange="redirect(this.options.selectedIndex)">
 									<option
 										<c:if test="${empty buscador.idTipoProducto}">selected="selected"</c:if>
@@ -130,46 +142,114 @@
 
 					<fieldset>
 						<legend>Resultado de la búsqueda</legend>
-						<table border="1" width="100%" cellspacing="0">
-							<tr>
-								<td><input type="checkbox" name="seleccionados_TODOS"
-									value="FALSE"
+						<table width="100%" style="border-collapse: collapse;">
+							<tr style="background-color: #4AA; color: White;">
+								<td
+									style="width: 15px; text-align: center; border: 1px solid #CCC"><input
+									type="checkbox" name="seleccionados_TODOS" value="FALSE"
 									onclick="javascript:changeAllSelection(this,${listaId});" /></td>
-								<td>Código</td>
-								<td>Nombre</td>
-								<td>Precio</td>
-								<td>Marca</td>
-								<td>Tipo de Producto</td>
-								<td>Garantía</td>
-								<td>Stock</td>
-								<td>Stock Mínimo</td>
-								<td>En Venta</td>
-								<td>Descripción</td>
-								<td>Editar</td>
-								<td>Borrar</td>
+								<td style="text-align: center; border: 1px solid #CCC">Tipo</td>
+								<td style="text-align: center; border: 1px solid #CCC">Marca</td>
+								<td
+									style="width: 500px; text-align: center; border: 1px solid #CCC">Nombre</td>
+								<td
+									style="width: 100px; text-align: center; border: 1px solid #CCC">Precio</td>
+								<td style="width: 100px; border: 1px solid #CCC"></td>
 							</tr>
 							<c:forEach items="${buscador.resultado}" var="producto">
-								<tr>
-									<td><input type="checkbox"
+								<tr
+									<c:if
+									test="${!producto.enVenta}">style="color: #666; font-style: italic" </c:if>>
+									<td style="border: 1px solid #CCC"><input type="checkbox"
 										name="seleccionados_${producto.id}"
 										id="seleccionados_${producto.id}" value="FALSE"
 										onclick="javascript:changeSelection(this);" /></td>
-									<td><c:out value="${producto.codigo}" /></td>
-									<td><c:out value="${producto.nombre}" /></td>
-									<td>$<c:out value="${producto.precio}" /></td>
-									<td><c:out value="${producto.marca.nombre}" /></td>
-									<td><c:out value="${producto.tipoProducto.nombre}" /></td>
-									<td><c:out value="${producto.garantia}" /></td>
-									<td><c:out value="${producto.stock}" /></td>
-									<td><c:out value="${producto.stockMinimo}" /></td>
-									<td><c:out value="${producto.enVenta}" /></td>
-									<td><c:out value="${producto.descripcion}" /></td>
-									<td align="center"><img src="imagenes/iconos/edit.gif"
-										onclick="javascript:editObject('${producto.id}')" alt="Editar" /></td>
-									<td align="center"><img
+									<td
+										style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"><c:out
+											value="${producto.tipoProducto.nombre}" /></td>
+									<td
+										style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"><c:out
+											value="${producto.marca.nombre}" /></td>
+									<td
+										style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"><c:out
+											value="${producto.nombre}" /></td>
+									<td
+										style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"
+										align="right"><c:out value="${producto.precio}" /></td>
+									<td align="center" style="border: 1px solid #CCC"><img
+										src="imagenes/iconos/lupa_mas.gif"
+										onclick="javascript:mostrarDetalles('${producto.id}')"
+										id="mas_${producto.id}" alt="Más información"
+										style="margin-right: 10px" /> <img
+										src="imagenes/iconos/lupa_menos.gif"
+										onclick="javascript:ocultarDetalles('${producto.id}')"
+										id="menos_${producto.id}" alt="Más información"
+										style="margin-right: 10px" class="oculto" /> <img
+										src="imagenes/iconos/edit.gif"
+										onclick="javascript:editObject('${producto.id}')" alt="Editar"
+										style="margin-right: 8px" /> <img
 										src="imagenes/iconos/button_delete.gif"
 										onclick="javascript:deleteObject('${producto.id}');"
 										alt="Borrar" /></td>
+								</tr>
+								<tr id="detalles_${producto.id}" class="oculto">
+									<td colspan="6"
+										style="border: 1px solid #CCC; background-color: #699; color: White; padding: 8px; padding-left: 2em"><table>
+											<c:if test="${!producto.enVenta}">
+												<tr>
+													<td></td>
+													<td align="center"
+														style="color: red; padding: 1ex; background-color: White; border: 1px solid #CCC">Este
+														producto no está a la venta.</td>
+												</tr>
+											</c:if>
+											<tr>
+												<td></td>
+												<td align="center">
+													<table style="border-collapse: separate;">
+														<tr>
+															<td
+																style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"
+																align="center">Código</td>
+															<td
+																style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"
+																align="center">Garantía</td>
+															<td
+																style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"
+																align="center">Stock</td>
+															<td
+																style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"
+																align="center">Stock Mínimo</td>
+														</tr>
+														<tr style="background-color: White; color: Black;">
+															<td
+																style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"
+																align="center">${producto.codigo}</td>
+															<td
+																style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"
+																align="center"><c:choose>
+																	<c:when test="${!empty producto.garantia}">${producto.garantia} meses</c:when>
+																	<c:otherwise>N/A</c:otherwise>
+																</c:choose></td>
+															<td
+																style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"
+																align="center">${producto.stock} unidades</td>
+															<td
+																style="padding-left: 1em; padding-right: 1em; border: 1px solid #CCC"
+																align="center"><c:choose>
+																	<c:when test="${!empty producto.stockMinimo}">${producto.stockMinimo} unidades</c:when>
+																	<c:otherwise>N/A</c:otherwise>
+																</c:choose></td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td class="labelForm">Descripción:</td>
+												<td><textarea rows="10"
+														style="width: 600px; resize: none;" readonly="readonly">${producto.descripcion}</textarea></td>
+											</tr>
+										</table></td>
 								</tr>
 							</c:forEach>
 						</table>
