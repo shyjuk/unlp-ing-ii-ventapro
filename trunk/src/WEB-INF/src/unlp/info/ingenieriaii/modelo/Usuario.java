@@ -11,6 +11,7 @@ public class Usuario extends ObjetoPersistente<Usuario, Integer>{
 	private String nombre;
 	
 	private static final String QUERY_BUSQUEDA = "{call buscarUsuario (?)}";
+	private static final String QUERY_BUSQUEDAVEN = "{call buscarVendedores (?)}";
 	
 	public Usuario(ResultSet rs) throws SQLException {
 		this.setDatos(rs);
@@ -114,6 +115,31 @@ public class Usuario extends ObjetoPersistente<Usuario, Integer>{
 			throws SQLException {
 
 		return buscarUsuarios(new AccesoDb());
+	}
+	
+	public static ArrayList<Usuario> buscarVendedores(AccesoDb db, String nombre)
+			throws SQLException {
+		ArrayList<Usuario> resultado = new ArrayList<Usuario>();
+		ResultSet rs;
+
+		db.prepararLlamada(QUERY_BUSQUEDAVEN);
+		db.setParamVarchar(1, nombre);
+
+		rs = db.ejecutarQuery();
+
+		while (rs.next()) {
+
+			resultado.add(new Usuario(rs));
+		}
+
+		db.cerrarQuery();
+		return resultado;
+	}
+	
+	public static ArrayList<Usuario> buscarVendedores(String nombre)
+			throws SQLException {
+
+		return buscarVendedores(new AccesoDb(), nombre);
 	}
 
 	

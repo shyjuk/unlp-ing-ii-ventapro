@@ -1,27 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="unlp.info.ingenieriaii.modelo.*" %>
 <%@ page import="unlp.info.ingenieriaii.web.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <fieldset>
 	<table width=100%>
 		<legend>Datos de la Orden</legend>
 			<tr>
-				<td colspan=2 align="left"><label>Nombre del Vendedor:</label></td>
-				<td colspan=2><SELECT name="nombreV" id="nombreV" style="width: 200px"></SELECT> *</td>
-				<td colspan=2 align="left">Medio de Pago:</td>
-				<td><SELECT align="left" style="width: 200px">Descripción</SELECT> *</td>
+				<td align="left" colspan=1><label>Nombre del Vendedor:</label></td>
+				
+				<td>
+				  <select name="nombreV" id="idVendedor"  style="width: 200px"
+				   onchange="redirect(this.options.selectedIndex)">
+						<option 
+					  	<c:if test="${empty orden.idUsuario}">selected="selected"</c:if>value="">
+						</option>
+					   <c:forEach items="${vendedores}" var="vendedor">
+						<option
+						<c:if test="${orden.idUsuario == vendedor.id}">selected="selected"</c:if>
+						value="${vendedor.idUsuario}">${vendedor.nombre}</option>
+				      </c:forEach>
+		          </select> * <c:if test="${!empty errores.campo.idVendedor}">
+				<div class="errorEntrada">${errores.campo.idMarca}</div>
+			</c:if></td>		
 			</tr>
 			<tr>
-				<td width="10%" align=left>FECHA:</td>
-				<td width="10%"></td>
-				<td width="10%">HORA:</td>
-				<td width="10%"></td>
+				<td colspan=1 width="10%" align=left>FECHA:</td>
+				<td width="10%"><label id=fechaOrden>"${fechaO}"</label></td>
+				<td width="10%" align=left>HORA:</td>
+				<td width="10%"><label id=horaO> </label></td>
 			</tr>
 			<tr><td colspan=12><hr></hr></td></tr>
+		</table>	
+		<table>
 			<tr>
 				<td colspan=2 width="10%" align="left">DNI Cliente:</td>
-				<td><input style="width:200px" type="text" name="dni" id="dni" size="50" value="${buscador.dni}"> </input></td>
-				<td width="20%" align="center"><button style="width: 120px">Buscar Cliente</button></td>
+				<td width="15%" colspan=2><input align=left type="text" name="dni" id="dni" size="30" value=""> </input></td>
+				<td width="20%" colspan=1 align="left"><button style="width: 120px">Buscar Cliente</button></td>
 			</tr>
 			<tr style="height: 10px"></tr>
 			<tr>
@@ -48,7 +63,7 @@
 	</table>
 	<table width=100%>
 		<tr>
-			<td>DIRECCION</td>
+			<td colspan=2>DIRECCION</td>
 		</tr>
 		<tr>
 			<td style="width: 175px">CALLE</td>
@@ -84,20 +99,35 @@
 			</tr>
 	</table>
 	<table border="1" width=100% cellpading="0" cellspacing="0">
-					<tr>
-						<td align="center"><input type="checkbox" name="" value="FALSE" onclick=""></input></td>
-						<td align="center">TIPO</td>
-						<td align="center">MARCA</td>
-						<td align="center">PRECIO</td>
-						<td align="center">DESCRIPCION</td>
-					</tr>
-					<tr>
-							<td align="center"><input type="checkbox" name="="" id="" value="FALSE" onclick="javascript:changeSelection(this);"></input></td>
-							<td></td>
-							<td></td>
-							<td align="center"><img src="imagenes/iconos/edit.gif" onclick="" alt="Editar" /></td>
-							<td align="center"><img src="imagenes/iconos/button_delete.gif" onclick="" alt="Borrar"/></td>
-					</tr>
+		<tr>
+			<td><input type="checkbox" name="seleccionados_TODOS" value="FALSE"
+				onclick="javascript:changeAllSelection(this,${listaId});" /></td>
+								<td>Código</td>
+								<td>Nombre</td>
+								<td>Precio</td>
+								<td>Marca</td>
+								<td>Tipo de Producto</td>
+								<td>Garantía</td>
+								<td>Stock</td>
+								<td>En Venta</td>
+								<td>Descripción</td>
+		</tr>
+		<c:forEach items="${buscador.resultado}" var="producto">
+		<tr>
+									<td><input type="checkbox"
+										name="seleccionados_${producto.id}"
+										id="seleccionados_${producto.id}" value="FALSE"
+										onclick="javascript:changeSelection(this);" /></td>
+									<td><c:out value="${producto.codigo}" /></td>
+									<td><c:out value="${producto.nombre}" /></td>
+									<td>$<c:out value="${producto.precio}" /></td>
+									<td><c:out value="${producto.marca.nombre}" /></td>
+									<td><c:out value="${producto.tipoProducto.nombre}" /></td>
+									<td><c:out value="${producto.garantia}" /></td>
+									<td><c:out value="${producto.stock}" /></td>
+									<td><c:out value="${producto.descripcion}" /></td>
+		</tr>
+		</c:forEach>
 	</table>
 	<table width=100%>
 		<tr>
@@ -109,18 +139,28 @@
 	<table border="1" width=100% cellpading="0" cellspacing="0">
 					<tr>
 						<td align="center"><input type="checkbox" name="" value="FALSE" onclick=""></input></td>
-						<td align="center">TIPO</td>
-						<td align="center">MARCA</td>
-						<td align="center">PRECIO</td>
-						<td align="center">DESCRIPCION</td>
+						<td align="center">Codigo Producto</td>
+						<td align="center">Nombre</td>
+						<td align="center">Precio</td>
+						<td align="center">Marca</td>
+						<td align="center">Tipo Producto</td>
 					</tr>
+					<c:forEach items="${buscador.resultado}" var="producto">
 					<tr>
-							<td align="center"><input type="checkbox" name="="" id="" value="FALSE" onclick="javascript:changeSelection(this);"></input></td>
-							<td></td>
-							<td></td>
-							<td align="center"><img src="imagenes/iconos/edit.gif" onclick="" alt="Editar" /></td>
-							<td align="center"><img src="imagenes/iconos/button_delete.gif" onclick="" alt="Borrar"/></td>
+									<td><input type="checkbox"
+										name="seleccionados_${producto.id}"
+										id="seleccionados_${producto.id}" value="FALSE"
+										onclick="javascript:changeSelection(this);" /></td>
+									<td><c:out value="${producto.codigo}" /></td>
+									<td><c:out value="${producto.nombre}" /></td>
+									<td>$<c:out value="${producto.precio}" /></td>
+									<td><c:out value="${producto.marca.nombre}" /></td>
+									<td><c:out value="${producto.tipoProducto.nombre}" /></td>
+									<td><c:out value="${producto.garantia}" /></td>
+									<td><c:out value="${producto.stock}" /></td>
+									<td><c:out value="${producto.descripcion}" /></td>
 					</tr>
+					</c:forEach>
 	</table>
 	<table width=100%>
 		<tr>

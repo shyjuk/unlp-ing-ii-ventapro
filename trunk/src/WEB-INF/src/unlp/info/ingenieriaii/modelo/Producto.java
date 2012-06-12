@@ -12,7 +12,8 @@ import unlp.info.ingenieriaii.web.Validador;
 public class Producto extends ObjetoPersistente<Producto, Integer> {
 
 	private static final String QUERY_LECTURA = "{call leerProducto (?)}";
-
+	private static final String QUERY_PROD_TODOS = "{call traerProductos (?)}";
+	
 	private static final String QUERY_BUSQUEDA = "{call buscarProducto (?, ?, ?, ?, ?)}";
 
 	private static final String QUERY_ALTA = "{call agregarProducto (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
@@ -224,6 +225,7 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 	public static ArrayList<Producto> buscarProductos(AccesoDb db,
 			Integer idMarca, Integer idTipoProducto, String codigo,
 			String nombre, Boolean enVenta) throws SQLException {
+		
 		ArrayList<Producto> resultado = new ArrayList<Producto>();
 		ResultSet rs;
 
@@ -251,6 +253,24 @@ public class Producto extends ObjetoPersistente<Producto, Integer> {
 
 		return buscarProductos(new AccesoDb(), idMarca, idTipoProducto, codigo,
 				nombre, enVenta);
+	}
+	
+	public static ArrayList<Producto> buscarProductos(AccesoDb db) throws SQLException {
+		
+		ArrayList<Producto> resultado = new ArrayList<Producto>();
+		ResultSet rs;
+
+		db.prepararLlamada(QUERY_PROD_TODOS);
+
+		rs = db.ejecutarQuery();
+
+		while (rs.next()) {
+
+			resultado.add(new Producto(rs));
+		}
+
+		db.cerrarQuery();
+		return resultado;
 	}
 
 	public Producto() {
