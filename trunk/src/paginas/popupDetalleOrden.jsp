@@ -21,28 +21,28 @@
 				<fieldset>
 					<legend>Detalle de compra</legend>
 					<table border="1" width="100%" cellspacing="0">
-						<tr>
-							<td align="center">Producto</td>
-							<td align="center">Cantidad</td>
-							<td align="center">Monto</td>
-							<td align="center">Total</td>
+						<tr  style="background-color: #4AA; color: White;">
+							<td style="width: 15px; text-align: center; border: 1px solid #CCC" align="center">Producto</td>
+							<td style="width: 15px; text-align: center; border: 1px solid #CCC" align="center">Cantidad</td>
+							<td style="width: 15px; text-align: center; border: 1px solid #CCC" align="center">Monto</td>
+							<td style="width: 15px; text-align: center; border: 1px solid #CCC" align="center">Total</td>
 						</tr>
 						<%
 						BigDecimal total = BigDecimal.ZERO; 
 						for (Item item : items) {%>
 							<tr>
 								<% String detalleProducto = "(" + item.getProducto().getCodigo() + ") " + item.getProducto().getNombre() + " - " + item.getProducto().getMarca().getNombre();%>
-								<td align="center"><c:out value="<%=detalleProducto%>" /></td>
-								<td align="center"><c:out value="<%=item.getCantidad() %>" /></td>
-								<td align="center"><c:out value="<%=item.getPrecio()%>" /></td>
+								<td style="border: 1px solid #CCC" align="center"><c:out value="<%=detalleProducto%>" /></td>
+								<td style="border: 1px solid #CCC" align="center"><c:out value="<%=item.getCantidad() %>" /></td>
+								<td style="border: 1px solid #CCC" align="center"><c:out value="<%=item.getPrecio()%>" /></td>
 								<% 	BigDecimal subtotal = item.getPrecio().multiply(new BigDecimal(item.getCantidad()));
 									total = total.add(subtotal); %>
-								<td align="center">$<c:out value="<%=subtotal%>" /></td>
+								<td style="border: 1px solid #CCC" align="center">$<c:out value="<%=subtotal%>" /></td>
 							</tr>
 						<%} %>
 						<tr>
-							<td colspan="3"></td>
-							<td align="center"><b>Total</b>: $<%=total %></td>
+							<td style="border: 1px solid #CCC" align="center" colspan="3"></td>
+							<td style="border: 1px solid #CCC" align="center" align="center"><b>Total</b>: $<%=total %></td>
 						</tr>
 					</table>
 				</fieldset>

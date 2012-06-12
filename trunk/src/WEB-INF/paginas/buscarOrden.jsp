@@ -57,7 +57,7 @@
 					</div>
 					<table>
 						<tr>
-							<td class="labelForm">DNI Comprador:</td>
+							<td class="labelForm">DNI Cliente:</td>
 							<td><input type="text" name="dni" id="dni" size="50" value="${buscador.dni}" onkeypress="return isNumberKey(event)"/>
 								<c:if test="${!empty errores.campo.dni}">
 									<div class="errorEntrada">${errores.campo.dni}</div>
@@ -79,23 +79,23 @@
 						</tr>
 						<tr>
 							<td class="labelForm">Cod. Producto:</td>
-							<td><input type="text" name="producto" id="producto" size="50" value="${buscador.producto}" />
+							<td><input type="text" name="producto" id="producto" size="50" value="${buscador.producto}"  onkeypress="return isNumberKey(event)" />
 								<c:if test="${!empty errores.campo.producto}">
 									<div class="errorEntrada">${errores.campo.producto}</div>
 								</c:if></td>
 						</tr>
 						<tr>
 							<td class="labelForm">Fecha:</td>
-							<td><input type="text" name="dia" id="dia" size="2" value="${buscador.dia}" />
-								<input type="text" name="mes" id="mes" size="2" value="${buscador.mes}" />
-								<input type="text" name="anio" id="anio" size="4" value="${buscador.anio}" />
+							<td><input type="text" name="dia" id="dia" size="2" value="${buscador.dia}"/>
+								<input type="text" name="mes" id="mes" size="2" value="${buscador.mes}"/>
+								<input type="text" name="anio" id="anio" size="4" value="${buscador.anio}"/>
 								<c:if test="${!empty errores.campo.fecha}">
 									<div class="errorEntrada">${errores.campo.fecha}</div>
 								</c:if></td>
 						</tr>
 						<tr>
 							<td></td>
-							<td class="comment">dd/mm/yyy</td>
+							<td class="comment">dd/mm/yyyy</td>
 						</tr>
 						<tr>
 							<td class="labelForm">Estado:</td>
@@ -119,26 +119,26 @@
 					<fieldset>
 						<legend>Resultado de la búsqueda</legend>
 						<table border="1" width="100%" cellspacing="0">
-							<tr>
-								<td>Fecha</td>
-								<td>Comprador</td>
-								<td>Vendedor</td>
-								<td>Cant. Productos</td>
-								<td>Monto</td>
-								<td>Estado</td>
-								<td>Detalles</td>
-								<td>Anular</td>
+							<tr  style="background-color: #4AA; color: White;">
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Fecha</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Comprador</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Vendedor</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Cant. Productos</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Monto</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Estado</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Detalles</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Anular</td>
 							</tr>
 							<c:forEach items="${buscador.resultado}" var="row">
 								<tr>
-									<td><c:out value="${row.fecha}" /></td>
-									<td><c:out value="${row.comprador}" /></td>
-									<td><c:out value="${row.vendedor}" /></td>
-									<td><c:out value="${row.cantProductos}" /></td>
-									<td><c:out value="${row.montoTotal}" /></td>
-									<td><c:out value="${row.estadoDescripcion}" /></td>
-									<td align="center"><img src="imagenes/iconos/glasses.gif" onclick="javascript:abrirPopUpConParam('popupDetalleOrden.jsp','idOrden','${row.id}')" alt="Ver" /></td>
-									<td align="center">
+									<td style="border: 1px solid #CCC"><c:out value="${row.fecha}" /></td>
+									<td style="border: 1px solid #CCC"><c:out value="${row.comprador}" /></td>
+									<td style="border: 1px solid #CCC"><c:out value="${row.vendedor}" /></td>
+									<td style="border: 1px solid #CCC"><c:out value="${row.cantProductos}" /></td>
+									<td style="border: 1px solid #CCC"><c:out value="${row.montoTotal}" /></td>
+									<td style="border: 1px solid #CCC"><c:out value="${row.estadoDescripcion}" /></td>
+									<td style="border: 1px solid #CCC" align="center"><img src="imagenes/iconos/glasses.gif" onclick="javascript:abrirPopUpConParam('popupDetalleOrden.jsp','idOrden','${row.id}')" alt="Ver" /></td>
+									<td style="border: 1px solid #CCC" align="center">
 										<c:if test="${row.estado == 1}">
 											<img src="imagenes/iconos/delete.gif" onclick="javascript:anularObject('${row.id}');" alt="Anular" />
 										</c:if><c:if test="${row.estado != 1}">
