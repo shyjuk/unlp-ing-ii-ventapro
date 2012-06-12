@@ -52,8 +52,7 @@ public class BuscarProductoServlet extends ServletPagina {
 		req.setAttribute("listaId", this.setListaId(buscadorProducto));
 
 		req.setAttribute("marcas", Marca.buscarMarcas(null));
-		req.setAttribute("tiposProducto",
-				TipoProducto.buscarTiposProducto(null));
+		req.setAttribute("tiposProducto",TipoProducto.buscarTiposProducto(null));
 	}
 
 	@Override

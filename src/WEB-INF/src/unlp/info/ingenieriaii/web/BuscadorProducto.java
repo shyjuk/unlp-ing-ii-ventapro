@@ -22,6 +22,12 @@ public class BuscadorProducto extends Buscador<Producto> {
 				this.getIdTipoProducto(), this.getCodigo(), this.getNombre(),
 				this.getEnVenta());
 	}
+	
+	protected ArrayList<Producto> ejecutarBusquedaAll(AccesoDb db)
+			throws SQLException {
+
+		return Producto.buscarProductos(db);
+	}
 
 	@Override
 	protected void validarCriterios(Errores errores) {

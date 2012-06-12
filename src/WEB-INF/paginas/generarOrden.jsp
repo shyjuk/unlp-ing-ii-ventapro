@@ -55,7 +55,7 @@
 			</tr>
 			<tr>
 				<td class="funcs funcsPrincipales">
-					<a class="funcPrincipal" href="#">Gestión de productos</a> 
+					<a class="funcPrincipal" href="agregarProducto.jsp">Gestión de productos</a> 
 					<a class="funcPrincipal funcPrincipalAct"  href="generarOrden.jsp">Ventas</a> <a
 					class="funcPrincipal" href="#">Administración de clientes</a> <a
 					class="funcPrincipal" href="#">Reportes</a> <a
@@ -81,8 +81,8 @@
 			<tr>
 				<td></td>
 				<td class="botonera"><input type="submit" value="Generar Orden"
-					name="btnAceptar" /> <input type="submit" value="Cancelar"
-					name="btnCancelar" onclick="cancelar();" /></td>
+					name="btnAceptar"></input> <input type="submit" value="Cancelar"
+					name="btnCancelar" onclick="return confirm('¿Esta seguro que desea cancelar la operación?')"></input></td>
 			</tr>
 		</table>
 	</form>
