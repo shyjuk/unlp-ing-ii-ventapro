@@ -19,18 +19,16 @@ BEGIN
 	      o.estado as OrdenDeVenta_estado,
 	      concat(P.nroDocumento,' - ',P.nombre) as OrdenDeVenta_comprador,
       	u.nombre as OrdenDeVenta_vendedor,
-        f.idFactura as Factura_idFactura,
-        f.tipo as Factura_tipo,
-        f.monto as Factura_monto,
-        f.medioPago as Factura_medioPago,
-        f.anulada  as Factura_anulada
-    FROM tbl_ordenes_venta O,
+        '' as Factura_idFactura,
+        '' as Factura_tipo,
+        '' as Factura_monto,
+        '' as Factura_medioPago,
+        ''  as Factura_anulada
+    FROM tbl_ordenes_venta  o,
         tbl_personas P,
-        tbl_usuarios u,
-        tbl_factura f
+        tbl_usuarios u
     WHERE o.idcliente = p.idpersona
     and o.idVendedor = u.idUsuario
-    and f.idOrdenVenta = o.idOrdenVenta
     and o.idvendedor = IFNULL(vend_id,O.idvendedor)
     and P.nroDocumento = IFNULL(comp_dni,p.nroDocumento)
     and P.nombre like concat('%',IFNULL(comp_nombre,P.nombre),'%')

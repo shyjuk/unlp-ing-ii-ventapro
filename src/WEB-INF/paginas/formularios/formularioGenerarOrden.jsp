@@ -137,7 +137,7 @@
 			<td colspan="5" class="separador"></td>
 		</tr>
 		<tr>
-			<td colspan="5" align="right"><button style="width: 125px">Buscar</button></td>
+			<td colspan="5" align="right"><input type="submit" value="Buscar" name="btnBuscar"></input></td>
 		</tr>
 	</table>
 	<table width="100%" style="border-collapse: collapse;">
