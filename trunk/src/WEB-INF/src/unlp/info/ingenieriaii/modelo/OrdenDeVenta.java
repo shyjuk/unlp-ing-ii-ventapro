@@ -263,8 +263,9 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	}
 
 	public String getMontoDetalle() {
-		String mp = this.getFactura().getMedioPago();
-		return MediosDePago.getDescripcionPara(Integer.valueOf(mp));
+		//String mp = this.getFactura().getMedioPago();
+		//return MediosDePago.getDescripcionPara(Integer.valueOf(mp));
+		return "";
 	}
 
 	public List<Item> getItems() {

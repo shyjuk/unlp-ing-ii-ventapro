@@ -36,6 +36,33 @@ public class GenerarOrdenServlet extends ServletPagina {
 		return lista.toString();
 	}
 	
+	private void setBuscador(String nombre, String codigo, String idMarca,
+			String idTipoProducto, String incluirOcultos,
+			HttpServletRequest req, boolean validar) throws SQLException {
+		BuscadorProducto buscadorProducto = new BuscadorProducto();
+		Integer intIdMarca = Utiles.esVacio(idMarca) ? null : new Integer(
+				idMarca);
+		Integer intIdTipoProducto = Utiles.esVacio(idTipoProducto) ? null
+				: new Integer(idTipoProducto);
+		Boolean blnIncluirOcultos = Utiles.esVacio(incluirOcultos) ? Boolean.FALSE
+				: new Boolean(incluirOcultos);
+		Errores errores;
+
+		buscadorProducto.setNombre(Utiles.esVacio(nombre) ? null:nombre);
+		buscadorProducto.setCodigo(Utiles.esVacio(codigo) ? null: codigo);
+		buscadorProducto.setIdMarca(intIdMarca);
+		buscadorProducto.setIdTipoProducto(intIdTipoProducto);
+		buscadorProducto.setEnVenta(blnIncluirOcultos ? null : Boolean.TRUE);
+		errores = buscadorProducto.buscar(validar);
+
+		req.setAttribute("buscador", buscadorProducto);
+		req.setAttribute("errores", errores);
+		req.setAttribute("listaId", this.setListaId(buscadorProducto));
+
+		req.setAttribute("marcas", Marca.buscarMarcas(null));
+		req.setAttribute("tiposProducto",TipoProducto.buscarTiposProducto(null));
+	}
+
 
 	private void setAll(HttpServletRequest req, boolean validar) throws SQLException {
 		BuscadorProducto buscadorProducto = new BuscadorProducto();
@@ -59,44 +86,52 @@ public class GenerarOrdenServlet extends ServletPagina {
 		Boolean validar=false;
 		
 		req.setAttribute("orden", new OrdenDeVenta());
-		this.setAll(req, validar);
+		//this.setAll(req, validar);
+		this.setBuscador(null, null, null, null, null, req, false);
 
 		super.procesarGet(req, resp);
 	}
-	/*
+	
 	protected void procesarPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, SQLException {
-		OrdenDeVenta orden = new OrdenDeVenta();
-		String idUsuario = req.getParameter("idVendedor");
-		String idCliente = req.getParameter("idCliente");
-		String idMarca = req.getParameter("idMarca");
-		String idTipoProducto = req.getParameter("idTipoProducto");
-		List<Item> items = new List<Item>();
+//		OrdenDeVenta orden = new OrdenDeVenta();
+//		String idUsuario = req.getParameter("idVendedor");
+//		String idCliente = req.getParameter("idCliente");
+//		String idMarca = req.getParameter("idMarca");
+//		String idTipoProducto = req.getParameter("idTipoProducto");
+//		List<Item> items = new List<Item>();
+//		
+//		
+//		Errores errores;
+//
+//		//orden.setNumero(numero);
+//		orden.setIdUsuario(Utiles.esVacio(idUsuario) ? null : new Integer(idUsuario));
+//		orden.setEstado("Pendiente");
+//		orden.setIdCliente(Utiles.esVacio(idCliente) ? null : new Integer(idCliente));
+//		orden.setFactura(null);
+//		orden.setIdFactura(null);
+//		orden.setItems(items);
+//		
+//		errores = orden.guardar();
+//
+//		if (errores.esVacio()) {
+//
+//			resp.sendRedirect("generarOrden.jsp");
+//		} else {
+//
+//			req.setAttribute("producto", producto);
+//			req.setAttribute("tipoProducto", producto);
+//			req.setAttribute("errores", errores);
+//			this.setCombos(req);
+//
+//			super.procesarPost(req, resp);
+//		}
 		
-		
-		Errores errores;
-
-		//orden.setNumero(numero);
-		orden.setIdUsuario(Utiles.esVacio(idUsuario) ? null : new Integer(idUsuario));
-		orden.setEstado("Pendiente");
-		orden.setIdCliente(Utiles.esVacio(idCliente) ? null : new Integer(idCliente));
-		orden.setFactura(null);
-		orden.setIdFactura(null);
-		orden.setItems(items);
-		
-		errores = orden.guardar();
-
-		if (errores.esVacio()) {
-
-			resp.sendRedirect("generarOrden.jsp");
-		} else {
-
-			req.setAttribute("producto", producto);
-			req.setAttribute("tipoProducto", producto);
-			req.setAttribute("errores", errores);
-			this.setCombos(req);
-
-			super.procesarPost(req, resp);
-		}
-	}*/
+		this.setBuscador(req.getParameter("nombre"),
+				req.getParameter("codigo"), req.getParameter("idMarca"),
+				req.getParameter("idTipoProducto"),
+				req.getParameter("chkIncluir"), req,
+				req.getParameter("btnBuscar") != null);
+		super.procesarPost(req, resp);
+	}
 }
