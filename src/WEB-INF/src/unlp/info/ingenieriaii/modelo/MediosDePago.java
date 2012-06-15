@@ -1,5 +1,8 @@
 package unlp.info.ingenieriaii.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum MediosDePago {
 	EFECTIVO {
 		@Override
@@ -48,5 +51,13 @@ public enum MediosDePago {
 			return DEBITO.getDescripcion();
 		}
 		return "";
+	}
+	
+	public static List<MediosDePago> todosMediosDePago() {
+		List<MediosDePago> todos = new ArrayList<MediosDePago>();
+		todos.add(MediosDePago.EFECTIVO);
+		todos.add(MediosDePago.DEBITO);
+		todos.add(MediosDePago.CREDITO);
+		return todos;
 	}
 }

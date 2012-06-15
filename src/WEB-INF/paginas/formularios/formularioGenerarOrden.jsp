@@ -6,82 +6,104 @@
 
 <fieldset>
 	<legend>Datos de la Orden</legend>
-	<!--  
+	
 	<table width="100%">
 		<tr>
-			<td align="left" colspan=1><label>Nombre del Vendedor:</label></td>
-
-			<td><select name="nombreV" id="idVendedor" style="width: 200px"
-				onchange="redirect(this.options.selectedIndex)">
+			<td width="25%" class="labelForm">Vendedor:</td>
+			<td width="75%"><b>${vendedor.nombre}</b></td>
+		</tr>
+		<tr>
+			<td class="labelForm">Fecha:</td>
+			<td>${fechaO}</td>
+		</tr>
+		<tr>
+			<td class="labelForm">Medio de pago:</td>
+			<td><select name="medioPago" style="width: 30ex" onchange="redirect(this.options.selectedIndex)">
 					<option
-						<c:if test="${empty orden.idUsuario}">selected="selected"</c:if>
-						value=""></option>
-					<c:forEach items="${vendedores}" var="vendedor">
-						<option
-							<c:if test="${orden.idUsuario == vendedor.id}">selected="selected"</c:if>
-							value="${vendedor.idUsuario}">${vendedor.nombre}</option>
+						<c:if test="${empty medioPago}">selected="selected"</c:if> value=""></option>
+						<c:forEach items="${listaMedioPago}" var="mprow">
+						<option <c:if test="${medioPago == mprow.id}">selected="selected"</c:if> value="${mprow.id}">${mprow.descripcion}
+						</option>
 					</c:forEach>
-			</select> * <c:if test="${!empty errores.campo.idVendedor}">
-					<div class="errorEntrada">${errores.campo.idMarca}</div>
-				</c:if></td>
+				</select> </td>
 		</tr>
 		<tr>
-			<td colspan=1 width="10%" align=left>FECHA:</td>
-			<td width="10%"><label id=fechaOrden>"${fechaO}"</label></td>
-			<td width="10%" align=left>HORA:</td>
-			<td width="10%"><label id=horaO> </label></td>
+			<td class="labelForm">Cant. cuotas:</td>
+			<td><select name="cuotas" style="width: 30ex" onchange="redirect(this.options.selectedIndex)">
+				<option  value=""></option>
+				</select></td>
 		</tr>
 		<tr>
-			<td colspan=12><hr></hr></td>
+			<td colspan=2><hr></hr></td>
 		</tr>
-	</table>-->
-	<table>
+	</table>
+	<table border="0">
 		<tr>
-			<td colspan=2 width="10%" align="left">DNI Cliente:</td>
-			<td width="15%" colspan=2><input type="text" name="dni" id="dni"
-				size="30" value="10462783" /></td>
-			<td width="20%" colspan=1 align="left">
-				<!--<button
-					style="width: 120px">Buscar Cliente</button> -->
-			</td>
+			<td class="labelForm">DNI Cliente:</td>
+			<td><input type="text" name="dni" id="dni" size="30" value="${dni}" />*</td>
+			<td colspan="2"><input type="submit" value="Buscar" name="btnBuscarCliente"></input></td>
 		</tr>
 		<tr style="height: 10px"></tr>
 		<tr>
-			<td colspan=2 width="10%" align="left">Nombre del Cliente:</td>
-			<td colspan=3><input style="width: 350px" value="Juan Perez"></input></td>
+			<td class="labelForm">Nombre y Apellido:</td>
+			<td colspan=3><input type="text" style="width: 350px" name="nombreCliente" value="${nombreCliente}"></input>*</td>
 		</tr>
+		<tr>
+			<td class="labelForm">Fecha nacimiento:</td>
+			<td colspan="3"><input type="text" name="dia" id="dia" size="2" value="${fechaNacimientoDia}"/>
+				<input type="text" name="mes" id="mes" size="2" value="${fechaNacimientoMes}"/>
+				<input type="text" name="anio" id="anio" size="4" value="${fechaNacimientoAnio}"/>*
+				<c:if test="${!empty errores.campo.fechaNacimiento}">
+					<div class="errorEntrada">${errores.campo.fechaNacimiento}</div>
+				</c:if></td>
+		</tr>
+		<tr>
+			<td class="labelForm">Teléfono:</td>
+			<td colspan=3><input type="text" style="width: 350px" name="telefono" value="${telefono}"></input></td>
+		</tr>
+		<tr>
+			<td class="labelForm">Celular:</td>
+			<td colspan=3><input type="text" style="width: 350px" name="celular" value="${celular}"></input></td>
+		</tr>
+		<tr>
+			<td class="labelForm">E-mail:</td>
+			<td colspan=3><input type="text" style="width: 350px" name="email" value="${email}"></input></td>
+		</tr>
+		
 	</table>
-	<!-- 
-	<table width=100%>
-		<tr style="height: 5px">
-			<td style="width: 145px" colspan=1 class="labelForm">Fecha:</td>
-			<td align="left"><input align="left" type="text" name="dia"
-				id="dia" size="2" value="" /> <input align="left" type="text"
-				name="mes" id="mes" size="2" value="" /> <input align="left"
-				type="text" name="anio" id="anio" size="4" value="" />
-				<div class="errorEntrada"></div></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td class="labelForm" align="left">dd/mm/aaaa</td>
-		</tr>
-	</table> -->
 	<table width=100%>
 		<tr>
-			<td colspan=2>DIRECCION</td>
+			<td colspan=6 height="30">Dirección:</td>
 		</tr>
 		<tr>
-			<td style="width: 175px">CALLE</td>
-			<td align="left"><input style="width: 250px" value="14"></input></td>
-			<td align="left">Nro.</td>
-			<td><input style="width: 60px" value="4084"></input></td>
-			<td>COD. POSTAL</td>
-			<td align="left"><input style="width: 60px" value="1897"></input></td>
+			<td class="labelForm">Provincia:</td>
+			<td><select name="provincia" style="width: 30ex" onchange="redirect(this.options.selectedIndex)">
+					<option
+						<c:if test="${empty provincia}">selected="selected"</c:if> value=""></option>
+						<c:forEach items="${listaProvincias}" var="rowProvincia">
+						<option <c:if test="${provincia == rowProvincia}">selected="selected"</c:if> value="${rowProvincia}">${rowProvincia}
+						</option>
+					</c:forEach>
+				</select>
+			</td>
+			<td class="labelForm">Localidad:</td>
+			<td colspan="3"><select name="localidad" style="width: 30ex" onchange="redirect(this.options.selectedIndex)">
+					<option
+						<c:if test="${empty localidad}">selected="selected"</c:if> value=""></option>
+						<c:forEach items="${listaLocalidades}" var="rowLocalidad">
+						<option <c:if test="${localidad == rowLocalidad}">selected="selected"</c:if> value="${rowLocalidad}">${rowLocalidad}
+						</option>
+					</c:forEach>
+				</select>
+			</td>
 		</tr>
 		<tr>
-			<td>E-MAIL</td>
-			<td><input style="width: 250px"></input></td>
+			<td class="labelForm">Calle:</td>
+			<td><input type="text" style="width: 200px" name="calle" value="${calle}"></input></td>
+			<td class="labelForm">Nro:</td>
+			<td><input type="text" size="10" name="numero" value="${numero}"></input></td>
+			<td class="labelForm">Codigo Postal:</td>
+			<td><input type="text" size="10" name="codPostal" value="${codPostal}"></input></td>
 		</tr>
 	</table>
 </fieldset>
