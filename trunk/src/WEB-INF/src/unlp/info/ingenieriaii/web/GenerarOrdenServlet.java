@@ -1,20 +1,18 @@
 package unlp.info.ingenieriaii.web;
 
 import java.io.IOException;
-
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import unlp.info.ingenieriaii.modelo.Errores;
-import unlp.info.ingenieriaii.modelo.Estados;
-import unlp.info.ingenieriaii.modelo.Item;
 import unlp.info.ingenieriaii.modelo.Marca;
+import unlp.info.ingenieriaii.modelo.MediosDePago;
 import unlp.info.ingenieriaii.modelo.OrdenDeVenta;
 import unlp.info.ingenieriaii.modelo.Producto;
 import unlp.info.ingenieriaii.modelo.TipoProducto;
@@ -60,6 +58,9 @@ public class GenerarOrdenServlet extends ServletPagina {
 		req.setAttribute("listaId", this.setListaId(buscadorProducto));
 
 		req.setAttribute("marcas", Marca.buscarMarcas(null));
+		req.setAttribute("vendedor", Usuario.buscarUsuarios().get(0)); // Siempre tenemos 1 usuario
+		req.setAttribute("fechaO", DateFormat.getInstance().format(new Date()));
+		req.setAttribute("listaMedioPago", MediosDePago.todosMediosDePago());
 		req.setAttribute("tiposProducto",TipoProducto.buscarTiposProducto(null));
 	}
 
