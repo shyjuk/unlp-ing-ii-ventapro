@@ -1,10 +1,11 @@
 package unlp.info.ingenieriaii.modelo;
 
 import java.math.BigDecimal;
+
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
@@ -21,6 +22,8 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private Integer idFactura;
 	private List<Item> items;
 	private Factura factura;
+	
+	
 
 	// input - esto deberia modificarse usando los objetos reales
 	private String comprador;
@@ -114,7 +117,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	protected void prepararAlta(AccesoDb db) throws SQLException {
 
 		db.prepararLlamada(QUERY_ALTA);
-		db.setParamDate(1, (java.sql.Date) new Date());
+		db.setParamDate(1, new Date((new java.util.Date()).getTime()));
 	}
 
 	@Override
@@ -138,6 +141,10 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	@Override
 	protected Errores validarCampos() {
 		Errores errores = new Errores();
+		
+		if (this.getId() == null) {
+			return errores;
+		}
 		// AGREGAR VALIDACIONES FALTANTES
 		if (Utiles.esVacio(this.getEstado())) {
 			errores.setErrorCampo("estado", "El estado es vacio");

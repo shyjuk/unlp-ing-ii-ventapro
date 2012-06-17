@@ -12,7 +12,7 @@ BEGIN
     );
 
     SELECT 0 AS CODIGO_ERROR,
-    	O.idOrden AS Orden_idOrden
+    	O.idOrdenVenta AS OrdenDeVenta_idOrdenVenta
     FROM tbl_ordenes_venta O
-    WHERE O.idOrden = LAST_INSERT_ID();
+    WHERE O.idOrdenVenta = LAST_INSERT_ID();
 END$$

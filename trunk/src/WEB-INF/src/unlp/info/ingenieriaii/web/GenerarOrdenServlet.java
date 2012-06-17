@@ -11,18 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import unlp.info.ingenieriaii.modelo.Errores;
+import unlp.info.ingenieriaii.modelo.Estados;
+import unlp.info.ingenieriaii.modelo.Localidad;
 import unlp.info.ingenieriaii.modelo.Marca;
 import unlp.info.ingenieriaii.modelo.MediosDePago;
 import unlp.info.ingenieriaii.modelo.OrdenDeVenta;
 import unlp.info.ingenieriaii.modelo.Producto;
+import unlp.info.ingenieriaii.modelo.Provincia;
 import unlp.info.ingenieriaii.modelo.TipoProducto;
 import unlp.info.ingenieriaii.modelo.Usuario;
 
 public class GenerarOrdenServlet extends ServletPagina {
 
-	/**
-	 * 
-	 */
+	public static final String EN_VENTA = "EN_VENTA";
+	
 	private static final long serialVersionUID = -1531432703598334033L;
 	
 	private String setListaId(BuscadorProducto buscador) {
@@ -56,12 +58,8 @@ public class GenerarOrdenServlet extends ServletPagina {
 		req.setAttribute("buscador", buscadorProducto);
 		req.setAttribute("errores", errores);
 		req.setAttribute("listaId", this.setListaId(buscadorProducto));
-
-		req.setAttribute("marcas", Marca.buscarMarcas(null));
-		req.setAttribute("vendedor", Usuario.buscarUsuarios().get(0)); // Siempre tenemos 1 usuario
-		req.setAttribute("fechaO", DateFormat.getInstance().format(new Date()));
-		req.setAttribute("listaMedioPago", MediosDePago.todosMediosDePago());
-		req.setAttribute("tiposProducto",TipoProducto.buscarTiposProducto(null));
+		
+		
 	}
 
 
@@ -128,11 +126,35 @@ public class GenerarOrdenServlet extends ServletPagina {
 //			super.procesarPost(req, resp);
 //		}
 		
-		this.setBuscador(req.getParameter("nombre"),
-				req.getParameter("codigo"), req.getParameter("idMarca"),
-				req.getParameter("idTipoProducto"),
-				req.getParameter("chkIncluir"), req,
-				req.getParameter("btnBuscar") != null);
-		super.procesarPost(req, resp);
+		req.setAttribute("listaProvincias", Provincia.buscarProvincias(null));
+		req.setAttribute("listaLocalidades", Localidad.buscarLocalidad(null));
+		req.setAttribute("marcas", Marca.buscarMarcas(null));
+		req.setAttribute("vendedor", Usuario.buscarUsuarios().get(0)); // Siempre tenemos 1 usuario
+		req.setAttribute("fechaO", DateFormat.getInstance().format(new Date()));
+		req.setAttribute("listaMedioPago", MediosDePago.todosMediosDePago());
+		req.setAttribute("tiposProducto",TipoProducto.buscarTiposProducto(null));
+		
+		if (req.getParameter("btnComenzar") != null) {
+			OrdenDeVenta orden = new OrdenDeVenta();
+			orden.guardar(); // Estado inicial de la orden
+			req.setAttribute("estadoVenta", EN_VENTA);
+			
+			this.setBuscador(req.getParameter("nombre"),
+					req.getParameter("codigo"), req.getParameter("idMarca"),
+					req.getParameter("idTipoProducto"),
+					req.getParameter("chkIncluir"), req,
+					req.getParameter("btnBuscar") != null);
+			
+			super.procesarPost(req, resp);
+		} else {
+			this.setBuscador(req.getParameter("nombre"),
+					req.getParameter("codigo"), req.getParameter("idMarca"),
+					req.getParameter("idTipoProducto"),
+					req.getParameter("chkIncluir"), req,
+					req.getParameter("btnBuscar") != null);
+			super.procesarPost(req, resp);
+		}
+		
+		
 	}
 }
