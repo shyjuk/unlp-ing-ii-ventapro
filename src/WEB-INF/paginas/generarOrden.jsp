@@ -93,12 +93,10 @@
 							<tr>
 								<td width="25%" class="labelForm">Vendedor:</td>
 								<td width="75%"><b>${inputVenta.ordenDeVenta.vendedor}</b></td>
-								<!-- ${vendedor.nombre} -->
 							</tr>
 							<tr>
 								<td class="labelForm">Fecha:</td>
 								<td>${inputVenta.ordenDeVenta.fechaString}</td>
-								<!--${fechaO}-->
 							</tr>
 							<tr>
 								<td class="labelForm">Medio de pago:</td>
@@ -112,24 +110,18 @@
 									</select> </td>
 							</tr>
 							<tr>
-								<td class="labelForm">Cant. cuotas:</td>
-								<td><select name="cuotas" style="width: 30ex" onchange="redirect(this.options.selectedIndex)"  <%= enVenta ? "" : "disabled" %>>
-									<option  value=""></option>
-									</select></td>
-							</tr>
-							<tr>
 								<td colspan=2><hr></hr></td>
 							</tr>
 						</table>
 						<table border="0">
 							<tr>
 								<td class="labelForm">DNI Cliente:</td>
-								<td><input type="text" name="dni" id="dni" size="30" value="${inputVenta.dni}"  <%= enVenta ? "" : "disabled" %>/>*</td>
+								<td><input type="text" name="dniBusqueda" id="dniBusqueda" size="30" value="${inputVenta.dni}"  <%= enVenta ? "" : "disabled" %>/>*</td>
 								<td colspan="2"><input type="submit" value="Buscar" name="btnBuscarCliente" <%= enVenta ? "" : "disabled" %>></input></td>
-							</tr>
-							<c:if test="${!empty erroresInputVenta.campo.dni}">
+								<c:if test="${!empty erroresInputVenta.campo.dni}">
 								<div class="errorEntrada">${erroresInputVenta.campo.dni}</div>
 							</c:if>
+							</tr>
 							<tr style="height: 10px"></tr>
 							<tr>
 								<td class="labelForm">Nombre y Apellido:</td>
@@ -188,7 +180,7 @@
 								<td class="labelForm">Calle:</td>
 								<td><input type="text" style="width: 200px" name="calle" value="${inputVenta.ordenDeVenta.cliente.calle}" <%= enVenta ? "" : "disabled" %>></input></td>
 								<td class="labelForm">Nro:</td>
-								<td><input type="text" size="10" name="numero" value="${inputVenta.ordenDeVenta.cliente.numero}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td><input type="text" size="10" name="numero" value="${inputVenta.ordenDeVenta.cliente.numeroCalle}" <%= enVenta ? "" : "disabled" %>></input></td>
 								<td class="labelForm">Codigo Postal:</td>
 								<td><input type="text" size="10" name="codPostal" value="${inputVenta.ordenDeVenta.cliente.codPostal}" <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
@@ -244,9 +236,23 @@
 							<tr>
 								<td colspan="5" align="right"><input type="submit" value="Buscar" name="btnBuscar"  <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
+							<tr>
+								<td colspan="5" class="separador"></td>
+							</tr>
+							<tr>
+								<td colspan="5">
+									Codigo de producto:
+									<input type="text" name="codigoAgregar" id="codigoAgregar" value="${inputVenta.codigoAgregar}"  <%= enVenta ? "" : "disabled" %>/>
+									<input type="button" value="Agregar" name="btnAgregarProdPorCod" <%= enVenta ? "" : "disabled" %>/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="5" class="separador"></td>
+							</tr>
 						</table>
 						<table width="100%" style="border-collapse: collapse;">
 							<tr style="background-color: #4AA; color: White;">
+								<td style="text-align: center; border: 1px solid #CCC">Codigo</td>
 								<td style="text-align: center; border: 1px solid #CCC">Tipo</td>
 								<td style="text-align: center; border: 1px solid #CCC">Marca</td>
 								<td style="text-align: center; border: 1px solid #CCC">Nombre</td>
@@ -257,6 +263,7 @@
 							</tr>
 							<c:forEach items="${inputVenta.buscador.resultado}" var="producto">
 								<tr>
+									<td><c:out value="${producto.codigo}" /></td>
 									<td><c:out value="${producto.tipoProducto.nombre}" /></td>
 									<td><c:out value="${producto.marca.nombre}" /></td>
 									<td><c:out value="${producto.nombre}" /></td>
@@ -273,6 +280,40 @@
 								<td align="left"><input type="text" name="total" disabled></input></td>
 							</tr>
 						</table>
+						<table width="100%">
+							<tr>
+								<td class="separador"></td>
+							</tr>
+							<tr>
+								<td>Listado de productos seleccionados:</td>
+							</tr>
+							<tr>
+								<td class="separador"></td>
+							</tr>
+						</table>
+						<table width="100%" style="border-collapse: collapse;">
+							<tr style="background-color: #4AA; color: White;">
+								<td style="text-align: center; border: 1px solid #CCC">Codigo</td>
+								<td style="text-align: center; border: 1px solid #CCC">Tipo</td>
+								<td style="text-align: center; border: 1px solid #CCC">Marca</td>
+								<td style="text-align: center; border: 1px solid #CCC">Nombre</td>
+								<td style="text-align: center; border: 1px solid #CCC">Precio</td>
+								<td style="text-align: center; border: 1px solid #CCC">Cantidad</td>
+								<td style="border: 1px solid #CCC"></td>
+							</tr>
+							<c:forEach items="${inputVenta.ordenDeVenta.items}" var="rowItem">
+								<tr>
+									<td><c:out value="${rowItem.producto.codigo}" /></td>
+									<td><c:out value="${rowItem.producto.tipoProducto.nombre}" /></td>
+									<td><c:out value="${rowItem.producto.marca.nombre}" /></td>
+									<td><c:out value="${rowItem.producto.nombre}" /></td>
+									<td>$<c:out value="${rowItem.producto.precio}" /></td>
+									<td><input type="text" name="${rowItem.cantidad}" id="${rowItem.cantidad}" size="10" value="<c:out value="1" />"/></td>
+									<td><input type="button" value="Quitar" name="btnQuitar"></input></td>
+								</tr>
+							</c:forEach>
+						</table>
+						
 					</fieldset>
 					
 					

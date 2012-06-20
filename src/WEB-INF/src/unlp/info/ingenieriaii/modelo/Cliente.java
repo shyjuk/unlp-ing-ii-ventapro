@@ -1,5 +1,6 @@
 package unlp.info.ingenieriaii.modelo;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,12 +25,16 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 	private String telefono;
 	private String celular;
     private String email;
-    //private String direccion;
     
     private String calle;
-    private String numero;
+    private String numeroCalle;
     private String codPostal;
     
+    private Date fechaNacimiento;
+    // estos son para editar la fecha
+    private String fechaNacimientoDia;
+    private String fechaNacimientoMes;
+    private String fechaNacimientoAnio;
     
     private Provincia provincia;
     private Localidad localidad;
@@ -44,7 +49,8 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		this.setTelefono(rs);
 		this.setEmail(rs);
 		this.setCelular(rs);
-		//this.setDireccion(rs);
+		this.setCalle(rs);
+		this.setNumeroCalle(rs);
 		// VER QUE EL CLIENTE PUEDE NO TENER LOCALIDAD Y PROVINCIA
 		this.setLocalidad(new Localidad(rs));
 		this.setProvincia(new Provincia(rs));
@@ -160,8 +166,15 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		this.setCelular(this.getColumnaString(rs, "celular"));
 	}
 	
+	protected void setCalle(ResultSet rs) throws SQLException {
+		this.setCalle(this.getColumnaString(rs, "calle"));
+	}
 	
-	
+	protected void setNumeroCalle(ResultSet rs) throws SQLException {
+		this.setNumeroCalle(this.getColumnaString(rs, "numeroCalle"));
+	}
+
+		
 	public static ArrayList<Cliente> buscarCliente(AccesoDb db, String nombre, String apellido, String nroDocumento)
 			throws SQLException {
 		ArrayList<Cliente> resultado = new ArrayList<Cliente>();
@@ -304,12 +317,12 @@ return super.esValidoParaEliminar();
 		this.calle = calle;
 	}
 
-	public String getNumero() {
-		return numero;
+	public String getNumeroCalle() {
+		return numeroCalle;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setNumeroCalle(String numero) {
+		this.numeroCalle = numero;
 	}
 
 	public String getCodPostal() {
@@ -318,6 +331,38 @@ return super.esValidoParaEliminar();
 
 	public void setCodPostal(String codPostal) {
 		this.codPostal = codPostal;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getFechaNacimientoDia() {
+		return fechaNacimientoDia;
+	}
+
+	public void setFechaNacimientoDia(String fechaNacimientoDia) {
+		this.fechaNacimientoDia = fechaNacimientoDia;
+	}
+
+	public String getFechaNacimientoMes() {
+		return fechaNacimientoMes;
+	}
+
+	public void setFechaNacimientoMes(String fechaNacimientoMes) {
+		this.fechaNacimientoMes = fechaNacimientoMes;
+	}
+
+	public String getFechaNacimientoAnio() {
+		return fechaNacimientoAnio;
+	}
+
+	public void setFechaNacimientoAnio(String fechaNacimientoAnio) {
+		this.fechaNacimientoAnio = fechaNacimientoAnio;
 	}
 	
 	
