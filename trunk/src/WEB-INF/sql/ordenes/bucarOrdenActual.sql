@@ -2,14 +2,7 @@
 
 DELIMITER $$
 
-CREATE PROCEDURE `buscarOrden`(
-    comp_dni varchar(50), 
-    comp_nombre varchar(50),
-    vend_id varchar(50),
-    prod_code varchar(50),
-    fecha date,
-    estado  varchar(50)
-    )
+CREATE PROCEDURE `buscarOrdenActual` (idVendedor int) 
 BEGIN
     SELECT
 			o.idOrdenVenta as OrdenDeVenta_idOrdenVenta,
@@ -40,16 +33,6 @@ BEGIN
     FROM tbl_ordenes_venta  o left join tbl_personas P on o.idcliente = p.idpersona
         left join tbl_factura f on o.idOrdenVenta = f.idFactura
         inner join tbl_usuarios u on o.idVendedor = u.idUsuario
-    WHERE o.idvendedor = IFNULL(vend_id,O.idvendedor)
-    and P.nroDocumento = IFNULL(comp_dni,p.nroDocumento)
-    and P.nombre like concat('%',IFNULL(comp_nombre,P.nombre),'%')
-    and DATEDIFF(DATE_FORMAT(o.fechaHora, '%Y-%m-%d'),IFNULL(DATE_FORMAT(fecha, '%Y-%m-%d'),DATE_FORMAT(o.fechaHora, '%Y-%m-%d'))) = 0
-    and O.estado = IFNULL(estado,O.estado)
-    and O.estado <> 4
-    and (prod_code is null or exists (select 1 from tbl_items i,
-        tbl_productos prod
-        where i.idordenventa = o.idordenventa
-        and i.idproducto = prod.idproducto
-        and prod.codigo = prod_code))
-    ORDER BY O.fechaHora;
+    WHERE estado = 4
+    and o.idVendedor = idVendedor;
 END$$

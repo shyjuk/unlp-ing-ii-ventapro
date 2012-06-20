@@ -28,6 +28,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private String vendedor;
 
 	private static final String QUERY_BUSQUEDA = "{call buscarOrden (?,?,?,?,?,?)}";
+	private static final String QUERY_BUSQUEDA_ORDEN_ACTUAL = "{call buscarOrdenActual (?)}";
 	private static final String QUERY_BUSQUEDA_ITEMS = "{call buscarItemsDeOrden (?)}";
 	private static final String UPDATE_ESTADO = "{call modificarEstadoOrden(?,?)}";
 	private static final String QUERY_ALTA = "{call agregarOrden(?)}";
@@ -227,20 +228,15 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		ArrayList<OrdenDeVenta> resultado = new ArrayList<OrdenDeVenta>();
 		ResultSet rs;
 
-		db.prepararLlamada(QUERY_BUSQUEDA);
-		db.setParamVarchar(1, null);
-		db.setParamVarchar(2, null);
-		db.setParamVarchar(3, null);
-		db.setParamVarchar(4, null);
-		db.setParamDate(5, null);
-		db.setParamVarchar(6, String.valueOf(estado.getId()));
-
+		db.prepararLlamada(QUERY_BUSQUEDA_ORDEN_ACTUAL);
+		db.setParamInt(1, 1); // ID DEL UNICO VENDEDOR
 		rs = db.ejecutarQuery();
 
 		while (rs.next()) {
 			resultado.add(new OrdenDeVenta(rs));
 		}
 
+		// ESTO PARECE NO SER NECESARIO, VER SI SACARLO
 		for (OrdenDeVenta orden : resultado) {
 			db.prepararLlamada(QUERY_BUSQUEDA_ITEMS);
 			db.setParamInt(1, orden.getId());
