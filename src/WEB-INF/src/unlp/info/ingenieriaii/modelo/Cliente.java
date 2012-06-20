@@ -246,7 +246,7 @@ return super.esValidoParaEliminar();
 		return tipoDocumento;
 	}
 	public void setTipoDocumento(String tipoDocumento) {
-		this. tipoDocumento = tipoDocumento.trim();
+		this. tipoDocumento = tipoDocumento;
 	}
 
 	

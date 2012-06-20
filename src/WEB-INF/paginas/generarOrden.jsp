@@ -51,6 +51,9 @@
 				// busco si hay alguna orden en estado 4
 				inputVenta.actualizarConActual();
 			}
+			if (inputVenta.getBuscador() == null) {
+				inputVenta.setBuscador((BuscadorProducto)request.getAttribute("buscador"));
+			}
 			enVenta = (inputVenta.getOrdenDeVenta() != null);
 			
 		
@@ -124,6 +127,9 @@
 								<td><input type="text" name="dni" id="dni" size="30" value="${inputVenta.dni}"  <%= enVenta ? "" : "disabled" %>/>*</td>
 								<td colspan="2"><input type="submit" value="Buscar" name="btnBuscarCliente" <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
+							<c:if test="${!empty erroresInputVenta.campo.dni}">
+								<div class="errorEntrada">${erroresInputVenta.campo.dni}</div>
+							</c:if>
 							<tr style="height: 10px"></tr>
 							<tr>
 								<td class="labelForm">Nombre y Apellido:</td>
@@ -196,7 +202,7 @@
 							</tr>
 							<tr>
 								<td class="labelForm">Nombre:</td>
-								<td><input type="text" style="width: 300px" name="nombre" id="nombre" value="${buscador.nombre}"  <%= enVenta ? "" : "disabled" %>/> <c:if
+								<td><input type="text" style="width: 300px" name="nombre" id="nombre" value="${inputVenta.buscador.nombre}"  <%= enVenta ? "" : "disabled" %>/> <c:if
 										test="${!empty errores.campo.nombre}">
 										<div class="errorEntrada">${errores.campo.nombre}</div>
 									</c:if></td>
@@ -204,18 +210,18 @@
 								<td class="labelForm">Marca:</td>
 								<td><select style="width: 200px" name="idMarca" onchange="redirect(this.options.selectedIndex)"  <%= enVenta ? "" : "disabled" %>>
 										<option
-											<c:if test="${empty buscador.idMarca}">selected="selected"</c:if>
+											<c:if test="${empty inputVenta.buscador.idMarca}">selected="selected"</c:if>
 											value=""></option>
 										<c:forEach items="${marcas}" var="marca">
 											<option
-												<c:if test="${buscador.idMarca == marca.id}">selected="selected"</c:if>
+												<c:if test="${inputVenta.buscador.idMarca == marca.id}">selected="selected"</c:if>
 												value="${marca.id}">${marca.nombre}</option>
 										</c:forEach>
 								</select></td>
 							</tr>
 							<tr>
 								<td class="labelForm">Código:</td>
-								<td><input type="text" style="width: 100px" name="codigo" id="codigo" value="${buscador.codigo}"  <%= enVenta ? "" : "disabled" %>/> <c:if
+								<td><input type="text" style="width: 100px" name="codigo" id="codigo" value="${inputVenta.buscador.codigo}"  <%= enVenta ? "" : "disabled" %>/> <c:if
 										test="${!empty errores.campo.codigo}">
 										<div class="errorEntrada">${errores.campo.codigo}</div>
 									</c:if></td>
@@ -223,11 +229,11 @@
 								<td class="labelForm">Tipo de producto:</td>
 								<td><select style="width: 200px" name="idTipoProducto" onchange="redirect(this.options.selectedIndex)"  <%= enVenta ? "" : "disabled" %>>
 										<option
-											<c:if test="${empty buscador.idTipoProducto}">selected="selected"</c:if>
+											<c:if test="${empty inputVenta.buscador.idTipoProducto}">selected="selected"</c:if>
 											value=""></option>
 										<c:forEach items="${tiposProducto}" var="tipoProducto">
 											<option
-												<c:if test="${buscador.idTipoProducto == tipoProducto.id}">selected="selected"</c:if>
+												<c:if test="${inputVenta.buscador.idTipoProducto == tipoProducto.id}">selected="selected"</c:if>
 												value="${tipoProducto.id}">${tipoProducto.nombre}</option>
 										</c:forEach>
 								</select></td>
@@ -249,7 +255,7 @@
 								<td style="text-align: center; border: 1px solid #CCC">Cantidad</td>
 								<td style="border: 1px solid #CCC"></td>
 							</tr>
-							<c:forEach items="${buscador.resultado}" var="producto">
+							<c:forEach items="${inputVenta.buscador.resultado}" var="producto">
 								<tr>
 									<td><c:out value="${producto.tipoProducto.nombre}" /></td>
 									<td><c:out value="${producto.marca.nombre}" /></td>

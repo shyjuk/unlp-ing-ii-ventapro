@@ -58,8 +58,6 @@ public class GenerarOrdenServlet extends ServletPagina {
 		req.setAttribute("buscador", buscadorProducto);
 		req.setAttribute("errores", errores);
 		req.setAttribute("listaId", this.setListaId(buscadorProducto));
-		
-		
 	}
 
 
@@ -148,7 +146,13 @@ public class GenerarOrdenServlet extends ServletPagina {
 					req.getParameter("btnBuscar") != null);
 			
 			super.procesarPost(req, resp);
-		} else {
+		} else if (req.getParameter("btnBuscarCliente") != null) { 
+			InputVenta inputVentaBean = (InputVenta) req.getSession().getAttribute("inputVenta");
+			Errores errores = new Errores();
+			errores = inputVentaBean.buscarCliente();
+			req.setAttribute("erroresInputVenta", errores);
+			super.procesarPost(req, resp);
+		}else {
 			this.setBuscador(req.getParameter("nombre"),
 					req.getParameter("codigo"), req.getParameter("idMarca"),
 					req.getParameter("idTipoProducto"),
