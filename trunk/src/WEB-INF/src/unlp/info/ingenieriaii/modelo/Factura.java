@@ -1,7 +1,9 @@
 package unlp.info.ingenieriaii.modelo;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
 
@@ -9,9 +11,12 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 
 	private Integer numero;
 	private String tipo;
-	private Float monto;
+	private BigDecimal monto;
 	private boolean anulada;
-	private String medioPago;
+	private Integer medioPago;
+	private OrdenDeVenta ordenDeVenta;
+	
+	private static final String QUERY_ALTA = "{call generarFactura(?,?,?)}";
 	
 	public Factura(ResultSet rs) throws SQLException {
 		this.setDatos(rs);
@@ -33,10 +38,10 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public Float getMonto() {
+	public BigDecimal getMonto() {
 		return monto;
 	}
-	public void setMonto(Float monto) {
+	public void setMonto(BigDecimal monto) {
 		this.monto = monto;
 	}
 	public boolean isAnulada() {
@@ -63,8 +68,10 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 	}
 	@Override
 	protected void prepararAlta(AccesoDb db) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		db.prepararLlamada(QUERY_ALTA);
+		db.setParamInt(1, this.getOrdenDeVenta().getId());
+		db.setParamDecimal(2, this.getMonto());
+		db.setParamInt(3, this.getMedioPago());
 	}
 	@Override
 	protected void prepararModificacion(AccesoDb db) throws SQLException {
@@ -82,8 +89,9 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 	}
 	@Override
 	protected Errores validarCampos() {
-		// TODO Auto-generated method stub
-		return null;
+		Errores errores = new Errores();
+		// Completar validaciones
+		return errores;
 	}
 	@Override
 	protected void manejarErrorDuplicado(Errores errores, Factura copia) {
@@ -101,15 +109,31 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 		// TODO Auto-generated method stub
 		
 	}
-	public String getMedioPago() {
+	public Integer getMedioPago() {
 		return medioPago;
 	}
-	public void setMedioPago(String medioPago) {
+	public void setMedioPago(Integer medioPago) {
 		this.medioPago = medioPago;
 	}
 	
 	protected void setMedioPago(ResultSet rs) throws SQLException {
-		this.setMedioPago(String.valueOf(this.getColumnaInt(rs, "medioPago")));
+		this.setMedioPago(this.getColumnaInt(rs, "medioPago"));
+	}
+
+	public OrdenDeVenta getOrdenDeVenta() {
+		return ordenDeVenta;
+	}
+
+	public void setOrdenDeVenta(OrdenDeVenta ordenDeVenta) {
+		this.ordenDeVenta = ordenDeVenta;
+	}
+	
+	public void generarMontoTotal (List<Item> items) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (Item item : items) {
+			total = total.add(item.getPrecio().multiply(new BigDecimal(item.getCantidad())));
+		}
+		this.setMonto(total);
 	}
 	
 }

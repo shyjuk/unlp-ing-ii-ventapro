@@ -1,4 +1,4 @@
-DELIMITER $$
+delimiter $$
 
 CREATE PROCEDURE `buscarOrdenActual` (idVendedor int) 
 BEGIN

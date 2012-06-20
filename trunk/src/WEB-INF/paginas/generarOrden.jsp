@@ -125,7 +125,11 @@
 							<tr style="height: 10px"></tr>
 							<tr>
 								<td class="labelForm">Nombre y Apellido:</td>
-								<td colspan=3><input type="text" style="width: 350px" name="nombreCliente" value="${inputVenta.ordenDeVenta.cliente.nombre}"  <%= enVenta ? "" : "disabled" %>></input>*</td>
+								<td colspan=3><input type="text" style="width: 350px" name="nombreCliente" value="${inputVenta.ordenDeVenta.cliente.nombre}"  <%= enVenta ? "" : "disabled" %>></input>*
+								<c:if test="${!empty inputVenta.ordenDeVenta.erroresCliente.campo.nombre}">
+									<div class="errorEntrada">${inputVenta.ordenDeVenta.erroresCliente.campo.nombre}</div>
+								</c:if>
+								</td>
 							</tr>
 							<tr>
 								<td class="labelForm">Fecha nacimiento:</td>
@@ -192,6 +196,9 @@
 							<tr>
 								<td colspan="5" class="separador"></td>
 							</tr>
+							<c:if test="${!empty erroresInputVenta.campo.cliente}">
+								<div class="errorEntrada">${erroresInputVenta.campo.cliente}</div>
+							</c:if>
 							<tr>
 								<td class="labelForm">Nombre:</td>
 								<td><input type="text" style="width: 300px" name="nombre" id="nombre" value="${inputVenta.buscador.nombre}"  <%= enVenta ? "" : "disabled" %>/> <c:if
@@ -243,7 +250,10 @@
 								<td colspan="5">
 									Codigo de producto:
 									<input type="text" name="codigoAgregar" id="codigoAgregar" value="${inputVenta.codigoAgregar}"  <%= enVenta ? "" : "disabled" %>/>
-									<input type="button" value="Agregar" name="btnAgregarProdPorCod" <%= enVenta ? "" : "disabled" %>/>
+									<input type="submit" value="Agregar" name="btnAgregarProdPorCod" <%= enVenta ? "" : "disabled" %>/>
+									<c:if test="${!empty erroresInputVenta.campo.codigoAgregar}">
+										<div class="errorEntrada">${erroresInputVenta.campo.codigoAgregar}</div>
+									</c:if>
 								</td>
 							</tr>
 							<tr>
@@ -312,13 +322,12 @@
 									<td><input type="button" value="Quitar" name="btnQuitar"></input></td>
 								</tr>
 							</c:forEach>
-						</table>
-						
+							<c:if test="${!empty erroresInputVenta.campo.items}">
+								<div class="errorEntrada">${erroresInputVenta.campo.items}</div>
+							</c:if>
+						</table>	
 					</fieldset>
 					
-					
-					
-						
 					<c:if
 						test="${!empty errores.general}">
 						<div class="errorEntrada" style="text-align: center; margin: 2em;">

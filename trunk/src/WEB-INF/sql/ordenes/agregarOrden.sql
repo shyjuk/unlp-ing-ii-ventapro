@@ -5,7 +5,7 @@ BEGIN
 
     INSERT INTO tbl_ordenes_venta(idCliente, idVendedor, fechaHora, estado)
     VALUES(
-    	(SELECT idPersona FROM tbl_personas LIMIT 1),
+    	null,
     	(SELECT idPersona FROM tbl_personas LIMIT 1),
     	fechaHora,
     	4

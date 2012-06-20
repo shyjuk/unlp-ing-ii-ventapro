@@ -83,6 +83,15 @@ public class GenerarOrdenServlet extends ServletPagina {
 			throws ServletException, IOException, SQLException {
 		
 		this.setAll(req);
+
+		// set datos del request
+		InputVenta inputVentaBean = (InputVenta) req.getSession().getAttribute("inputVenta");
+		if (inputVentaBean != null) {
+			inputVentaBean.setDni((String)req.getParameter("dniBusqueda"));
+			if (!Utiles.esVacio((String)req.getParameter("medioPago"))) {
+				inputVentaBean.getOrdenDeVenta().getFactura().setMedioPago(Integer.valueOf((String)req.getParameter("medioPago")));
+			}
+		}
 		
 		if (req.getParameter("btnComenzar") != null) {
 			OrdenDeVenta orden = new OrdenDeVenta();
@@ -97,10 +106,21 @@ public class GenerarOrdenServlet extends ServletPagina {
 			
 			super.procesarPost(req, resp);
 		} else if (req.getParameter("btnBuscarCliente") != null) { 
-			InputVenta inputVentaBean = (InputVenta) req.getSession().getAttribute("inputVenta");
-			inputVentaBean.setDni((String)req.getParameter("dniBusqueda"));
 			Errores errores = new Errores();
 			errores = inputVentaBean.buscarCliente();
+			req.setAttribute("erroresInputVenta", errores);
+			super.procesarPost(req, resp);
+		} else if (req.getParameter("btnAgregarProdPorCod") != null) {
+			inputVentaBean.setCodigoAgregar((String)req.getParameter("codigoAgregar"));
+			Errores errores = new Errores();
+			errores = inputVentaBean.agregarProductoPorCodigo();
+			req.setAttribute("erroresInputVenta", errores);
+			super.procesarPost(req, resp);
+		} else if (req.getParameter("btnAceptar") != null) {
+			Errores errores = inputVentaBean.generarOrden();
+			if (errores.esVacio()) {
+				 req.getSession().setAttribute("inputVenta", new InputVenta());
+			}
 			req.setAttribute("erroresInputVenta", errores);
 			super.procesarPost(req, resp);
 		}else {

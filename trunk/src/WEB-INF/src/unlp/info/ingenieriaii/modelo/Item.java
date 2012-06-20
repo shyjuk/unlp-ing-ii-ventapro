@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
+import unlp.info.ingenieriaii.web.Utiles;
+import unlp.info.ingenieriaii.web.Validador;
 
 public class Item extends ObjetoPersistente<Item, ParEntero>{
 
@@ -15,8 +17,10 @@ public class Item extends ObjetoPersistente<Item, ParEntero>{
 	private Integer idProducto;
 	
 	private Producto producto;
+	private OrdenDeVenta ordenDeVenta;
 	
 	private static final String QUERY_BUSQUEDA_ITEMS = "{call buscarItemsDeOrden (?)}";
+	private static final String SQL_GENERAR_ITEM = "{call generarOrdenItem (?,?,?,?,?)}";
 	
 	public Item() {
 		// TODO Auto-generated constructor stub
@@ -77,18 +81,20 @@ public class Item extends ObjetoPersistente<Item, ParEntero>{
 	}
 	@Override
 	protected void prepararAlta(AccesoDb db) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		db.prepararLlamada(SQL_GENERAR_ITEM);
+		db.setParamInt(1, this.getOrdenDeVenta().getId());
+		db.setParamInt(2, this.getProducto().getId());
+		db.setParamInt(3, this.getCantidad());
+		db.setParamInt(4, 1); // ver si esto lo usamos en algun lado
+		db.setParamDecimal(5, this.getPrecio());
 	}
 	@Override
 	protected void prepararModificacion(AccesoDb db) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		// NO HAY MODIFICACIONES DE ITEMS
 	}
 	@Override
 	protected void prepararBaja(AccesoDb db) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		// NO HAY BAJAS DE ITEMS
 	}
 	@Override
 	protected void setId(ResultSet rs) throws SQLException {
@@ -101,8 +107,14 @@ public class Item extends ObjetoPersistente<Item, ParEntero>{
 	}
 	@Override
 	protected Errores validarCampos() {
-		// TODO Auto-generated method stub
-		return null;
+		Errores errores = new Errores();
+		Validador.validarDecimal(errores, "precio", Utiles.getNotNullValue(this.getPrecio()), 0, 50000, 2, false);
+		if (this.getProducto() == null || this.getProducto().getId() == null) {
+			errores.setErrorCampo("producto", "El producto no es valido");
+			return errores;
+		}
+		Validador.validarEntero(errores, "cantidad", Utiles.getNotNullValue(this.getCantidad()), 1, Integer.valueOf(this.getProducto().getStock()), false);
+		return errores;
 	}
 	@Override
 	protected void manejarErrorDuplicado(Errores errores, Item copia) {
@@ -160,6 +172,14 @@ public class Item extends ObjetoPersistente<Item, ParEntero>{
 
 	public void setProducto(Producto producto) {
 		this.producto = producto;
+	}
+
+	public OrdenDeVenta getOrdenDeVenta() {
+		return ordenDeVenta;
+	}
+
+	public void setOrdenDeVenta(OrdenDeVenta ordenDeVenta) {
+		this.ordenDeVenta = ordenDeVenta;
 	}
 	
 	

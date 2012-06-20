@@ -23,6 +23,8 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private List<Item> items;
 	private Factura factura;
 	private Cliente cliente;
+	
+	private Errores erroresCliente;
 
 	// input - esto deberia modificarse usando los objetos reales
 	private String vendedor;
@@ -31,6 +33,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private static final String QUERY_BUSQUEDA_ORDEN_ACTUAL = "{call buscarOrdenActual (?)}";
 	private static final String QUERY_BUSQUEDA_ITEMS = "{call buscarItemsDeOrden (?)}";
 	private static final String UPDATE_ESTADO = "{call modificarEstadoOrden(?,?)}";
+	private static final String GENERAR_ORDEN = "{call generarOrden(?,?)}";
 	private static final String QUERY_ALTA = "{call agregarOrden(?)}";
 
 	public OrdenDeVenta(ResultSet rs) throws SQLException {
@@ -121,9 +124,33 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 
 	@Override
 	protected void prepararModificacion(AccesoDb db) throws SQLException {
-		db.prepararLlamada(UPDATE_ESTADO);
-		db.setParamInt(1, this.getId());
-		db.setParamInt(2, Integer.valueOf(this.getEstado()));
+		
+		if (this.getEstado().equals(String.valueOf(Estados.PENDIENTE.getId()))) {
+			try {
+				// generar factura
+				this.getFactura().setOrdenDeVenta(this);
+				this.getFactura().generarMontoTotal(this.getItems());
+				this.getFactura().guardar();
+				// generar cliente
+				
+				// generar items
+				for (Item item : this.getItems()) {
+					item.guardar();
+				}
+				// actualizar orden
+				db.prepararLlamada(GENERAR_ORDEN);
+				db.setParamInt(1, this.getId());
+				db.setParamInt(2, this.getCliente().getId()); // ver como hago esto cuando el cliente es nuevo
+			} catch (Exception e) {
+				// deshacer todo para la orden
+				e.printStackTrace();
+			}
+		}else {
+			// Actualizacion de estado
+			db.prepararLlamada(UPDATE_ESTADO);
+			db.setParamInt(1, this.getId());
+			db.setParamInt(2, Integer.valueOf(this.getEstado()));
+		}
 	}
 
 	@Override
@@ -142,8 +169,9 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		Errores errores = new Errores();
 		
 		if (this.getId() == null) {
-			return errores;
+			return errores; 
 		}
+		
 		// AGREGAR VALIDACIONES FALTANTES
 		if (Utiles.esVacio(this.getEstado())) {
 			errores.setErrorCampo("estado", "El estado es vacio");
@@ -159,6 +187,19 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 				errores.setErrorCampo("estado", "El estado es invalido");
 			}
 		}
+		
+		if (this.getCliente() == null) {
+			errores.setErrorCampo("cliente", "Ingrese el cliente.");
+		}else{
+			this.setErroresCliente(this.getCliente().validarCampos());
+		}
+		
+		if (this.getItems() == null || this.getItems().isEmpty()) {
+			errores.setErrorCampo("items", "No ha agregado ningun producto a la orden.");
+		}else{
+			// validacion para cada item
+		}
+		
 		return errores;
 	}
 
@@ -316,6 +357,10 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	}
 
 	public Factura getFactura() {
+		if (factura == null && this.getId() != null) {
+			factura = new Factura();
+			factura.setOrdenDeVenta(this);
+		}
 		return factura;
 	}
 
@@ -344,4 +389,12 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		return "";
 	}
 
+	public Errores getErroresCliente() {
+		return erroresCliente;
+	}
+
+	public void setErroresCliente(Errores erroresCliente) {
+		this.erroresCliente = erroresCliente;
+	}
+	
 }
