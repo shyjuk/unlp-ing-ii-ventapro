@@ -131,7 +131,7 @@
 							</tr>
 							<c:forEach items="${buscador.resultado}" var="row">
 								<tr>
-									<td style="border: 1px solid #CCC"><c:out value="${row.fecha}" /></td>
+									<td style="border: 1px solid #CCC"><c:out value="${row.fechaString}" /></td>
 									<td style="border: 1px solid #CCC"><c:out value="${row.comprador}" /></td>
 									<td style="border: 1px solid #CCC"><c:out value="${row.vendedor}" /></td>
 									<td style="border: 1px solid #CCC"><c:out value="${row.cantProductos}" /></td>

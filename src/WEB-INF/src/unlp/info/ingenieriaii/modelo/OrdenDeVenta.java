@@ -1,10 +1,10 @@
 package unlp.info.ingenieriaii.modelo;
 
 import java.math.BigDecimal;
-
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -340,6 +340,12 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		this.cliente = cliente;
 	}
 	
-	
+	public String getFechaString () {
+		if (this.getFecha() != null) {
+		     SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy hh:mm aaa");		        
+		     return formateador.format(this.getFecha());
+		}
+		return "";
+	}
 
 }

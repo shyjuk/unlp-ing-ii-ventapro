@@ -47,7 +47,7 @@ public class ModificarClienteServlet extends ServletPagina {
 			cliente.setTipoDocumento(req.getParameter("tipoDocumento"));
 			cliente.setTelefono(req.getParameter("telefono"));
 			cliente.setEmail(req.getParameter("email"));
-			cliente.setDireccion(req.getParameter("direccion"));
+			//cliente.setDireccion(req.getParameter("direccion"));
 			//cliente.setLocalidad(req.getParameter("localidad"));
 			//cliente.setProvincia(req.getParameter("provincia"));
 
