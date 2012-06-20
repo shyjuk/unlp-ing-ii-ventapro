@@ -10,6 +10,7 @@ import unlp.info.ingenieriaii.modelo.OrdenDeVenta;
 public class InputVenta {
 	
 	private String dni;
+	private String codigoAgregar;
 	private BuscadorProducto buscador;
 	private OrdenDeVenta ordenDeVenta;
 	
@@ -86,4 +87,14 @@ public class InputVenta {
 
 		return errores;
 	}
+
+	public String getCodigoAgregar() {
+		return codigoAgregar;
+	}
+
+	public void setCodigoAgregar(String codigoAgregar) {
+		this.codigoAgregar = codigoAgregar;
+	}
+	
+	
 }

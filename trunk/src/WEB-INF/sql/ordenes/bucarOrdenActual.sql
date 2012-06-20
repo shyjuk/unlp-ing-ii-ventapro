@@ -1,5 +1,3 @@
-
-
 DELIMITER $$
 
 CREATE PROCEDURE `buscarOrdenActual` (idVendedor int) 
