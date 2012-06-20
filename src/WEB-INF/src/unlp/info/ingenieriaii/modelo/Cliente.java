@@ -1,13 +1,9 @@
 package unlp.info.ingenieriaii.modelo;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import unlp.info.ingenieriaii.modelo.Errores;
-import unlp.info.ingenieriaii.modelo.Cliente;
 import unlp.info.ingenieriaii.web.AccesoDb;
 import unlp.info.ingenieriaii.web.Utiles;
 import unlp.info.ingenieriaii.web.Validador;
@@ -15,7 +11,7 @@ import unlp.info.ingenieriaii.web.Validador;
 public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 	
 	private static final String QUERY_LECTURA = "{call leerCliente (?)}";
-	private static final String QUERY_BUSQUEDA = "{call buscarCliente (?, ?, ?)}";
+	private static final String QUERY_BUSQUEDA = "{call buscarCliente (?)}"; // AGREGAR MAS PARAMETROS DE SER NECESARIO
 	private static final String QUERY_ALTA = "{call agregarCliente (?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 	private static final String QUERY_MODIFICACION = "{call modificarCliente (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 	private static final String QUERY_BAJA = "{call eliminarCliente (?)}";
@@ -28,21 +24,23 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 	private String telefono;
     private String email;
     private String direccion;
-    private String localidad;
-    private String provincia;
+    
+    private Provincia provincia;
+    private Localidad localidad;
 
 	protected void setDatos(ResultSet rs) throws SQLException {
 
 		this.setId(rs);
 		this.setNombre(rs);
-		this.setApellido(rs);
+		//this.setApellido(rs);
 		this.setNroDocumento(rs);
 		this.setTipoDocumento(rs);
 		this.setTelefono(rs);
 		this.setEmail(rs);
-		this.setDireccion(rs);
-		this.setLocalidad(rs);
-		this.setProvincia(rs);
+		//this.setDireccion(rs);
+		// VER QUE EL CLIENTE PUEDE NO TENER LOCALIDAD Y PROVINCIA
+		this.setLocalidad(new Localidad(rs));
+		this.setProvincia(new Provincia(rs));
 	}
 	
 	protected Cliente getCopia(ResultSet rs) throws SQLException {
@@ -66,8 +64,8 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		db.setParamVarchar(5, this.getTelefono());
 		db.setParamVarchar(6, this.getEmail());
 		db.setParamVarchar(7, this.getDireccion());
-		db.setParamVarchar(8, this.getLocalidad());
-		db.setParamVarchar(9, this.getProvincia());
+		//db.setParamVarchar(8, this.getLocalidad());
+		//db.setParamVarchar(9, this.getProvincia());
 	}
 
 	protected void prepararModificacion(AccesoDb db) throws SQLException {
@@ -81,8 +79,8 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		db.setParamVarchar(6, this.getTelefono());
 		db.setParamVarchar(7, this.getEmail());
 		db.setParamVarchar(8, this.getDireccion());
-		db.setParamVarchar(9, this.getLocalidad());
-		db.setParamVarchar(10, this.getProvincia());
+		//db.setParamVarchar(9, this.getLocalidad());
+		//db.setParamVarchar(10, this.getProvincia());
 	}	
 
 	protected void prepararBaja(AccesoDb db) throws SQLException {
@@ -93,7 +91,7 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 	
 	protected void setId(ResultSet rs) throws SQLException {
 
-		this.setId(this.getColumnaInt(rs, "idCliente"));
+		this.setId(this.getColumnaInt(rs, "idPersona"));
 	}
 	
 	protected Errores validarCampos() {
@@ -106,8 +104,8 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		Validador.validarLongitud(errores, "telefono", this.getTelefono(), 1, 20);
 		Validador.validarLongitud(errores, "email", this.getEmail(), 1, 25);
 		Validador.validarLongitud(errores, "direccion", this.getDireccion(), 1, 100);
-		Validador.validarLongitud(errores, "localidad", this.getLocalidad(), 1, 35);
-		Validador.validarLongitud(errores, "provincia", this.getProvincia(), 1, 35);
+		//Validador.validarLongitud(errores, "localidad", this.getLocalidad(), 1, 35);
+		//Validador.validarLongitud(errores, "provincia", this.getProvincia(), 1, 35);
 		return errores;
 	}	
 	
@@ -154,16 +152,7 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 
 		this.setDireccion(this.getColumnaString(rs, "direccion"));
 	}
-	
-	protected void setLocalidad(ResultSet rs) throws SQLException {
 
-		this.setLocalidad(this.getColumnaString(rs, "localidad"));
-	}
-	
-	protected void setProvincia(ResultSet rs) throws SQLException {
-
-		this.setProvincia(this.getColumnaString(rs, "provincia"));
-	}
 	
 	
 	
@@ -173,9 +162,9 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		ResultSet rs;
 
 		db.prepararLlamada(QUERY_BUSQUEDA);
-		db.setParamVarchar(1, nombre);
-		db.setParamVarchar(2, apellido);
-		db.setParamVarchar(3, nroDocumento);
+		//db.setParamVarchar(1, nombre);
+		//db.setParamVarchar(2, apellido);
+		db.setParamVarchar(1, nroDocumento);
 		rs = db.ejecutarQuery();
 
 		while (rs.next()) {
@@ -278,26 +267,27 @@ return super.esValidoParaEliminar();
 		this.direccion = direccion.trim();
 	}
 	
-	
-	public String getLocalidad() {
-		return localidad;
-	}
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad.trim();
-	}
-	
-	
-	public String getProvincia() {
-		return provincia;
-	}
-	public void setProvincia(String provincia) {
-		this.provincia = provincia.trim();
-	}
 
 	@Override
 	protected void manejarErrorEnUso(Errores errores) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Provincia getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
+	}
+
+	public Localidad getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(Localidad localidad) {
+		this.localidad = localidad;
 	}
 
 

@@ -22,11 +22,9 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private Integer idFactura;
 	private List<Item> items;
 	private Factura factura;
-	
-	
+	private Cliente cliente;
 
 	// input - esto deberia modificarse usando los objetos reales
-	private String comprador;
 	private String vendedor;
 
 	private static final String QUERY_BUSQUEDA = "{call buscarOrden (?,?,?,?,?,?)}";
@@ -95,10 +93,10 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	protected void setDatos(ResultSet rs) throws SQLException {
 		this.setId(rs);
 		this.setEstado(rs);
-		this.setComprador(rs);
 		this.setVendedor(rs);
 		this.setFecha(rs);
 		this.setFactura(rs);
+		this.setCliente(new Cliente(rs));
 	}
 
 	@Override
@@ -219,13 +217,45 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 
 		return buscarOrdenes(new AccesoDb(), buscador);
 	}
+	
+	public static OrdenDeVenta buscarOrdenActual() throws SQLException {
+		ArrayList<OrdenDeVenta> resultado = buscarOrdenActual(new AccesoDb(), Estados.ARMANDOSE);
+		return resultado.isEmpty()? null : resultado.get(0);
+	}
+	
+	public static ArrayList<OrdenDeVenta> buscarOrdenActual(AccesoDb db, Estados estado) throws SQLException {
+		ArrayList<OrdenDeVenta> resultado = new ArrayList<OrdenDeVenta>();
+		ResultSet rs;
+
+		db.prepararLlamada(QUERY_BUSQUEDA);
+		db.setParamVarchar(1, null);
+		db.setParamVarchar(2, null);
+		db.setParamVarchar(3, null);
+		db.setParamVarchar(4, null);
+		db.setParamDate(5, null);
+		db.setParamVarchar(6, String.valueOf(estado.getId()));
+
+		rs = db.ejecutarQuery();
+
+		while (rs.next()) {
+			resultado.add(new OrdenDeVenta(rs));
+		}
+
+		for (OrdenDeVenta orden : resultado) {
+			db.prepararLlamada(QUERY_BUSQUEDA_ITEMS);
+			db.setParamInt(1, orden.getId());
+			rs = db.ejecutarQuery();
+			while (rs.next()) {
+				orden.getItems().add(new Item(rs));
+			}
+		}
+
+		db.cerrarQuery();
+		return resultado;
+	}
 
 	public void setEstado(ResultSet rs) throws SQLException {
 		this.setEstado(this.getColumnaString(rs, "estado"));
-	}
-
-	public void setComprador(ResultSet rs) throws SQLException {
-		this.setComprador(this.getColumnaString(rs, "comprador"));
 	}
 
 	public void setVendedor(ResultSet rs) throws SQLException {
@@ -237,11 +267,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	}
 
 	public String getComprador() {
-		return comprador;
-	}
-
-	public void setComprador(String comprador) {
-		this.comprador = comprador;
+		return this.getCliente().getNroDocumento() + " - " + this.getCliente().getNombre();
 	}
 
 	public String getVendedor() {
@@ -305,5 +331,15 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 
 		this.setFactura(new Factura(rs));
 	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	
 
 }

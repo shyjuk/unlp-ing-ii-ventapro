@@ -48,8 +48,8 @@ public class ModificarClienteServlet extends ServletPagina {
 			cliente.setTelefono(req.getParameter("telefono"));
 			cliente.setEmail(req.getParameter("email"));
 			cliente.setDireccion(req.getParameter("direccion"));
-			cliente.setLocalidad(req.getParameter("localidad"));
-			cliente.setProvincia(req.getParameter("provincia"));
+			//cliente.setLocalidad(req.getParameter("localidad"));
+			//cliente.setProvincia(req.getParameter("provincia"));
 
 						
 			errores = cliente.guardar();
