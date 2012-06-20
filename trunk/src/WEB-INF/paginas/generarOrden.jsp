@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  session="true" %>
 <%@ page import="unlp.info.ingenieriaii.modelo.SucursalUno"%>
 <%@ page import="unlp.info.ingenieriaii.modelo.*"%>
 <%@ page import="unlp.info.ingenieriaii.web.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:useBean id="inputVenta" scope="session" class="unlp.info.ingenieriaii.web.InputVenta" /> 
+<jsp:setProperty name="inputVenta" property="*" />
 
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -15,6 +16,8 @@
 <title>VentaPro - Generar Orden</title>
 
 <link rel="stylesheet" type="text/css" href="basico.css" />
+
+
 
 <script type="text/javascript">
 	function deleteObject (idObject) {
@@ -43,6 +46,13 @@
 		<% 
 			String estadoVenta = (String)request.getAttribute("estadoVenta");
 			Boolean enVenta = (Utiles.esVacio(estadoVenta)? false : (GenerarOrdenServlet.EN_VENTA.equals(estadoVenta)));
+			
+			if (inputVenta.getOrdenDeVenta() == null) {
+				// busco si hay alguna orden en estado 4
+				inputVenta.actualizarConActual();
+			}
+			enVenta = (inputVenta.getOrdenDeVenta() != null);
+			
 		
 		%>
 		<div class="header">
@@ -79,19 +89,21 @@
 						<table width="100%">
 							<tr>
 								<td width="25%" class="labelForm">Vendedor:</td>
-								<td width="75%"><b>${vendedor.nombre}</b></td>
+								<td width="75%"><b>${inputVenta.ordenDeVenta.vendedor}</b></td>
+								<!-- ${vendedor.nombre} -->
 							</tr>
 							<tr>
 								<td class="labelForm">Fecha:</td>
-								<td>${fechaO}</td>
+								<td>${inputVenta.ordenDeVenta.fechaString}</td>
+								<!--${fechaO}-->
 							</tr>
 							<tr>
 								<td class="labelForm">Medio de pago:</td>
 								<td><select name="medioPago" style="width: 30ex" onchange="redirect(this.options.selectedIndex)" <%= enVenta ? "" : "disabled" %>>
 										<option
-											<c:if test="${empty medioPago}">selected="selected"</c:if> value=""></option>
+											<c:if test="${empty inputVenta.ordenDeVenta.factura.medioPago}">selected="selected"</c:if> value=""></option>
 											<c:forEach items="${listaMedioPago}" var="mprow">
-											<option <c:if test="${medioPago == mprow.id}">selected="selected"</c:if> value="${mprow.id}">${mprow.descripcion}
+											<option <c:if test="${inputVenta.ordenDeVenta.factura.medioPago == mprow.id}">selected="selected"</c:if> value="${mprow.id}">${mprow.descripcion}
 											</option>
 										</c:forEach>
 									</select> </td>
@@ -109,13 +121,13 @@
 						<table border="0">
 							<tr>
 								<td class="labelForm">DNI Cliente:</td>
-								<td><input type="text" name="dni" id="dni" size="30" value="${dni}"  <%= enVenta ? "" : "disabled" %>/>*</td>
+								<td><input type="text" name="dni" id="dni" size="30" value="${inputVenta.dni}"  <%= enVenta ? "" : "disabled" %>/>*</td>
 								<td colspan="2"><input type="submit" value="Buscar" name="btnBuscarCliente" <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
 							<tr style="height: 10px"></tr>
 							<tr>
 								<td class="labelForm">Nombre y Apellido:</td>
-								<td colspan=3><input type="text" style="width: 350px" name="nombreCliente" value="${nombreCliente}"  <%= enVenta ? "" : "disabled" %>></input>*</td>
+								<td colspan=3><input type="text" style="width: 350px" name="nombreCliente" value="${inputVenta.ordenDeVenta.cliente.nombre}"  <%= enVenta ? "" : "disabled" %>></input>*</td>
 							</tr>
 							<tr>
 								<td class="labelForm">Fecha nacimiento:</td>
@@ -128,15 +140,15 @@
 							</tr>
 							<tr>
 								<td class="labelForm">Teléfono:</td>
-								<td colspan=3><input type="text" style="width: 350px" name="telefono" value="${telefono}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td colspan=3><input type="text" style="width: 350px" name="telefono" value="${inputVenta.ordenDeVenta.cliente.telefono}" <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
 							<tr>
 								<td class="labelForm">Celular:</td>
-								<td colspan=3><input type="text" style="width: 350px" name="celular" value="${celular}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td colspan=3><input type="text" style="width: 350px" name="celular" value="${inputVenta.ordenDeVenta.cliente.celular}" <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
 							<tr>
 								<td class="labelForm">E-mail:</td>
-								<td colspan=3><input type="text" style="width: 350px" name="email" value="${email}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td colspan=3><input type="text" style="width: 350px" name="email" value="${inputVenta.ordenDeVenta.cliente.email}" <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
 							
 						</table>
@@ -168,11 +180,11 @@
 							</tr>
 							<tr>
 								<td class="labelForm">Calle:</td>
-								<td><input type="text" style="width: 200px" name="calle" value="${calle}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td><input type="text" style="width: 200px" name="calle" value="${inputVenta.ordenDeVenta.cliente.calle}" <%= enVenta ? "" : "disabled" %>></input></td>
 								<td class="labelForm">Nro:</td>
-								<td><input type="text" size="10" name="numero" value="${numero}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td><input type="text" size="10" name="numero" value="${inputVenta.ordenDeVenta.cliente.numero}" <%= enVenta ? "" : "disabled" %>></input></td>
 								<td class="labelForm">Codigo Postal:</td>
-								<td><input type="text" size="10" name="codPostal" value="${codPostal}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td><input type="text" size="10" name="codPostal" value="${inputVenta.ordenDeVenta.cliente.codPostal}" <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
 						</table>
 					</fieldset>

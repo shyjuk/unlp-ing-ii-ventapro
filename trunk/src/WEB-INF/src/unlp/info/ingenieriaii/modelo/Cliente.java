@@ -22,8 +22,14 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 	private String nroDocumento;
 	private String tipoDocumento;
 	private String telefono;
+	private String celular;
     private String email;
-    private String direccion;
+    //private String direccion;
+    
+    private String calle;
+    private String numero;
+    private String codPostal;
+    
     
     private Provincia provincia;
     private Localidad localidad;
@@ -37,6 +43,7 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		this.setTipoDocumento(rs);
 		this.setTelefono(rs);
 		this.setEmail(rs);
+		this.setCelular(rs);
 		//this.setDireccion(rs);
 		// VER QUE EL CLIENTE PUEDE NO TENER LOCALIDAD Y PROVINCIA
 		this.setLocalidad(new Localidad(rs));
@@ -63,7 +70,7 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		db.setParamVarchar(4, this.getTipoDocumento());
 		db.setParamVarchar(5, this.getTelefono());
 		db.setParamVarchar(6, this.getEmail());
-		db.setParamVarchar(7, this.getDireccion());
+		
 		//db.setParamVarchar(8, this.getLocalidad());
 		//db.setParamVarchar(9, this.getProvincia());
 	}
@@ -78,7 +85,7 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		db.setParamVarchar(5, this.getTipoDocumento());
 		db.setParamVarchar(6, this.getTelefono());
 		db.setParamVarchar(7, this.getEmail());
-		db.setParamVarchar(8, this.getDireccion());
+		
 		//db.setParamVarchar(9, this.getLocalidad());
 		//db.setParamVarchar(10, this.getProvincia());
 	}	
@@ -103,7 +110,7 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		Validador.validarLongitud(errores, "tipoDocumento", this.getTipoDocumento(), 1, 15);
 		Validador.validarLongitud(errores, "telefono", this.getTelefono(), 1, 20);
 		Validador.validarLongitud(errores, "email", this.getEmail(), 1, 25);
-		Validador.validarLongitud(errores, "direccion", this.getDireccion(), 1, 100);
+		
 		//Validador.validarLongitud(errores, "localidad", this.getLocalidad(), 1, 35);
 		//Validador.validarLongitud(errores, "provincia", this.getProvincia(), 1, 35);
 		return errores;
@@ -148,11 +155,10 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		this.setEmail(this.getColumnaString(rs, "email"));
 	}
 	
-	protected void setDireccion(ResultSet rs) throws SQLException {
+	protected void setCelular(ResultSet rs) throws SQLException {
 
-		this.setDireccion(this.getColumnaString(rs, "direccion"));
+		this.setCelular(this.getColumnaString(rs, "celular"));
 	}
-
 	
 	
 	
@@ -258,14 +264,6 @@ return super.esValidoParaEliminar();
 	public void setEmail(String email) {
 		this. email = email;
 	}
-
-		
-	public String getDireccion() {
-		return direccion;
-	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion.trim();
-	}
 	
 
 	@Override
@@ -290,5 +288,38 @@ return super.esValidoParaEliminar();
 		this.localidad = localidad;
 	}
 
+	public String getCelular() {
+		return celular;
+	}
 
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	public String getCalle() {
+		return calle;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getCodPostal() {
+		return codPostal;
+	}
+
+	public void setCodPostal(String codPostal) {
+		this.codPostal = codPostal;
+	}
+	
+	
+	
 }

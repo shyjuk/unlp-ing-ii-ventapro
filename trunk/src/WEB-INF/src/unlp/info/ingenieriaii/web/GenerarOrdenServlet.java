@@ -126,6 +126,8 @@ public class GenerarOrdenServlet extends ServletPagina {
 //			super.procesarPost(req, resp);
 //		}
 		
+		
+		
 		req.setAttribute("listaProvincias", Provincia.buscarProvincias(null));
 		req.setAttribute("listaLocalidades", Localidad.buscarLocalidad(null));
 		req.setAttribute("marcas", Marca.buscarMarcas(null));
