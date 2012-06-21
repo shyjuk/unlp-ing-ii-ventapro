@@ -24,10 +24,42 @@ public class InputVenta {
 		if (this.getOrdenDeVenta() == null) {
 			errores.setGeneral("Ha ocurrido un error inesperado. Por favor intente más tarde.");
 		}else {
-			this.getOrdenDeVenta().setEstado(String.valueOf(Estados.PENDIENTE.getId()));
-			errores = this.getOrdenDeVenta().guardar();
+			try{
+				this.getOrdenDeVenta().setEstado(String.valueOf(Estados.PENDIENTE.getId()));
+				// generar factura
+				errores = this.generarFactura();
+				if (!errores.esVacio()){
+					throw new Exception(errores.toString());
+				}
+				
+				// generar cliente
+				
+				// generar items
+				for (Item item : this.getOrdenDeVenta().getItems()) {
+					errores = item.guardar(); 
+					if (!errores.esVacio()){
+						throw new Exception(errores.toString());
+					}
+				}
+				
+				errores = this.getOrdenDeVenta().guardar();
+				if (!errores.esVacio()) {
+					throw new Exception(errores.toString());
+				}
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+				// FALTA!!! Si hay error hay que deshacer todo!!!!
+			}
+			
 		}
 		return errores;
+	}
+	
+	private Errores generarFactura () {
+		this.getOrdenDeVenta().getFactura().setOrdenDeVenta(this.getOrdenDeVenta());
+		this.getOrdenDeVenta().getFactura().generarMontoTotal(this.getOrdenDeVenta().getItems());
+		return this.getOrdenDeVenta().getFactura().guardar();
 	}
 	
 	public Errores agregarProductoPorCodigo () {

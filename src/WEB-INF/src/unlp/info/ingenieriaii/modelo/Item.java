@@ -101,7 +101,7 @@ public class Item extends ObjetoPersistente<Item, ParEntero>{
 		ParEntero par = new ParEntero();
 		
 		par.setPrimero(this.getColumnaInt(rs, "idOrdenVenta"));
-		par.setSegundo(this.getColumnaInt(rs, "numero"));
+		par.setSegundo(this.getColumnaInt(rs, "idProducto"));
 		
 		this.setId(par);
 	}

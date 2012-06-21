@@ -126,25 +126,10 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	protected void prepararModificacion(AccesoDb db) throws SQLException {
 		
 		if (this.getEstado().equals(String.valueOf(Estados.PENDIENTE.getId()))) {
-			try {
-				// generar factura
-				this.getFactura().setOrdenDeVenta(this);
-				this.getFactura().generarMontoTotal(this.getItems());
-				this.getFactura().guardar();
-				// generar cliente
-				
-				// generar items
-				for (Item item : this.getItems()) {
-					item.guardar();
-				}
-				// actualizar orden
-				db.prepararLlamada(GENERAR_ORDEN);
-				db.setParamInt(1, this.getId());
-				db.setParamInt(2, this.getCliente().getId()); // ver como hago esto cuando el cliente es nuevo
-			} catch (Exception e) {
-				// deshacer todo para la orden
-				e.printStackTrace();
-			}
+			// actualizar orden
+			db.prepararLlamada(GENERAR_ORDEN);
+			db.setParamInt(1, this.getId());
+			db.setParamInt(2, this.getCliente().getId());
 		}else {
 			// Actualizacion de estado
 			db.prepararLlamada(UPDATE_ESTADO);
