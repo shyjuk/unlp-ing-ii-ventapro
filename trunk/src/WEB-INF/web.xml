@@ -59,7 +59,10 @@
 		<servlet-name>GenerarOrdenServlet</servlet-name>
 		<servlet-class>unlp.info.ingenieriaii.web.GenerarOrdenServlet</servlet-class>
 	</servlet>
-	
+	<servlet>
+		<servlet-name>AgregarClienteServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.AgregarClienteServlet</servlet-class>
+	</servlet>	
 	
 	 
 
@@ -116,4 +119,8 @@
 		<servlet-name>GenerarOrdenServlet</servlet-name>
 		<url-pattern>/paginas/generarOrden.jsp</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AgregarClienteServlet</servlet-name>
+		<url-pattern>/paginas/agregarCliente.jsp</url-pattern>
+	</servlet-mapping>	
 </web-app>

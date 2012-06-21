@@ -47,8 +47,8 @@
 					<div class="helpText">Si necesita ayuda haga <a
 							href="javascript:abrirPopUp('popupAyudaGenerica.html')">click
 							aquí</a>
-					</div> <jsp:include page="formularios/formularioDatosClientes.jsp"
-						flush="true" /><c:if test="${!empty errores.general}">
+					</div> <jsp:include page="formularios/formularioDatosCliente.jsp"
+						/><c:if test="${!empty errores.general}">
 						<div class="errorEntrada" style="text-align: center; margin: 2em;">
 							<c:out value="${errores.general}"></c:out>
 						</div>
