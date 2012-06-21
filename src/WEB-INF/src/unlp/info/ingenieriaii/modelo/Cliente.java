@@ -53,7 +53,7 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		this.setNumeroCalle(rs);
 		// VER QUE EL CLIENTE PUEDE NO TENER LOCALIDAD Y PROVINCIA
 		this.setLocalidad(new Localidad(rs));
-		this.setProvincia(new Provincia(rs));
+		//this.setProvincia(new Provincia(rs));
 	}
 	
 	protected Cliente getCopia(ResultSet rs) throws SQLException {

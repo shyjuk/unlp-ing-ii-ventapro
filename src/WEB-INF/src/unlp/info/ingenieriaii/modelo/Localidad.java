@@ -21,7 +21,7 @@ public class Localidad extends ObjetoPersistente<Localidad, Integer>{
 	protected void setDatos(ResultSet rs) throws SQLException {
 		this.setId(rs);
 		this.setNombre(rs);
-		this.setProvincia(new Provincia(rs));
+		//this.setProvincia(new Provincia(rs));
 	}
 
 	@Override

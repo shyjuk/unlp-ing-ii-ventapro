@@ -62,6 +62,7 @@ public class GeneradorDeDatos {
 		dato.setNombre("Producto de prueba");
 		dato.setPrecio("11.21");
 		dato.setStock("7");
+		dato.setStockMinimo("1");
 		dato.guardar();
 	}
 }

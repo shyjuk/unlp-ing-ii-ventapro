@@ -12,12 +12,9 @@ BEGIN
     c.calle Cliente_calle,
     c.numeroCalle Cliente_numeroCalle,
     c.dpto Cliente_dpto,
-    p.idProvincia Provincia_idProvincia,
-    p.nombre Provincia_nombre,
     l.idLocalidad Localidad_idLocalidad,
     l.nombre Localidad_nombre
-from db_ventapro.tbl_personas c left join
-    db_ventapro.tbl_provincias p on c.idProvincia = p.idProvincia 
-    left join db_ventapro.tbl_localidades l on c.Localidad = l.idlocalidad
+from db_ventapro.tbl_personas c  
+    left join db_ventapro.tbl_localidades l on c.idLocalidad = l.idlocalidad
 where c.nroDocumento = nroDoc;
 END$$
