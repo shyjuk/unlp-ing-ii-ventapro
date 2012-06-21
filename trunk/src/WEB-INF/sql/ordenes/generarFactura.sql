@@ -10,5 +10,10 @@ BEGIN
         monto_,
         medioPago_,
         0);
-
+	
+    SELECT 0 AS CODIGO_ERROR,
+        	f.idFactura AS Factura_idFactura
+        FROM tbl_factura f
+        WHERE f.idFactura = LAST_INSERT_ID();
+        
 END$$

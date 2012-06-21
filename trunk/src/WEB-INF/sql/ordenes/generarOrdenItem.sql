@@ -10,5 +10,12 @@ BEGIN
         idProducto,
         precioUnitario,
         cantidad);
+        
+     SELECT 0 AS CODIGO_ERROR, 
+        	i.idProducto AS Item_idProducto,
+        	i.idOrdenVenta AS Item_idOrdenVenta
+        FROM tbl_items I
+        WHERE I.idProducto = idProducto
+        AND I.idOrdenVenta = idOrden;   
    
 END$$
