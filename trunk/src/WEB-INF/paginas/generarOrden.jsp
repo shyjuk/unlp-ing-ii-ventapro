@@ -50,10 +50,14 @@
 			if (inputVenta.getOrdenDeVenta() == null) {
 				// busco si hay alguna orden en estado 4
 				inputVenta.actualizarConActual();
+			} else if (inputVenta.getOrdenDeVenta().getEstado().equals(String.valueOf(Estados.PENDIENTE.getId()))) {
+				// La venta se realizo
+				inputVenta.setOrdenDeVenta(null);
+				inputVenta.setCodigoAgregar(null);
+				inputVenta.setDni(null);
+				inputVenta.setBuscador(null);
 			}
-			if (inputVenta.getBuscador() == null) {
-				inputVenta.setBuscador((BuscadorProducto)request.getAttribute("buscador"));
-			}
+			inputVenta.setBuscador((BuscadorProducto)request.getAttribute("buscador"));
 			enVenta = (inputVenta.getOrdenDeVenta() != null);
 			
 		
@@ -159,34 +163,24 @@
 								<td colspan=6 height="30">Dirección:</td>
 							</tr>
 							<tr>
-								<td class="labelForm">Provincia:</td> <!-- FALTA MODIFICAR CARGA DE COMBO  -->
-								<td><select name="provincia" style="width: 30ex" onchange="redirect(this.options.selectedIndex)" <%= enVenta ? "" : "disabled" %>>
-										<option
-											<c:if test="${empty ''}">selected="selected"</c:if> value=""></option>
-											<c:forEach items="${listaProvincias}" var="rowProvincia">
-											<option <c:if test="${'' == rowProvincia.nombre}">selected="selected"</c:if> value="${rowProvincia.id}">${rowProvincia.nombre}
-											</option>
-										</c:forEach>
-									</select>
-								</td>
 								<td class="labelForm">Localidad:</td> <!-- FALTA MODIFICAR CARGA DE COMBO  -->
-								<td colspan="3"><select name="localidad" style="width: 30ex" onchange="redirect(this.options.selectedIndex)" <%= enVenta ? "" : "disabled" %>>
+								<td><select name="localidad" style="width: 30ex" onchange="redirect(this.options.selectedIndex)" <%= enVenta ? "" : "disabled" %>>
 										<option
-											<c:if test="${empty ''}">selected="selected"</c:if> value=""></option>
+											<c:if test="${empty inputVenta.ordenDeVenta.cliente.localidad}">selected="selected"</c:if> value=""></option>
 											<c:forEach items="${listaLocalidades}" var="rowLocalidad">
-											<option <c:if test="${'falta' == rowLocalidad.nombre}">selected="selected"</c:if> value="${rowLocalidad.id}">${rowLocalidad.nombre}
+											<option <c:if test="${inputVenta.ordenDeVenta.cliente.localidad.id == rowLocalidad.id}">selected="selected"</c:if> value="${rowLocalidad.id}">${rowLocalidad.nombre}
 											</option>
 										</c:forEach>
 									</select>
 								</td>
+								<td class="labelForm">Codigo Postal:</td>
+								<td><input type="text" size="10" name="codPostal" value="${inputVenta.ordenDeVenta.cliente.codPostal}" <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
 							<tr>
 								<td class="labelForm">Calle:</td>
 								<td><input type="text" style="width: 200px" name="calle" value="${inputVenta.ordenDeVenta.cliente.calle}" <%= enVenta ? "" : "disabled" %>></input></td>
 								<td class="labelForm">Nro:</td>
 								<td><input type="text" size="10" name="numero" value="${inputVenta.ordenDeVenta.cliente.numeroCalle}" <%= enVenta ? "" : "disabled" %>></input></td>
-								<td class="labelForm">Codigo Postal:</td>
-								<td><input type="text" size="10" name="codPostal" value="${inputVenta.ordenDeVenta.cliente.codPostal}" <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
 						</table>
 					</fieldset>
