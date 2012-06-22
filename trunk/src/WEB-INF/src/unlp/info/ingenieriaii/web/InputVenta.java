@@ -101,6 +101,7 @@ public class InputVenta {
 					item.setOrdenDeVenta(this.getOrdenDeVenta());
 					item.setPrecio(new BigDecimal(productos.get(0).getPrecio()));
 					this.getOrdenDeVenta().getItems().add(item);
+					this.getOrdenDeVenta().getFactura().generarMontoTotal(this.getOrdenDeVenta().getItems());
 				}else {
 					errores.setErrorCampo("codigoAgregar", "El producto no existe");
 				}
