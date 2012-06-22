@@ -91,19 +91,14 @@ public class GenerarOrdenServlet extends ServletPagina {
 			if (!Utiles.esVacio((String)req.getParameter("medioPago"))) {
 				inputVentaBean.getOrdenDeVenta().getFactura().setMedioPago(Integer.valueOf((String)req.getParameter("medioPago")));
 			}
+			inputVentaBean.setCodigoAgregar((String)req.getParameter("codigoAgregar"));
 		}
 		
 		if (req.getParameter("btnComenzar") != null) {
 			OrdenDeVenta orden = new OrdenDeVenta();
 			orden.guardar(); // Estado inicial de la orden
 			req.setAttribute("estadoVenta", EN_VENTA);
-			
-			this.setBuscador(req.getParameter("nombre"),
-					req.getParameter("codigo"), req.getParameter("idMarca"),
-					req.getParameter("idTipoProducto"),
-					req.getParameter("chkIncluir"), req,
-					req.getParameter("btnBuscar") != null);
-			
+			this.setBuscador(null, null, null, null, null, req, false);
 			super.procesarPost(req, resp);
 		} else if (req.getParameter("btnBuscarCliente") != null) { 
 			Errores errores = new Errores();
@@ -119,7 +114,8 @@ public class GenerarOrdenServlet extends ServletPagina {
 		} else if (req.getParameter("btnAceptar") != null) {
 			Errores errores = inputVentaBean.generarOrden();
 			if (errores.esVacio()) {
-				 req.getSession().setAttribute("inputVenta", new InputVenta());
+				inputVentaBean.resetearInputVenta();
+				 req.getSession().setAttribute("inputVenta", inputVentaBean);
 			}
 			req.setAttribute("erroresInputVenta", errores);
 			super.procesarPost(req, resp);

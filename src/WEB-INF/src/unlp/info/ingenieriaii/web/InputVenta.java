@@ -19,16 +19,21 @@ public class InputVenta {
 	private BuscadorProducto buscador;
 	private OrdenDeVenta ordenDeVenta;
 	
+	
+	
 	public Errores generarOrden () {
 		Errores errores = new Errores();
 		if (this.getOrdenDeVenta() == null) {
 			errores.setGeneral("Ha ocurrido un error inesperado. Por favor intente más tarde.");
 		}else {
 			try{
+				
 				this.getOrdenDeVenta().setEstado(String.valueOf(Estados.PENDIENTE.getId()));
+				
 				// generar factura
 				errores = this.generarFactura();
 				if (!errores.esVacio()){
+					this.getOrdenDeVenta().getFactura().setErrores(errores);
 					throw new Exception(errores.toString());
 				}
 				
@@ -38,18 +43,23 @@ public class InputVenta {
 				for (Item item : this.getOrdenDeVenta().getItems()) {
 					errores = item.guardar(); 
 					if (!errores.esVacio()){
+						item.setErrores(errores);
 						throw new Exception(errores.toString());
 					}
 				}
 				
 				errores = this.getOrdenDeVenta().guardar();
 				if (!errores.esVacio()) {
+					this.getOrdenDeVenta().setErrores(errores);
 					throw new Exception(errores.toString());
 				}
 				
 			}catch (Exception e) {
-				e.printStackTrace();
+				e.printStackTrace(); // despues quitar esto, solo lo deje para ver que erroes puede dar
 				// FALTA!!! Si hay error hay que deshacer todo!!!!
+				this.getOrdenDeVenta().setEstado(String.valueOf(Estados.ARMANDOSE.getId()));
+				// SI EL ERROR ES DETECTADO MOSRAR COMO VERIFIQUE LOS DATOS INVALIDOS
+				errores.setGeneral("Ha ocurrido un error inesperado. Por favor intente más tarde.");
 			}
 			
 		}
@@ -112,6 +122,14 @@ public class InputVenta {
 		this.setOrdenDeVenta(actual);
 	}
 
+	
+	public void resetearInputVenta () {
+		this.setOrdenDeVenta(null);
+		this.setCodigoAgregar(null);
+		this.setDni(null);
+		this.setBuscador(null);
+	}
+	
 	public String getDni() {
 		return dni;
 	}
@@ -182,6 +200,5 @@ public class InputVenta {
 	public void setCodigoAgregar(String codigoAgregar) {
 		this.codigoAgregar = codigoAgregar;
 	}
-	
 	
 }
