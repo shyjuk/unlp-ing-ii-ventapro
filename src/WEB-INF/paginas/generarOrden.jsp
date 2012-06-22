@@ -281,12 +281,6 @@
 						</table>
 						<table width="100%">
 							<tr>
-								<td style="width: 85px" align="right">TOTAL:</td>
-								<td align="left"><input type="text" name="total" disabled></input></td>
-							</tr>
-						</table>
-						<table width="100%">
-							<tr>
 								<td class="separador"></td>
 							</tr>
 							<tr>
@@ -321,6 +315,16 @@
 								<div class="errorEntrada">${erroresInputVenta.campo.items}</div>
 							</c:if>
 						</table>	
+						<table width="100%">
+							<tr>
+								<td style="width: 85px" align="right">TOTAL:</td>
+								<td align="left"><input type="text" name="total" value="${inputVenta.ordenDeVenta.factura.monto}" disabled></input>
+								<c:if test="${!empty inputVenta.ordenDeVenta.factura.errores.campo.monto}">
+									<div class="errorEntrada">${inputVenta.ordenDeVenta.factura.errores.campo.monto}</div>
+								</c:if> 
+								</td>
+							</tr>
+						</table>
 					</fieldset>
 					
 					<c:if
