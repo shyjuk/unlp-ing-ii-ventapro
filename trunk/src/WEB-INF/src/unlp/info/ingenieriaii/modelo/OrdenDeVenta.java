@@ -25,6 +25,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private Cliente cliente;
 	
 	private Errores erroresCliente;
+	private Errores errores;
 
 	// input - esto deberia modificarse usando los objetos reales
 	private String vendedor;
@@ -380,6 +381,14 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 
 	public void setErroresCliente(Errores erroresCliente) {
 		this.erroresCliente = erroresCliente;
+	}
+
+	public Errores getErrores() {
+		return errores;
+	}
+
+	public void setErrores(Errores errores) {
+		this.errores = errores;
 	}
 	
 }

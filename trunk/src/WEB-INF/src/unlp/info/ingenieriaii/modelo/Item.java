@@ -19,6 +19,8 @@ public class Item extends ObjetoPersistente<Item, ParEntero>{
 	private Producto producto;
 	private OrdenDeVenta ordenDeVenta;
 	
+	private Errores errores;
+	
 	private static final String QUERY_BUSQUEDA_ITEMS = "{call buscarItemsDeOrden (?)}";
 	private static final String SQL_GENERAR_ITEM = "{call generarOrdenItem (?,?,?,?,?)}";
 	
@@ -180,6 +182,14 @@ public class Item extends ObjetoPersistente<Item, ParEntero>{
 
 	public void setOrdenDeVenta(OrdenDeVenta ordenDeVenta) {
 		this.ordenDeVenta = ordenDeVenta;
+	}
+
+	public Errores getErrores() {
+		return errores;
+	}
+
+	public void setErrores(Errores errores) {
+		this.errores = errores;
 	}
 	
 	

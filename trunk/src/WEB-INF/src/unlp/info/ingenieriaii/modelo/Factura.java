@@ -15,6 +15,10 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 	private boolean anulada;
 	private Integer medioPago;
 	private OrdenDeVenta ordenDeVenta;
+
+	//
+	private Errores errores;
+	
 	
 	private static final String QUERY_ALTA = "{call generarFactura(?,?,?)}";
 	
@@ -90,7 +94,12 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 	@Override
 	protected Errores validarCampos() {
 		Errores errores = new Errores();
-		// Completar validaciones
+		if (this.getMedioPago() == null) {
+			errores.setErrorCampo("medioPago", "Seleccione el medio de pago");
+		}
+		if (this.getMonto() == null || this.getMonto().equals(BigDecimal.ZERO)) {
+			errores.setErrorCampo("monto", "El monto debe ser mayor a cero.");
+		}
 		return errores;
 	}
 	@Override
@@ -134,6 +143,14 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 			total = total.add(item.getPrecio().multiply(new BigDecimal(item.getCantidad())));
 		}
 		this.setMonto(total);
+	}
+
+	public Errores getErrores() {
+		return errores;
+	}
+
+	public void setErrores(Errores errores) {
+		this.errores = errores;
 	}
 	
 }

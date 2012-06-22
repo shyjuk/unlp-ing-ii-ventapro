@@ -52,10 +52,7 @@
 				inputVenta.actualizarConActual();
 			} else if (inputVenta.getOrdenDeVenta().getEstado().equals(String.valueOf(Estados.PENDIENTE.getId()))) {
 				// La venta se realizo
-				inputVenta.setOrdenDeVenta(null);
-				inputVenta.setCodigoAgregar(null);
-				inputVenta.setDni(null);
-				inputVenta.setBuscador(null);
+				inputVenta.resetearInputVenta();
 			}
 			inputVenta.setBuscador((BuscadorProducto)request.getAttribute("buscador"));
 			enVenta = (inputVenta.getOrdenDeVenta() != null);
@@ -111,7 +108,11 @@
 											<option <c:if test="${inputVenta.ordenDeVenta.factura.medioPago == mprow.id}">selected="selected"</c:if> value="${mprow.id}">${mprow.descripcion}
 											</option>
 										</c:forEach>
-									</select> </td>
+									</select>
+									<c:if test="${!empty inputVenta.ordenDeVenta.factura.errores.campo.medioPago}">
+										<div class="errorEntrada">${inputVenta.ordenDeVenta.factura.errores.campo.medioPago}</div>
+									</c:if> 
+								</td>
 							</tr>
 							<tr>
 								<td colspan=2><hr></hr></td>
@@ -323,9 +324,9 @@
 					</fieldset>
 					
 					<c:if
-						test="${!empty errores.general}">
+						test="${!empty erroresInputVenta.general}">
 						<div class="errorEntrada" style="text-align: center; margin: 2em;">
-							<c:out value="${errores.general}"></c:out>
+							<c:out value="${erroresInputVenta.general}"></c:out>
 						</div>
 					</c:if>
 				</td>
