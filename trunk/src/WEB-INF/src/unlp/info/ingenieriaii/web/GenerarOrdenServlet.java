@@ -105,10 +105,16 @@ public class GenerarOrdenServlet extends ServletPagina {
 			errores = inputVentaBean.buscarCliente();
 			req.setAttribute("erroresInputVenta", errores);
 			super.procesarPost(req, resp);
-		} else if (req.getParameter("btnAgregarProdPorCod") != null) {
+		} else if (req.getParameter("btnAgregarProdPorCod") != null || "agregarProducto".equals((String)req.getParameter("action"))) {
 			inputVentaBean.setCodigoAgregar((String)req.getParameter("codigoAgregar"));
+			inputVentaBean.setCantidadAgregar((String)req.getParameter("cantidadAgregar"));
 			Errores errores = new Errores();
 			errores = inputVentaBean.agregarProductoPorCodigo();
+			if ("agregarProducto".equals((String)req.getParameter("action"))) {
+				// viene del listado
+				inputVentaBean.setCodigoAgregar("");
+				inputVentaBean.setCantidadAgregar("");
+			}
 			req.setAttribute("erroresInputVenta", errores);
 			super.procesarPost(req, resp);
 		} else if (req.getParameter("btnAceptar") != null) {
