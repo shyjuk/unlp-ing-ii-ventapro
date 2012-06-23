@@ -341,7 +341,7 @@
 			<tr>
 				<td></td>
 				<td class="botonera"><input type="submit" value="Generar Orden" name="btnAceptar" <%= enVenta ? "" : "disabled" %>></input> 
-				<input type="submit" value="Cancelar" name="btnCancelar" onclick="return confirm('¿Esta seguro que desea cancelar la operación?')"></input></td>
+				<input type="submit" value="Cancelar" name="btnCancelar" <%= enVenta ? "" : "disabled" %>  onclick="return confirm('¿Esta seguro que desea cancelar la operación?')"></input></td>
 			</tr>
 		</table>
 	</form>

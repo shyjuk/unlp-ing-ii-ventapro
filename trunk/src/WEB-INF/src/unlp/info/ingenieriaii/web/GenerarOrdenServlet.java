@@ -115,9 +115,19 @@ public class GenerarOrdenServlet extends ServletPagina {
 			Errores errores = inputVentaBean.generarOrden();
 			if (errores.esVacio()) {
 				inputVentaBean.resetearInputVenta();
-				 req.getSession().setAttribute("inputVenta", inputVentaBean);
+				req.getSession().setAttribute("inputVenta", inputVentaBean);
 			}
 			req.setAttribute("erroresInputVenta", errores);
+			super.procesarPost(req, resp);
+		} else if (req.getParameter("btnCancelar") != null) {
+			Errores errores = new Errores();
+			errores = inputVentaBean.getOrdenDeVenta().eliminar();
+			if (errores.esVacio()) {
+				inputVentaBean.resetearInputVenta();
+				req.getSession().setAttribute("inputVenta", inputVentaBean);
+			}else {
+				
+			}
 			super.procesarPost(req, resp);
 		}else {
 			this.setBuscador(req.getParameter("nombre"),

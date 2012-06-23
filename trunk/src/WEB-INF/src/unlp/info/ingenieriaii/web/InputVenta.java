@@ -113,6 +113,10 @@ public class InputVenta {
 		return errores;
 	}
 	
+	public Errores cancelarVentaActual () {
+		return this.getOrdenDeVenta().eliminar();
+	}
+	
 	public void actualizarConActual () {
 		OrdenDeVenta actual = null;
 		try {
