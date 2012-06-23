@@ -14,8 +14,13 @@ import unlp.info.ingenieriaii.modelo.Producto;
 
 public class InputVenta {
 	
+	// Para la busqueda de cliente
 	private String dni;
+	
+	// Para el agregado de productos a la orden
 	private String codigoAgregar;
+	private String cantidadAgregar;
+	
 	private BuscadorProducto buscador;
 	private OrdenDeVenta ordenDeVenta;
 	
@@ -90,20 +95,36 @@ public class InputVenta {
 		}else {
 			errores.setErrorCampo("codigoAgregar", "Ingrese el codigo del producto.");
 		}
-		
 		if (errores.esVacio()) {
 			try {
 				List<Producto> productos = Producto.buscarProductos(null, null, this.getCodigoAgregar(), null, true);
 				if (!productos.isEmpty()) {
-					Item item = new Item();
-					item.setCantidad(1);
-					item.setProducto(productos.get(0));
-					item.setOrdenDeVenta(this.getOrdenDeVenta());
-					item.setPrecio(new BigDecimal(productos.get(0).getPrecio()));
-					this.getOrdenDeVenta().getItems().add(item);
-					this.getOrdenDeVenta().getFactura().generarMontoTotal(this.getOrdenDeVenta().getItems());
+					
+					if (Integer.valueOf(productos.get(0).getStock()) < 1) {
+						errores.setErrorCampo("codigoAgregar", "Este producto no esta en stock.");
+						return errores;
+					}
+					
+					if (!Utiles.esVacio(this.getCantidadAgregar())) {
+						Validador.validarEntero(errores, "cantidadAgregar", this.getCantidadAgregar(), 1, Integer.valueOf(productos.get(0).getStock()), 1, false);
+					}else {
+						errores.setErrorCampo("cantidadAgregar", "Ingrese la cantidad de productos.");
+					}
+					
+					if (errores.esVacio()) {
+						// es valido agregar item
+						Item item = new Item();
+						item.setCantidad(Integer.valueOf(this.getCantidadAgregar()));
+						item.setProducto(productos.get(0));
+						item.setOrdenDeVenta(this.getOrdenDeVenta());
+						item.setPrecio(new BigDecimal(productos.get(0).getPrecio()));
+						this.getOrdenDeVenta().getItems().add(item);
+						this.getOrdenDeVenta().getFactura().generarMontoTotal(this.getOrdenDeVenta().getItems());
+					}
+					
+					
 				}else {
-					errores.setErrorCampo("codigoAgregar", "El producto no existe");
+					errores.setErrorCampo("codigoAgregar", "El producto no existe o no esta a la venta.");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -131,6 +152,7 @@ public class InputVenta {
 	public void resetearInputVenta () {
 		this.setOrdenDeVenta(null);
 		this.setCodigoAgregar(null);
+		this.setCantidadAgregar(null);
 		this.setDni(null);
 		this.setBuscador(null);
 	}
@@ -204,6 +226,14 @@ public class InputVenta {
 
 	public void setCodigoAgregar(String codigoAgregar) {
 		this.codigoAgregar = codigoAgregar;
+	}
+
+	public String getCantidadAgregar() {
+		return cantidadAgregar;
+	}
+
+	public void setCantidadAgregar(String cantidadAgregar) {
+		this.cantidadAgregar = cantidadAgregar;
 	}
 	
 }

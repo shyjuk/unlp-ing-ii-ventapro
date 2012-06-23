@@ -28,6 +28,13 @@
 		}
 	}
 	
+	function agregarItem (idProducto, cantidad) {
+		document.formVenta.codigoAgregar.value = idProducto;
+		document.formVenta.cantidadAgregar.value = (document.getElementById(cantidad)).value;
+		document.formVenta.action.value = 'agregarProducto';
+		document.formVenta.submit();
+	}
+	
 	function editObject (idObject) {
 		document.test.id.value = idObject;
 		document.test.action.value = 'editar';
@@ -38,11 +45,15 @@
 		document.test.action.value = 'borrarSeleccionados';
 		document.test.submit();
 	}
+	
 </script>
 </head>
 <body>
 	<form method="post" name="formVenta">
 		<input type="hidden" name="estadoVenta" value="" />
+		<input type="hidden" name="action" value="" />
+		<input type="hidden" name="codigoAgregarLista" value="" />
+		<input type="hidden" name="cantidadAgregarLista" value="" />
 		<% 
 			String estadoVenta = (String)request.getAttribute("estadoVenta");
 			Boolean enVenta = (Utiles.esVacio(estadoVenta)? false : (GenerarOrdenServlet.EN_VENTA.equals(estadoVenta)));
@@ -245,10 +256,8 @@
 								<td colspan="5">
 									Codigo de producto:
 									<input type="text" name="codigoAgregar" id="codigoAgregar" value="${inputVenta.codigoAgregar}"  <%= enVenta ? "" : "disabled" %>/>
+									<input type="text" name="cantidadAgregar" id="cantidadAgregar" value="${inputVenta.cantidadAgregar}"  <%= enVenta ? "" : "disabled" %>/>
 									<input type="submit" value="Agregar" name="btnAgregarProdPorCod" <%= enVenta ? "" : "disabled" %>/>
-									<c:if test="${!empty erroresInputVenta.campo.codigoAgregar}">
-										<div class="errorEntrada">${erroresInputVenta.campo.codigoAgregar}</div>
-									</c:if>
 								</td>
 							</tr>
 							<tr>
@@ -275,9 +284,15 @@
 									<td>$<c:out value="${producto.precio}" /></td>
 									<td><c:out value="${producto.stock}" /></td>
 									<td><input type="text" name="${producto.id}_cantidad" id="${producto.id}_cantidad" size="10" value="<c:out value="1" />" <%= enVenta ? "" : "disabled" %>/></td>
-									<td><input type="button" value="Agregar" name="btnAgregar" <%= enVenta ? "" : "disabled" %>></input></td>
+									<td><input type="submit" value="Agregar" name="btnAgregarItem" <%= enVenta ? "" : "disabled" %> onclick="javascript:agregarItem('${producto.codigo}','${producto.id}_cantidad')"></input></td>
 								</tr>
 							</c:forEach>
+							<c:if test="${!empty erroresInputVenta.campo.codigoAgregar}">
+								<div class="errorEntrada">Producto: ${erroresInputVenta.campo.codigoAgregar}</div>
+							</c:if>
+							<c:if test="${!empty erroresInputVenta.campo.cantidadAgregar}">
+								<div class="errorEntrada">Cantidad: ${erroresInputVenta.campo.cantidadAgregar}</div>
+							</c:if>
 						</table>
 						<table width="100%">
 							<tr>
@@ -307,7 +322,7 @@
 									<td><c:out value="${rowItem.producto.marca.nombre}" /></td>
 									<td><c:out value="${rowItem.producto.nombre}" /></td>
 									<td>$<c:out value="${rowItem.producto.precio}" /></td>
-									<td><input type="text" name="${rowItem.cantidad}" id="${rowItem.cantidad}" size="10" value="<c:out value="1" />"/></td>
+									<td><c:out value="${rowItem.cantidad}" /></td>
 									<td><input type="button" value="Quitar" name="btnQuitar"></input></td>
 								</tr>
 							</c:forEach>
