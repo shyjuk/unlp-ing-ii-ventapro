@@ -36,6 +36,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private static final String UPDATE_ESTADO = "{call modificarEstadoOrden(?,?)}";
 	private static final String GENERAR_ORDEN = "{call generarOrden(?,?)}";
 	private static final String QUERY_ALTA = "{call agregarOrden(?)}";
+	private static final String QUERY_BAJA = "{call eliminarOrden (?)}";
 
 	public OrdenDeVenta(ResultSet rs) throws SQLException {
 
@@ -141,8 +142,8 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 
 	@Override
 	protected void prepararBaja(AccesoDb db) throws SQLException {
-		// TODO Auto-generated method stub
-
+		db.prepararLlamada(QUERY_BAJA);
+		db.setParamInt(1, this.getId());
 	}
 
 	@Override
