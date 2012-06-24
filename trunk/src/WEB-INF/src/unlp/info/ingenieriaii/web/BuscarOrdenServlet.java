@@ -64,6 +64,7 @@ public class BuscarOrdenServlet extends ServletPagina{
 		if ("anular".equals(req.getParameter("accion"))) {
 			OrdenDeVenta orden = new OrdenDeVenta();
 			orden.setId(Utiles.esVacio(req.getParameter("id")) ? null : Integer.parseInt(req.getParameter("id")));
+			orden.recuperar();
 			orden.setEstado(String.valueOf(Estados.ANULADA.getId()));
 			orden.guardar(); // no hay errores
 		} 

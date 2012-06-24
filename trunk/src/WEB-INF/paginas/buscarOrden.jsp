@@ -49,7 +49,7 @@
 					<a class="funcPrincipal" href="buscarProducto.jsp">Gestión de productos</a> 
 					<a class="funcPrincipal funcPrincipalAct" href="generarOrden.jsp">Ventas</a> 
 					<a class="funcPrincipal" href="#">Administración de clientes</a> 
-					<a class="funcPrincipal" href="#">Reportes</a> 
+					<a class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> 
 					<a class="funcPrincipal" href="#">Administración de usuarios</a></td>
 				<td class="panelPrincipal">
 					<div class="helpText">
@@ -120,7 +120,8 @@
 						<legend>Resultado de la búsqueda</legend>
 						<table border="1" width="100%" cellspacing="0">
 							<tr  style="background-color: #4AA; color: White;">
-								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Fecha</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Cod. Orden</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Fecha de compra</td>
 								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Comprador</td>
 								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Vendedor</td>
 								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Cant. Productos</td>
@@ -131,6 +132,7 @@
 							</tr>
 							<c:forEach items="${buscador.resultado}" var="row">
 								<tr>
+									<td style="border: 1px solid #CCC"><c:out value="${row.id}" /></td>
 									<td style="border: 1px solid #CCC"><c:out value="${row.fechaString}" /></td>
 									<td style="border: 1px solid #CCC"><c:out value="${row.comprador}" /></td>
 									<td style="border: 1px solid #CCC"><c:out value="${row.vendedor}" /></td>

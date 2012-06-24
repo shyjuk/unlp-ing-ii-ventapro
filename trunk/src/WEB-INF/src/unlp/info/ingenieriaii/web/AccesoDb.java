@@ -204,6 +204,10 @@ public class AccesoDb {
 
 		return rs.getDate(entidad + "_" + columna);
 	}
+	
+	public static Timestamp getColumnaTimestamp(ResultSet rs, String entidad, String columna) throws SQLException {
+		return rs.getTimestamp(entidad + "_" + columna);
+	}
 
 	public AccesoDb() {
 
@@ -356,6 +360,14 @@ public class AccesoDb {
 
 		if (valor != null)
 			this.sentencia.setDate(pos, valor);
+		else
+			this.sentencia.setNull(pos, Types.DATE);
+	}
+	
+	public void setParamTimestamp(int pos, Timestamp valor) throws SQLException {
+
+		if (valor != null)
+			this.sentencia.setTimestamp(pos, valor);
 		else
 			this.sentencia.setNull(pos, Types.DATE);
 	}

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import unlp.info.ingenieriaii.web.AccesoDb;
 
@@ -193,6 +194,10 @@ public abstract class ObjetoPersistente<T extends ObjetoPersistente<T, PK>, PK> 
 			throws SQLException {
 
 		return AccesoDb.getColumnaDate(rs, this.getNombreEntidad(), columna);
+	}
+	
+	protected Timestamp getColumnaTimestamp (ResultSet rs, String columna) throws SQLException {
+		return AccesoDb.getColumnaTimestamp(rs, this.getNombreEntidad(), columna);
 	}
 	
 	public PK getId() {

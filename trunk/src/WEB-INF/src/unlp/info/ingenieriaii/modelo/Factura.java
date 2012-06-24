@@ -57,8 +57,8 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 	@Override
 	protected void setDatos(ResultSet rs) throws SQLException {
 		// FALTA EL RESTO DE LOS CAMPOS
-		/*this.setId(rs);
-		this.setMedioPago(rs);*/
+		this.setId(rs);
+		this.setMedioPago(rs);
 	}
 	@Override
 	protected Factura getCopia(ResultSet rs) throws SQLException {
