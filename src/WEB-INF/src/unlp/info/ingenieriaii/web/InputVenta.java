@@ -61,14 +61,22 @@ public class InputVenta {
 				
 			}catch (Exception e) {
 				e.printStackTrace(); // despues quitar esto, solo lo deje para ver que erroes puede dar
-				// FALTA!!! Si hay error hay que deshacer todo!!!!
 				this.getOrdenDeVenta().setEstado(String.valueOf(Estados.ARMANDOSE.getId()));
-				// SI EL ERROR ES DETECTADO MOSRAR COMO VERIFIQUE LOS DATOS INVALIDOS
-				errores.setGeneral("Ha ocurrido un error inesperado. Por favor intente más tarde.");
+				this.getOrdenDeVenta().rollbackGeneracion();
+				if (!esErrorConocido(errores)) {
+					errores.setGeneral("Ha ocurrido un error inesperado. Por favor intente más tarde.");
+				}
 			}
 			
 		}
 		return errores;
+	}
+		
+	private boolean esErrorConocido (Errores errores) {
+		return errores.getCampo().containsKey("medioPago") || errores.getCampo().containsKey("monto") || // valores concidos para FACTURA
+				errores.getCampo().containsKey("producto") || errores.getCampo().containsKey("cantidad") ||  // valores concidos para ITEM
+				errores.getCampo().containsKey("cliente") || errores.getCampo().containsKey("items"); // valores conocidos para ORDENDEVENTA
+		// FALTA AGREGAR VALORES CONOCIDOS PARA CLIENTE!!!!!!!!!!
 	}
 	
 	private Errores generarFactura () {
@@ -106,7 +114,7 @@ public class InputVenta {
 					}
 					
 					if (!Utiles.esVacio(this.getCantidadAgregar())) {
-						Validador.validarEntero(errores, "cantidadAgregar", this.getCantidadAgregar(), 1, Integer.valueOf(productos.get(0).getStock()), 1, false);
+						Validador.validarEntero(errores, "cantidadAgregar", this.getCantidadAgregar(), 1, Integer.valueOf(productos.get(0).getStock()), false);
 					}else {
 						errores.setErrorCampo("cantidadAgregar", "Ingrese la cantidad de productos.");
 					}
@@ -132,6 +140,17 @@ public class InputVenta {
 			}
 		}
 		return errores;
+	}
+	
+	public void quitarProducto (String idProducto) {
+		Item itemBuscado = null;
+		for (Item item : this.getOrdenDeVenta().getItems()) {
+			if (item.getProducto().getId() == Integer.valueOf(idProducto).intValue()) {
+				itemBuscado = item;
+			}
+		}
+		this.getOrdenDeVenta().getItems().remove(itemBuscado);
+		this.getOrdenDeVenta().getFactura().generarMontoTotal(this.getOrdenDeVenta().getItems());
 	}
 	
 	public Errores cancelarVentaActual () {
@@ -235,5 +254,4 @@ public class InputVenta {
 	public void setCantidadAgregar(String cantidadAgregar) {
 		this.cantidadAgregar = cantidadAgregar;
 	}
-	
 }

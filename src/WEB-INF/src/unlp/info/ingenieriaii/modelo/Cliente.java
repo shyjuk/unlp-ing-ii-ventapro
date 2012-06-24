@@ -111,7 +111,7 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		Errores errores = new Errores();
 
 		Validador.validarLongitud(errores, "nombre", this.getNombre(), 1, 35);
-		Validador.validarLongitud(errores, "apellido", this.getApellido(), 1, 20);
+		//Validador.validarLongitud(errores, "apellido", this.getApellido(), 1, 20); ESTO VA???????
 		Validador.validarLongitud(errores, "nroDocumento", this.getNroDocumento(), 7, 8);
 		Validador.validarLongitud(errores, "tipoDocumento", this.getTipoDocumento(), 1, 15);
 		Validador.validarLongitud(errores, "telefono", this.getTelefono(), 1, 20);

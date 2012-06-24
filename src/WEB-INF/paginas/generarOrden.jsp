@@ -35,6 +35,15 @@
 		document.formVenta.submit();
 	}
 	
+	function quitarItem (idProducto) {
+		document.formVenta.idProductoQuitar.value = idProducto;
+		document.formVenta.action.value = 'quitarProducto';
+		document.formVenta.submit();
+	}
+	
+	
+	
+	
 	function editObject (idObject) {
 		document.test.id.value = idObject;
 		document.test.action.value = 'editar';
@@ -54,6 +63,8 @@
 		<input type="hidden" name="action" value="" />
 		<input type="hidden" name="codigoAgregarLista" value="" />
 		<input type="hidden" name="cantidadAgregarLista" value="" />
+		<input type="hidden" name="idProductoQuitar" value="" />
+		
 		<% 
 			String estadoVenta = (String)request.getAttribute("estadoVenta");
 			Boolean enVenta = (Utiles.esVacio(estadoVenta)? false : (GenerarOrdenServlet.EN_VENTA.equals(estadoVenta)));
@@ -65,10 +76,12 @@
 				// La venta se realizo
 				inputVenta.resetearInputVenta();
 			}
-			inputVenta.setBuscador((BuscadorProducto)request.getAttribute("buscador"));
-			enVenta = (inputVenta.getOrdenDeVenta() != null);
+			if ((BuscadorProducto)request.getAttribute("buscador") != null) {
+				inputVenta.setBuscador((BuscadorProducto)request.getAttribute("buscador"));
+			}
 			
-		
+			enVenta = (inputVenta.getOrdenDeVenta() != null);
+
 		%>
 		<div class="header">
 			<div class="nombreSucursal"><%=SucursalUno.getSingleInstance().getNombre()%></div>
@@ -256,7 +269,7 @@
 								<td colspan="5">
 									Codigo de producto:
 									<input type="text" name="codigoAgregar" id="codigoAgregar" value="${inputVenta.codigoAgregar}"  <%= enVenta ? "" : "disabled" %>/>
-									<input type="text" name="cantidadAgregar" id="cantidadAgregar" value="${inputVenta.cantidadAgregar}"  <%= enVenta ? "" : "disabled" %>/>
+									<input type="text" name="cantidadAgregar" id="cantidadAgregar" value="${inputVenta.cantidadAgregar}"  <%= enVenta ? "" : "disabled" %> size="10"/>
 									<input type="submit" value="Agregar" name="btnAgregarProdPorCod" <%= enVenta ? "" : "disabled" %>/>
 								</td>
 							</tr>
@@ -323,7 +336,7 @@
 									<td><c:out value="${rowItem.producto.nombre}" /></td>
 									<td>$<c:out value="${rowItem.producto.precio}" /></td>
 									<td><c:out value="${rowItem.cantidad}" /></td>
-									<td><input type="button" value="Quitar" name="btnQuitar"></input></td>
+									<td><input type="submit" value="Quitar" name="btnQuitar" onclick="javascript:quitarItem('${rowItem.producto.id}')"></input></td>
 								</tr>
 							</c:forEach>
 							<c:if test="${!empty erroresInputVenta.campo.items}">

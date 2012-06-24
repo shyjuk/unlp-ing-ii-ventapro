@@ -131,9 +131,10 @@ public class GenerarOrdenServlet extends ServletPagina {
 			if (errores.esVacio()) {
 				inputVentaBean.resetearInputVenta();
 				req.getSession().setAttribute("inputVenta", inputVentaBean);
-			}else {
-				
 			}
+			super.procesarPost(req, resp);
+		} else if ( "quitarProducto".equals((String)req.getParameter("action"))) {
+			inputVentaBean.quitarProducto((String)req.getParameter("idProductoQuitar"));
 			super.procesarPost(req, resp);
 		}else {
 			this.setBuscador(req.getParameter("nombre"),
