@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,9 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private static final String GENERAR_ORDEN = "{call generarOrden(?,?)}";
 	private static final String QUERY_ALTA = "{call agregarOrden(?)}";
 	private static final String QUERY_BAJA = "{call eliminarOrden (?)}";
+	private static final String LEER = "{call leerOrden (?)}";
 	public static final String QUERY_ROLLBACK_GENERACION_ORDEN = "{call rollbackGeneracionOrden(?)}";
+	
 
 	public OrdenDeVenta(ResultSet rs) throws SQLException {
 
@@ -114,15 +117,17 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 
 	@Override
 	protected void prepararLectura(AccesoDb db) throws SQLException {
-		// TODO Auto-generated method stub
-
+		db.prepararLlamada(LEER);
+		db.setParamInt(1, this.getId());
 	}
 
 	@Override
 	protected void prepararAlta(AccesoDb db) throws SQLException {
 
 		db.prepararLlamada(QUERY_ALTA);
-		db.setParamDate(1, new Date((new java.util.Date()).getTime()));
+		java.util.Date today = new java.util.Date();
+		java.sql.Timestamp timestamp = new java.sql.Timestamp(today.getTime());
+		db.setParamTimestamp(1, timestamp);
 	}
 
 	@Override
@@ -156,11 +161,11 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	protected Errores validarCampos() {
 		Errores errores = new Errores();
 		
-		if (this.getId() == null) {
+		if (this.getId() == null) { // no validar nada solo se da de alta con los datos de vendedor y fecha
 			return errores; 
 		}
 		
-		// AGREGAR VALIDACIONES FALTANTES
+		
 		if (Utiles.esVacio(this.getEstado())) {
 			errores.setErrorCampo("estado", "El estado es vacio");
 		} else {
@@ -171,6 +176,12 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 						&& !(Estados.PAGADA.getId() == num)) {
 					errores.setErrorCampo("estado", "El estado es invalido");
 				}
+				
+				if ((Estados.ANULADA.getId() == num)) {
+					// si estoy anulando no valido nada mas
+					return errores;
+				}
+				
 			} catch (Exception e) {
 				errores.setErrorCampo("estado", "El estado es invalido");
 			}
@@ -307,7 +318,11 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	}
 
 	public void setFecha(ResultSet rs) throws SQLException {
-		this.setFecha(this.getColumnaDate(rs, "fechaHora"));
+		Timestamp timestamp = this.getColumnaTimestamp(rs, "fechaHora");
+		if (timestamp != null) {
+			
+		}
+		this.setFecha(timestamp != null ? new Date(timestamp.getTime()) : null);
 	}
 
 	public String getComprador() {
@@ -340,8 +355,10 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	}
 
 	public String getMontoDetalle() {
-		//String mp = this.getFactura().getMedioPago();
-		//return MediosDePago.getDescripcionPara(Integer.valueOf(mp));
+		if (this.getFactura() != null) {
+			Integer mp = this.getFactura().getMedioPago();
+			return mp != null ? MediosDePago.getDescripcionPara(mp) : "";
+		}
 		return "";
 	}
 
