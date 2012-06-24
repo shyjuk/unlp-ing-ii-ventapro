@@ -37,6 +37,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	private static final String GENERAR_ORDEN = "{call generarOrden(?,?)}";
 	private static final String QUERY_ALTA = "{call agregarOrden(?)}";
 	private static final String QUERY_BAJA = "{call eliminarOrden (?)}";
+	public static final String QUERY_ROLLBACK_GENERACION_ORDEN = "{call rollbackGeneracionOrden(?)}";
 
 	public OrdenDeVenta(ResultSet rs) throws SQLException {
 
@@ -175,10 +176,13 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 			}
 		}
 		
-		if (this.getCliente() == null) {
+		if (this.getCliente() == null) { // CAPAZ SE PUEDE COSULTAR POR ID, A ESTA ALTURA EL CLIENTE YA DEBERIA ESTAR REGISTRADO EN LA BD
 			errores.setErrorCampo("cliente", "Ingrese el cliente.");
 		}else{
 			this.setErroresCliente(this.getCliente().validarCampos());
+			if (!this.getErroresCliente().esVacio()) {
+				errores.setErrorCampo("cliente", "Verifique los datos del cliente.");
+			}
 		}
 		
 		if (this.getItems() == null || this.getItems().isEmpty()) {
@@ -278,6 +282,22 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 		return resultado;
 	}
 
+	public void rollbackGeneracion () {
+		AccesoDb db = new AccesoDb();
+		try {
+			db.prepararLlamada(QUERY_ROLLBACK_GENERACION_ORDEN);
+			db.setParamInt(1, this.getId()); 
+			db.ejecutarQuery();
+			db.cerrarQuery();
+			this.getFactura().setId((Integer)null);
+			for (Item items : this.getItems()) {
+				items.setId((ParEntero)null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void setEstado(ResultSet rs) throws SQLException {
 		this.setEstado(this.getColumnaString(rs, "estado"));
 	}
