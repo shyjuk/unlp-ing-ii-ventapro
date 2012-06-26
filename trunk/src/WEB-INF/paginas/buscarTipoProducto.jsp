@@ -54,10 +54,10 @@
 			<tr>
 				<td class="funcs funcsPrincipales"><a
 					class="funcPrincipal funcPrincipalAct" href="#">Gestión de
-						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
-					class="funcPrincipal" href="buscarCliente.jsp">Administración de clientes</a> <a
-					class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> <a
-					class="funcPrincipal" href="#">Administración de usuarios</a></td>
+						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a>
+					<a class="funcPrincipal" href="buscarCliente.jsp">Administración
+						de clientes</a> <a class="funcPrincipal" href="reporteProductos.jsp">Reportes</a>
+					<a class="funcPrincipal" href="#">Administración de usuarios</a></td>
 
 				<td class="panelPrincipal">
 					<div class="subFuncs">
@@ -73,15 +73,12 @@
 						<tr>
 							<td class="labelForm">Nombre:</td>
 							<td><input type="text" name="nombre" id="nombre" size="50"
-								value="${buscador.nombre}" /> * <c:if
-									test="${!empty errores.campo.nombre}">
+								value="${buscador.nombre}" /> * <input type="submit"
+								value="Buscar" name="btnAceptar" />
+							<c:if test="${!empty errores.campo.nombre}">
 									<div class="errorEntrada">${errores.campo.nombre}</div>
 								</c:if></td>
 						</tr>
-						<tr>
-							<td colspan="2" align="right"><input type="submit" value="Buscar"
-					name="btnAceptar" /></td>
-						</tr>						
 						<tr>
 							<td colspan="2" class="separador"></td>
 						</tr>
