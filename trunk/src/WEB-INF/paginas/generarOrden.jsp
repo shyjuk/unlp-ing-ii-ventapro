@@ -101,10 +101,10 @@
 			<tr>
 				<td class="funcs funcsPrincipales">
 					<a class="funcPrincipal" href="buscarProducto.jsp">Gestión de productos</a> 
-					<a class="funcPrincipal funcPrincipalAct"  href="generarOrden.jsp">Ventas</a> <a
-					class="funcPrincipal" href="#">Administración de clientes</a> <a
-					class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> <a
-					class="funcPrincipal" href="#">Administración de usuarios</a></td>
+					<a class="funcPrincipal funcPrincipalAct" href="#">Ventas</a> 
+					<a class="funcPrincipal" href="buscarCliente.jsp">Administración de clientes</a> 
+					<a class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> 
+					<a class="funcPrincipal" href="#">Administración de usuarios</a></td>
 
 				<td class="panelPrincipal">
 					<div class="helpText">Si necesita ayuda haga <a href="javascript:abrirPopUp('popupAyudaGenerica.html')">click aquí</a> </div>  
