@@ -59,6 +59,7 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 		// FALTA EL RESTO DE LOS CAMPOS
 		this.setId(rs);
 		this.setMedioPago(rs);
+		this.setMonto(rs);
 	}
 	@Override
 	protected Factura getCopia(ResultSet rs) throws SQLException {
@@ -129,6 +130,11 @@ public class Factura extends ObjetoPersistente<Factura, Integer>{
 		this.setMedioPago(this.getColumnaInt(rs, "medioPago"));
 	}
 
+	protected void setMonto (ResultSet rs) throws SQLException {
+		this.setMonto(this.getColumnaDecimal(rs, "monto"));
+		
+	}
+	
 	public OrdenDeVenta getOrdenDeVenta() {
 		return ordenDeVenta;
 	}

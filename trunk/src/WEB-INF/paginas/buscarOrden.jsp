@@ -137,7 +137,7 @@
 									<td style="border: 1px solid #CCC"><c:out value="${row.comprador}" /></td>
 									<td style="border: 1px solid #CCC"><c:out value="${row.vendedor}" /></td>
 									<td style="border: 1px solid #CCC"><c:out value="${row.cantProductos}" /></td>
-									<td style="border: 1px solid #CCC"><c:out value="${row.montoTotal}" /></td>
+									<td style="border: 1px solid #CCC">$<c:out value="${row.factura.monto}" /></td>
 									<td style="border: 1px solid #CCC"><c:out value="${row.estadoDescripcion}" /></td>
 									<td style="border: 1px solid #CCC" align="center"><img src="imagenes/iconos/glasses.gif" onclick="javascript:abrirPopUpConParam('popupDetalleOrden.jsp','idOrden','${row.id}')" alt="Ver" /></td>
 									<td style="border: 1px solid #CCC" align="center">

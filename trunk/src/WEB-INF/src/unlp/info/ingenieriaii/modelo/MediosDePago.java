@@ -47,8 +47,8 @@ public enum MediosDePago {
 			return EFECTIVO.getDescripcion();
 		}else if (DEBITO.getId() == id) {
 			return DEBITO.getDescripcion();
-		}else if (DEBITO.getId() == id) {
-			return DEBITO.getDescripcion();
+		}else if (CREDITO.getId() == id) {
+			return CREDITO.getDescripcion();
 		}
 		return "";
 	}

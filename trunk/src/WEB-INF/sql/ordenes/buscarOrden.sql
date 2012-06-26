@@ -36,7 +36,7 @@ BEGIN
         f.medioPago as Factura_medioPago,
         f.anulada  as Factura_anulada
     FROM tbl_ordenes_venta  o left join tbl_personas P on o.idcliente = p.idpersona
-        left join tbl_factura f on o.idOrdenVenta = f.idFactura
+        left join tbl_factura f on o.idOrdenVenta = f.idOrdenVenta
         inner join tbl_usuarios u on o.idVendedor = u.idUsuario
     WHERE o.idvendedor = IFNULL(vend_id,O.idvendedor)
     and P.nroDocumento = IFNULL(comp_dni,p.nroDocumento)
