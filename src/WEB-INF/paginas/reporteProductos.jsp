@@ -63,9 +63,8 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td class="botonera"><input type="submit" value="Aceptar"
-					name="btnAceptar"></input> <input type="submit" value="Cancelar"
-					name="btnCancelar" onclick="return confirm('¿Esta seguro que desea cancelar la operación?')"></input></td>
+				<td class="botonera"><input type="submit" value="Imprimir"
+					name="btnImprimir" disabled="disabled"></input></td>
 			</tr>
 		</table>
 	</form>

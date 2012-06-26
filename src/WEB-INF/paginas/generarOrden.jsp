@@ -145,8 +145,8 @@
 						<table border="0">
 							<tr>
 								<td class="labelForm">DNI Cliente:</td>
-								<td><input type="text" name="dniBusqueda" id="dniBusqueda" size="30" value="${inputVenta.dni}"  <%= false ? "" : "disabled" %>/>*</td>
-								<td colspan="2"><input type="submit" value="Buscar" name="btnBuscarCliente" <%= false ? "" : "disabled" %>></input></td>
+								<td><input type="text" name="dniBusqueda" id="dniBusqueda" size="30" value="${inputVenta.dni}"  <%= enVenta ? "" : "disabled" %>/>*</td>
+								<td colspan="2"><input type="submit" value="Buscar" name="btnBuscarCliente" <%= enVenta ? "" : "disabled" %>></input></td>
 								<c:if test="${!empty erroresInputVenta.campo.dni}">
 								<div class="errorEntrada">${erroresInputVenta.campo.dni}</div>
 							</c:if>
