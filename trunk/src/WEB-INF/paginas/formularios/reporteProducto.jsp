@@ -16,13 +16,15 @@ ResultSet rs = conexion.createStatement().executeQuery((String)request.getAttrib
 
 <table border=1>
 
-<tr><th>Codigo</th><th>Nombre</th><th>Precio</th><th>Garantia</th><th>Stock</th><th>Stock Minimo</th><th>En Venta</th><th>Descripcion</th></tr>
+<tr><th>Codigo</th><th>Nombre</th><th>Tipo</th><th>Marca</th><th>Precio</th><th>Garantia</th><th>Stock</th><th>Stock Minimo</th><th>En Venta</th><th>Descripcion</th></tr>
 
 <%while (rs.next()) {%>
 
 		<tr>
 			<td><%out.println(rs.getString("codigo"));%></td>
 			<td><%out.println(rs.getString("nombre"));%></td>
+			<td><%out.println(rs.getString("tipo"));%></td>
+			<td><%out.println(rs.getString("marca"));%></td>
 			<td><%out.println(rs.getFloat("precio"));%></td>
 			<td><%out.println(rs.getInt("garantia"));%></td>
 			<td><%out.println(rs.getInt("stock"));%></td>
