@@ -1,6 +1,6 @@
 delimiter $$
 
-CREATE PROCEDURE `generarFactura`(idOrden int, monto_ decimal, medioPago_ int)
+CREATE PROCEDURE `generarFactura`(idOrden int, monto_ decimal(7,2), medioPago_ int)
 BEGIN
 
     INSERT INTO tbl_factura(idOrdenVenta, tipo, monto, mediopago, anulada)

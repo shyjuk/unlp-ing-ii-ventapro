@@ -1,6 +1,6 @@
 delimiter $$
 
-CREATE PROCEDURE `generarOrdenItem`(idOrden int, idProducto int, cantidad int, numero int,  precioUnitario decimal)
+CREATE PROCEDURE `generarOrdenItem`(idOrden int, idProducto int, cantidad int, numero int,  precioUnitario decimal(7,2))
 BEGIN
 
     INSERT INTO tbl_items(idOrdenVenta, numero, idProducto, precioUnitario, cantidad)

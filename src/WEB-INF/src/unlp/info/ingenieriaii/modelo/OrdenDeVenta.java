@@ -1,6 +1,5 @@
 package unlp.info.ingenieriaii.modelo;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -177,7 +176,7 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 					errores.setErrorCampo("estado", "El estado es invalido");
 				}
 				
-				if ((Estados.ANULADA.getId() == num)) {
+				if ((Estados.ANULADA.getId() == num) || (Estados.PAGADA.getId() == num)) {
 					// si estoy anulando no valido nada mas
 					return errores;
 				}
@@ -340,18 +339,9 @@ public class OrdenDeVenta extends ObjetoPersistente<OrdenDeVenta, Integer> {
 	public String getCantProductos() {
 		int cantidadTotal = 0;
 		for (Item item : this.getItems()) {
-			cantidadTotal = +item.getCantidad();
+			cantidadTotal = cantidadTotal + item.getCantidad();
 		}
 		return String.valueOf(cantidadTotal);
-	}
-
-	public String getMontoTotal() {
-		BigDecimal montoTotal = BigDecimal.ZERO;
-		for (Item item : this.getItems()) {
-			montoTotal = (item.getPrecio().multiply(new BigDecimal(item
-					.getCantidad()))).add(montoTotal);
-		}
-		return String.valueOf(montoTotal);
 	}
 
 	public String getMontoDetalle() {

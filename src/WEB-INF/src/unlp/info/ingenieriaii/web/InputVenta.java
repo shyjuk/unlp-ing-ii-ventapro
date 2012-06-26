@@ -120,7 +120,7 @@ public class InputVenta {
 		}
 		if (errores.esVacio()) {
 			try {
-				List<Producto> productos = Producto.buscarProductos(null, null, this.getCodigoAgregar(), null, true);
+				List<Producto> productos = Producto.buscarProductos(null, null, this.getCodigoAgregar(), null, Boolean.TRUE);
 				if (!productos.isEmpty()) {
 					
 					if (Integer.valueOf(productos.get(0).getStock()) < 1) {
