@@ -37,11 +37,9 @@ public class BuscadorOrden extends Buscador<OrdenDeVenta>  {
 				errores.setErrorCampo("nombre", "Ingrese hasta 100 caracteres para el nombre.");
 			}
 		}
-		if (!Utiles.esVacio(this.getDia()) || !Utiles.esVacio(this.getMes()) || !Utiles.esVacio(this.getAnio())) {
-			if (!Utiles.esFecha(this.getDia(), this.getMes(), this.getAnio())) {
-				errores.setErrorCampo("fecha", "La fecha es invalida.");
-			}
-		}	
+		
+		Validador.validarFecha(errores, "fecha", this.getDia(), this.getMes(), this.getAnio(), true);
+		
 		if (!Utiles.esVacio(this.getProducto())){
 			if (!(this.getProducto().trim().length() >= 12 && this.getProducto().trim().length() <= 13)) {
 				errores.setErrorCampo("producto", "Ingrese entre 12 y 13 digitos numericos para el codigo del producto.");	
@@ -55,7 +53,7 @@ public class BuscadorOrden extends Buscador<OrdenDeVenta>  {
 	public Date getFecha () {
 		if (!Utiles.esVacio(this.getDia()) && !Utiles.esVacio(this.getMes()) && !Utiles.esVacio(this.getAnio())) {
 			if (Utiles.esFecha(this.getDia(), this.getMes(), this.getAnio())) {
-				return new Date(Integer.valueOf(anio) -1900, Integer.valueOf(mes) -1 ,Integer.valueOf(dia));
+				return new Date(Integer.valueOf(anio.trim()) -1900, Integer.valueOf(mes.trim()) -1 ,Integer.valueOf(dia.trim()));
 			}
 		}	
 		return null;
