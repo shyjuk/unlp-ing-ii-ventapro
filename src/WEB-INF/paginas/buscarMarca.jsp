@@ -65,10 +65,10 @@
 			<tr>
 				<td class="funcs funcsPrincipales"><a
 					class="funcPrincipal funcPrincipalAct" href="#">Gestión de
-						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
-					class="funcPrincipal" href="buscarCliente.jsp">Administración de clientes</a> <a
-					class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> <a
-					class="funcPrincipal" href="#">Administración de usuarios</a></td>
+						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a>
+					<a class="funcPrincipal" href="buscarCliente.jsp">Administración
+						de clientes</a> <a class="funcPrincipal" href="reporteProductos.jsp">Reportes</a>
+					<a class="funcPrincipal" href="#">Administración de usuarios</a></td>
 
 				<td class="panelPrincipal">
 					<div class="subFuncs">
@@ -88,6 +88,10 @@
 									test="${!empty errores.campo.nombre}">
 									<div class="errorEntrada">${errores.campo.nombre}</div>
 								</c:if></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="right"><input type="submit"
+								value="Buscar" name="btnAceptar" /></td>
 						</tr>
 						<tr>
 							<td colspan="2" class="separador"></td>
@@ -120,11 +124,13 @@
 											value="${marca.sitioWeb}" /></td>
 									<td align="center" style="border: 1px solid #CCC"><img
 										src="imagenes/iconos/lupa_mas.gif"
-										onclick="javascript:mostrarDetalles('${marca.id}')" id="mas_${marca.id}"
-										alt="Más información" style="margin-right: 10px" /> <img
+										onclick="javascript:mostrarDetalles('${marca.id}')"
+										id="mas_${marca.id}" alt="Más información"
+										style="margin-right: 10px" /> <img
 										src="imagenes/iconos/lupa_menos.gif"
-										onclick="javascript:ocultarDetalles('${marca.id}')" id="menos_${marca.id}"
-										alt="Más información" style="margin-right: 10px" class="oculto"/> <img
+										onclick="javascript:ocultarDetalles('${marca.id}')"
+										id="menos_${marca.id}" alt="Más información"
+										style="margin-right: 10px" class="oculto" /> <img
 										src="imagenes/iconos/edit.gif"
 										onclick="javascript:editObject('${marca.id}')" alt="Editar"
 										style="margin-right: 8px" /> <img
@@ -169,7 +175,7 @@
 				<td class="botonera"><input type="submit" value="Aceptar"
 					name="btnAceptar" /> <input type="submit" value="Borrar"
 					name="btnBorrar"
-					onclick="return confirm('¿Esta seguro que desea borrar las marcas seleccionadas?')" /></td>
+					onclick="return algunoCheckeado(${listaId}) && confirm('¿Esta seguro que desea borrar las marcas seleccionadas?')" /></td>
 			</tr>
 		</table>
 	</form>

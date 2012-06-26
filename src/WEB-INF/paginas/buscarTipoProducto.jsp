@@ -79,6 +79,10 @@
 								</c:if></td>
 						</tr>
 						<tr>
+							<td colspan="2" align="right"><input type="submit" value="Buscar"
+					name="btnAceptar" /></td>
+						</tr>						
+						<tr>
 							<td colspan="2" class="separador"></td>
 						</tr>
 					</table>
@@ -135,7 +139,7 @@
 				<td class="botonera"><input type="submit" value="Aceptar"
 					name="btnAceptar" /> <input type="submit" value="Borrar"
 					name="btnBorrar"
-					onclick="return confirm('¿Esta seguro que desea borrar los tipos de producto seleccionados?')" /></td>
+					onclick="return algunoCheckeado(${listaId}) && confirm('¿Esta seguro que desea borrar los tipos de producto seleccionados?')" /></td>
 			</tr>
 		</table>
 	</form>

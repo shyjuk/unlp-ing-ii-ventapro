@@ -24,7 +24,7 @@ public class BuscadorTipoProducto extends Buscador<TipoProducto> {
 
 			errores.setErrorCampo(
 					"nombre",
-					"Debe indicar el nombre del tipo de producto (o parte de la mismo) para realizar la búsqueda.");
+					"Debe indicar el nombre del tipo de producto (o parte del mismo) para realizar la búsqueda.");
 		} else {
 			Validador.validarLongitud(errores, "nombre", this.getNombre(), 0,
 					50);

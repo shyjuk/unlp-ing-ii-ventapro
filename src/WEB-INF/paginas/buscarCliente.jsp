@@ -65,8 +65,8 @@
 					href="buscarProducto.jsp">Gestión de productos</a> <a
 					class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
 					class="funcPrincipal funcPrincipalAct" href="#">Administración
-						de clientes</a> <a class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> <a
-					class="funcPrincipal" href="#">Administración de usuarios</a></td>
+						de clientes</a> <a class="funcPrincipal" href="reporteProductos.jsp">Reportes</a>
+					<a class="funcPrincipal" href="#">Administración de usuarios</a></td>
 
 				<td class="panelPrincipal">
 					<div class="subFuncs">
@@ -103,6 +103,10 @@
 									test="${!empty errores.campo.nroDocumento}">
 									<div class="errorEntrada">${errores.campo.nroDocumento}</div>
 								</c:if></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="right"><input type="submit"
+								value="Buscar" name="btnAceptar" /></td>
 						</tr>
 						<tr>
 							<td colspan="2" class="separador"></td>
@@ -229,7 +233,7 @@
 				<td class="botonera"><input type="submit" value="Aceptar"
 					name="btnAceptar" /> <input type="submit" value="Borrar"
 					name="btnBorrar"
-					onclick="return confirm('¿Esta seguro que desea borrar los clientes seleccionados?')" /></td>
+					onclick="return algunoCheckeado(${listaId}) && confirm('¿Esta seguro que desea borrar los clientes seleccionados?')" /></td>
 			</tr>
 		</table>
 	</form>

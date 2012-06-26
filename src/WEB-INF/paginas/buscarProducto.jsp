@@ -64,10 +64,10 @@
 			<tr>
 				<td class="funcs funcsPrincipales"><a
 					class="funcPrincipal funcPrincipalAct" href="#">Gestión de
-						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
-					class="funcPrincipal" href="buscarCliente.jsp">Administración de clientes</a> <a
-					class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> <a
-					class="funcPrincipal" href="#">Administración de usuarios</a></td>
+						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a>
+					<a class="funcPrincipal" href="buscarCliente.jsp">Administración
+						de clientes</a> <a class="funcPrincipal" href="reporteProductos.jsp">Reportes</a>
+					<a class="funcPrincipal" href="#">Administración de usuarios</a></td>
 
 				<td class="panelPrincipal">
 					<div class="subFuncs">
@@ -129,11 +129,13 @@
 							<td colspan="5" class="separador"></td>
 						</tr>
 						<tr>
-							<td colspan="5"><input name="chkIncluir" type="checkbox"
+							<td colspan="4"><input name="chkIncluir" type="checkbox"
 								value="true"
 								<c:if
 									test="${empty buscador.enVenta}">checked="checked"</c:if> />Incluir
 								productos que no es encuentren a la venta.</td>
+							<td align="right"><input type="submit" value="Buscar"
+								name="btnAceptar" /></td>
 						</tr>
 						<tr>
 							<td colspan="5" class="separador"></td>
@@ -272,7 +274,7 @@
 				<td class="botonera"><input type="submit" value="Aceptar"
 					name="btnAceptar" /> <input type="submit" value="Borrar"
 					name="btnBorrar"
-					onclick="return confirm('¿Esta seguro que desea borrar los productos seleccionados?')" /></td>
+					onclick="return algunoCheckeado(${listaId}) && confirm('¿Esta seguro que desea borrar los productos seleccionados?')" /></td>
 			</tr>
 		</table>
 	</form>
