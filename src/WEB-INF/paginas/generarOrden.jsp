@@ -160,15 +160,17 @@
 								</c:if>
 								</td>
 							</tr>
+
 							<tr>
-								<td class="labelForm">Fecha nacimiento:</td>
-								<td colspan="3"><input type="text" name="dia" id="dia" size="2" value="${fechaNacimientoDia}"  <%= enVenta ? "" : "disabled" %>/>
-									<input type="text" name="mes" id="mes" size="2" value="${fechaNacimientoMes}" <%= enVenta ? "" : "disabled" %>/>
-									<input type="text" name="anio" id="anio" size="4" value="${fechaNacimientoAnio}" <%= enVenta ? "" : "disabled" %>/>*
+								<td class="labelForm"><%// Fecha nacimiento: %></td>
+								<td colspan="3"><%// <input type="text" name="dia" id="dia" size="2" value="${fechaNacimientoDia}"  <%= enVenta ? "" : "disabled" %><%// /> %> 
+									<%//<input type="text" name="mes" id="mes" size="2" value="${fechaNacimientoMes}" <%= enVenta ? "" : "disabled" %><%// /> %>
+									<%//<input type="text" name="anio" id="anio" size="4" value="${fechaNacimientoAnio}" <%= enVenta ? "" : "disabled" %><%// /> * %>
+									<%/**
 									<c:if test="${!empty errores.campo.fechaNacimiento}">
 										<div class="errorEntrada">${errores.campo.fechaNacimiento}</div>
-									</c:if></td>
-							</tr>
+									</c:if> **/%></td>
+							</tr>	
 							<tr>
 								<td class="labelForm">Teléfono:</td>
 								<td colspan=3><input type="text" style="width: 350px" name="telefono" value="${inputVenta.ordenDeVenta.cliente.telefono}" <%= enVenta ? "" : "disabled" %>></input></td>
@@ -191,21 +193,24 @@
 								<td class="labelForm">Localidad:</td> <!-- FALTA MODIFICAR CARGA DE COMBO  -->
 								<td><select name="localidad" style="width: 30ex" onchange="redirect(this.options.selectedIndex)" <%= enVenta ? "" : "disabled" %>>
 										<option
-											<c:if test="${empty inputVenta.ordenDeVenta.cliente.localidad}">selected="selected"</c:if> value=""></option>
+											<c:if test="${empty inputVenta.ordenDeVenta.cliente.localidad}">selected="selected"</c:if>>${inputVenta.ordenDeVenta.cliente.localidad}</option>
+											<%/**
 											<c:forEach items="${listaLocalidades}" var="rowLocalidad">
 											<option <c:if test="${inputVenta.ordenDeVenta.cliente.localidad.id == rowLocalidad.id}">selected="selected"</c:if> value="${rowLocalidad.id}">${rowLocalidad.nombre}
 											</option>
-										</c:forEach>
+										</c:forEach> **/%>
 									</select>
 								</td>
-								<td class="labelForm">Codigo Postal:</td>
-								<td><input type="text" size="10" name="codPostal" value="${inputVenta.ordenDeVenta.cliente.codPostal}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td class="labelForm"><% //Codigo Postal:  %></td>
+								<td><% //<input type="text" size="10" name="codPostal" value="${inputVenta.ordenDeVenta.cliente.codPostal}" <%= enVenta ? "" : "disabled"></input>%></td>
 							</tr>
 							<tr>
 								<td class="labelForm">Calle:</td>
 								<td><input type="text" style="width: 200px" name="calle" value="${inputVenta.ordenDeVenta.cliente.calle}" <%= enVenta ? "" : "disabled" %>></input></td>
-								<td class="labelForm">Nro:</td>
+								<td class="labelForm">Altura:</td>
 								<td><input type="text" size="10" name="numero" value="${inputVenta.ordenDeVenta.cliente.numeroCalle}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td class="labelForm">Dpto:</td>
+								<td><input type="text" size="10" name="numero" value="${inputVenta.ordenDeVenta.cliente.dpto}" <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
 						</table>
 					</fieldset>
