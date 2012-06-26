@@ -9,7 +9,7 @@ BEGIN
     declare cursor_test cursor for select idProducto, cantidad from tbl_items where idOrdenVenta = idOrden;
     DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = TRUE;
     
-	open cursor_test;
+	/*open cursor_test;
     
     actualizacion: LOOP
 	fetch cursor_test into producto_var, cantidad_var;
@@ -21,7 +21,7 @@ BEGIN
 	    where idProducto = producto_var;  
 	END LOOP actualizacion;
     
-    close cursor_test; 
+    close cursor_test;*/ 
     
     delete from tbl_factura
 	where idOrdenVenta = idOrden;

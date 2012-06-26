@@ -338,6 +338,14 @@
 									<td><c:out value="${rowItem.cantidad}" /></td>
 									<td><input type="submit" value="Quitar" name="btnQuitar" onclick="javascript:quitarItem('${rowItem.producto.id}')"></input></td>
 								</tr>
+								<c:if test="${!empty rowItem.errores.campo.cantidad}">
+									<tr><td colspan="7">
+										<div class="errorEntrada" style="text-align: center; margin: 2em;">
+										<c:out value="${rowItem.errores.campo.cantidad}"></c:out>
+										</div>
+										</td>
+									</tr>
+								</c:if>
 							</c:forEach>
 							<c:if test="${!empty erroresInputVenta.campo.items}">
 								<div class="errorEntrada">${erroresInputVenta.campo.items}</div>
