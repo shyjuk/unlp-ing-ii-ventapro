@@ -68,6 +68,18 @@
 		<servlet-class>unlp.info.ingenieriaii.web.AgregarClienteServlet</servlet-class>
 	</servlet>	
 	<servlet>
+		<servlet-name>ReportePBMinServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.ReportePBMinServlet</servlet-class>
+	</servlet>	
+	<servlet>
+		<servlet-name>ProdInactivosServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.ProdInactivosServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ProdEnVentaServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.ProdEnVentaServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>BuscarClienteServlet</servlet-name>
 		<servlet-class>unlp.info.ingenieriaii.web.BuscarClienteServlet</servlet-class>
 	</servlet>	
@@ -75,7 +87,6 @@
 		<servlet-name>ModificarClienteServlet</servlet-name>
 		<servlet-class>unlp.info.ingenieriaii.web.ModificarClienteServlet</servlet-class>
 	</servlet>	
-	
 	 
 
 
@@ -147,4 +158,20 @@
 		<servlet-name>ModificarClienteServlet</servlet-name>
 		<url-pattern>/paginas/modificarCliente.jsp</url-pattern>
 	</servlet-mapping>		
+	<servlet-mapping>
+		<servlet-name>ReportePBMinServlet</servlet-name>
+		<url-pattern>/paginas/reporteBajoStock.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProdInactivosServlet</servlet-name>
+		<url-pattern>/paginas/productosInactivos.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProdInactivosServlet</servlet-name>
+		<url-pattern>/paginas/productosInactivos.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProdEnVentaServlet</servlet-name>
+		<url-pattern>/paginas/productosEnVenta.jsp</url-pattern>
+	</servlet-mapping>
 </web-app>
