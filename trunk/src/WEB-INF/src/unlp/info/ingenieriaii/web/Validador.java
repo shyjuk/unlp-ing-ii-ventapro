@@ -171,4 +171,19 @@ public class Validador {
 		}
 		return false;
 	}
+	
+	public static boolean validarFecha (Errores errores, String nombre, String dia, String mes, String anio, boolean opcional) {
+		if (Utiles.esVacio(dia) && Utiles.esVacio(mes) && Utiles.esVacio(anio)) {
+			if (!opcional) {
+				errores.setErrorCampo(nombre, "Complete la fecha.");
+				return false;
+			}
+		}else {
+			if (!Utiles.esFecha(dia, mes, anio)) {
+				errores.setErrorCampo(nombre, "La fecha es invalida.");
+				return false;
+			}
+		}
+		return true;
+	}
 }

@@ -1,5 +1,6 @@
 package unlp.info.ingenieriaii.web;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class Utiles {
@@ -12,14 +13,22 @@ public class Utiles {
 		if (Utiles.esVacio(dia) || Utiles.esVacio(mes) || Utiles.esVacio(anio)) {
 			return false;
 		} else {
-			if (!dia.trim().matches("[0-9]*") || !mes.trim().matches("[0-9]*")
-					|| !anio.trim().matches("[0-9]*")) {
+			if (!dia.trim().matches("[0-9]*") || !mes.trim().matches("[0-9]*") || !anio.trim().matches("[0-9]*")) {
+				return false;
+			} else if (dia.trim().length() > 2 || mes.trim().length() > 2 || anio.trim().length() != 4) {
 				return false;
 			} else {
 				try {
-					java.util.Date date = new java.util.Date(
-							Integer.valueOf(anio) - 1900,
-							Integer.valueOf(mes) - 1, Integer.valueOf(dia));
+					java.util.Date aDate = new java.util.Date(Integer.valueOf(anio.trim()) - 1900,Integer.valueOf(mes.trim()) - 1, Integer.valueOf(dia.trim()));
+					String[] answer = new String[3];
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTime(aDate);
+					answer[0] = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+					answer[1] = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+					answer[2] = String.valueOf(calendar.get(Calendar.YEAR));
+					if (!dia.trim().endsWith(answer[0]) || !mes.trim().equals(answer[1]) || !anio.trim().equals(answer[2])) {
+						return false;
+					}
 				} catch (Exception e) {
 					return false;
 				}
