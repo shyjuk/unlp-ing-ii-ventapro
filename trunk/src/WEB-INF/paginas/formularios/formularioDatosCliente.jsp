@@ -36,7 +36,7 @@
 	</tr>
 	<tr>
 		<td class="labelForm">Celular:</td>
-		<td><input type="text" style="width: 300px" name="telefono"
+		<td><input type="text" style="width: 300px" name="celular"
 			id="telefono" value="<c:out value="${cliente.celular}" />" /> <c:if
 				test="${!empty errores.campo.celular}">
 				<div class="errorEntrada">${errores.campo.celular}</div>
@@ -64,7 +64,8 @@
 				id="calle" value="<c:out value="${cliente.calle}" />" /> *</td>
 			<td class="labelForm"></td>
 			<td class="labelForm">Altura:</td>
-			<td><input type="text" style="width: 50px" name="altura" /></td>
+			<td><input type="text" style="width: 50px" name="numeroCalle" 
+				value="<c:out value="${cliente.numeroCalle}" />"/></td>
 			<td class="labelForm"></td>
 			<td class="labelForm">Dpto:</td>
 			<td><input type="text" style="width: 50px" name="dpto" id="dpto"
@@ -98,7 +99,7 @@
 				id="localidad">
 					<option
 						<c:if test="${empty cliente.localidad}">selected="selected"</c:if>
-						value=""></option>
+						value="">Otra:</option>
 					<c:forEach items="${localidades}" var="localidad">
 						<option
 							<c:if test="${localidad.nombre == cliente.localidad}">selected="selected"</c:if>

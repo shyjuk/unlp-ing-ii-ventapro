@@ -75,4 +75,17 @@ public class Utiles {
 
 		return valor != null ? valor.trim().replaceAll("\\s+", " ") : null;
 	}
+	
+	public static boolean esAlfa(String valor){
+		
+		if (valor == null) return false;
+		
+		valor.replaceAll("\\s+", "");
+		
+		for (int i = 0; i < valor.length(); i++)
+			if (!Character.isLetter(valor.charAt(i)))
+				return false;
+		
+		return true;
+	}
 }
