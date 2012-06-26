@@ -32,6 +32,17 @@ function changeAllSelection(element, list) {
 	}
 }
 
+function algunoCheckeado(list) {
+	
+	for (var i = 0; i < list.length; i++){
+		if ((document.getElementById('seleccionados_' + list[i])).checked)
+			return true;
+	}
+	
+	alert('No hay ningún casillero marcado');
+	return false;
+}
+
 function isNumberKey(evt) {
 	var charCode = (evt.which) ? evt.which : event.keyCode;
 

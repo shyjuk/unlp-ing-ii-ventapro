@@ -29,8 +29,9 @@ public class BuscarClienteServlet extends ServletPagina {
 		return lista.toString();
 	}
 
-	private void setBuscador(String nombre, String apellido, String nroDocumento, HttpServletRequest req,
-			boolean validar) throws SQLException {
+	private void setBuscador(String nombre, String apellido,
+			String nroDocumento, HttpServletRequest req, boolean validar)
+			throws SQLException {
 		BuscadorCliente buscadorCliente = new BuscadorCliente();
 		Errores errores;
 
@@ -66,17 +67,26 @@ public class BuscarClienteServlet extends ServletPagina {
 			HashMap<String, Boolean> checkboxValues = getAllParameterCheckBox(
 					req, "seleccionados_");
 			Cliente cliente = new Cliente();
+			Errores errores = new Errores();
+			int i = 0;
 
 			for (Entry<String, Boolean> row : checkboxValues.entrySet()) {
 
 				cliente.setId(Integer.parseInt(row.getKey()));
-				cliente.eliminar();
+
+				i += cliente.eliminar().esVacio() ? 0 : 1;
+			}
+
+			if (i > 0) {
+				errores.setGeneral("Advertencia: Hubo clientes que no han podido ser eliminados.");
+				req.setAttribute("erroresEliminar", errores);
 			}
 		}
 
-		this.setBuscador(req.getParameter("nombre"), req.getParameter("apellido"), req.getParameter("nroDocumento"), req,
-				req.getParameter("btnAceptar") != null);
-		
+		this.setBuscador(req.getParameter("nombre"),
+				req.getParameter("apellido"), req.getParameter("nroDocumento"),
+				req, req.getParameter("btnAceptar") != null);
+
 		super.procesarPost(req, resp);
 	}
 }

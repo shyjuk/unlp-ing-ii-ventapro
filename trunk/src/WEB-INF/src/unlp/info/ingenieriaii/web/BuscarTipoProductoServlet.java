@@ -61,11 +61,18 @@ public class BuscarTipoProductoServlet extends ServletPagina {
 			HashMap<String, Boolean> checkboxValues = getAllParameterCheckBox(
 					req, "seleccionados_");
 			TipoProducto tipoProducto = new TipoProducto();
-
+			Errores errores = new Errores();
+			int i = 0;
+			
 			for (Entry<String, Boolean> row : checkboxValues.entrySet()) {
 
 				tipoProducto.setId(Integer.parseInt(row.getKey()));
-				tipoProducto.eliminar();
+				i += tipoProducto.eliminar().esVacio() ? 0 : 1;
+			}
+			
+			if (i > 0) {
+				errores.setGeneral("Advertencia: Hubo tipos de producto que no han podido ser eliminados.");
+				req.setAttribute("erroresEliminar", errores);
 			}
 		}
 

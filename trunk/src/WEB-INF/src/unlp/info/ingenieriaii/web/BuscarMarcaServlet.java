@@ -64,17 +64,24 @@ public class BuscarMarcaServlet extends ServletPagina {
 			HashMap<String, Boolean> checkboxValues = getAllParameterCheckBox(
 					req, "seleccionados_");
 			Marca marca = new Marca();
+			Errores errores = new Errores();
+			int i = 0;
 
 			for (Entry<String, Boolean> row : checkboxValues.entrySet()) {
 
 				marca.setId(Integer.parseInt(row.getKey()));
-				marca.eliminar();
+				i += marca.eliminar().esVacio() ? 0 : 1;
+			}
+
+			if (i > 0) {
+				errores.setGeneral("Advertencia: Hubo marcas que no han podido ser eliminadas.");
+				req.setAttribute("erroresEliminar", errores);
 			}
 		}
 
 		this.setBuscador(req.getParameter("nombre"), req,
 				req.getParameter("btnAceptar") != null);
-		
+
 		super.procesarPost(req, resp);
 	}
 }

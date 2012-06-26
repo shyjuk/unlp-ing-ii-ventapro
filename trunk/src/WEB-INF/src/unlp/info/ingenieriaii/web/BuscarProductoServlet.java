@@ -77,11 +77,18 @@ public class BuscarProductoServlet extends ServletPagina {
 			HashMap<String, Boolean> checkboxValues = getAllParameterCheckBox(
 					req, "seleccionados_");
 			Producto producto = new Producto();
-
+			Errores errores = new Errores();
+			int i = 0;
+			
 			for (Entry<String, Boolean> row : checkboxValues.entrySet()) {
 
 				producto.setId(Integer.parseInt(row.getKey()));
-				producto.eliminar();
+				i += producto.eliminar().esVacio() ? 0 : 1;
+			}
+			
+			if (i > 0) {
+				errores.setGeneral("Advertencia: Hubo productos que no han podido ser eliminados.");
+				req.setAttribute("erroresEliminar", errores);
 			}
 		}
 
