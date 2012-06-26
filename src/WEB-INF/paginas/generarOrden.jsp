@@ -145,8 +145,8 @@
 						<table border="0">
 							<tr>
 								<td class="labelForm">DNI Cliente:</td>
-								<td><input type="text" name="dniBusqueda" id="dniBusqueda" size="30" value="${inputVenta.dni}"  <%= enVenta ? "" : "disabled" %>/>*</td>
-								<td colspan="2"><input type="submit" value="Buscar" name="btnBuscarCliente" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td><input type="text" name="dniBusqueda" id="dniBusqueda" size="30" value="${inputVenta.dni}"  <%= false ? "" : "disabled" %>/>*</td>
+								<td colspan="2"><input type="submit" value="Buscar" name="btnBuscarCliente" <%= false ? "" : "disabled" %>></input></td>
 								<c:if test="${!empty erroresInputVenta.campo.dni}">
 								<div class="errorEntrada">${erroresInputVenta.campo.dni}</div>
 							</c:if>
@@ -154,7 +154,7 @@
 							<tr style="height: 10px"></tr>
 							<tr>
 								<td class="labelForm">Apellido:</td>
-								<td colspan=3><input type="text" style="width: 350px" name="apellidoCliente" value="${inputVenta.ordenDeVenta.cliente.apellido}"  <%= enVenta ? "" : "disabled" %>></input>*
+								<td colspan=3><input type="text" style="width: 350px" name="apellidoCliente" value="${inputVenta.ordenDeVenta.cliente.apellido}"  <%= false ? "" : "disabled" %>></input>*
 								<c:if test="${!empty inputVenta.ordenDeVenta.erroresCliente.campo.apellido}">
 									<div class="errorEntrada">${inputVenta.ordenDeVenta.erroresCliente.campo.apellido}</div>
 								</c:if>
@@ -162,7 +162,7 @@
 							</tr>
 							<tr>
 								<td class="labelForm">Nombre:</td>
-								<td colspan=3><input type="text" style="width: 350px" name="nombreCliente" value="${inputVenta.ordenDeVenta.cliente.nombre}"  <%= enVenta ? "" : "disabled" %>></input>*
+								<td colspan=3><input type="text" style="width: 350px" name="nombreCliente" value="${inputVenta.ordenDeVenta.cliente.nombre}"  <%= false ? "" : "disabled" %>></input>*
 								<c:if test="${!empty inputVenta.ordenDeVenta.erroresCliente.campo.nombre}">
 									<div class="errorEntrada">${inputVenta.ordenDeVenta.erroresCliente.campo.nombre}</div>
 								</c:if>
@@ -181,15 +181,15 @@
 							</tr>	
 							<tr>
 								<td class="labelForm">Teléfono:</td>
-								<td colspan=3><input type="text" style="width: 350px" name="telefono" value="${inputVenta.ordenDeVenta.cliente.telefono}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td colspan=3><input type="text" style="width: 350px" name="telefono" value="${inputVenta.ordenDeVenta.cliente.telefono}" <%= false ? "" : "disabled" %>></input></td>
 							</tr>
 							<tr>
 								<td class="labelForm">Celular:</td>
-								<td colspan=3><input type="text" style="width: 350px" name="celular" value="${inputVenta.ordenDeVenta.cliente.celular}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td colspan=3><input type="text" style="width: 350px" name="celular" value="${inputVenta.ordenDeVenta.cliente.celular}" <%= false ? "" : "disabled" %>></input></td>
 							</tr>
 							<tr>
 								<td class="labelForm">E-mail:</td>
-								<td colspan=3><input type="text" style="width: 350px" name="email" value="${inputVenta.ordenDeVenta.cliente.email}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td colspan=3><input type="text" style="width: 350px" name="email" value="${inputVenta.ordenDeVenta.cliente.email}" <%= false ? "" : "disabled" %>></input></td>
 							</tr>
 							
 						</table>
@@ -199,7 +199,7 @@
 							</tr>
 							<tr>
 								<td class="labelForm">Localidad:</td> <!-- FALTA MODIFICAR CARGA DE COMBO  -->
-								<td><select name="localidad" style="width: 30ex" onchange="redirect(this.options.selectedIndex)" <%= enVenta ? "" : "disabled" %>>
+								<td><select name="localidad" style="width: 30ex" onchange="redirect(this.options.selectedIndex)" <%= false ? "" : "disabled" %>>
 										<option
 											<c:if test="${empty inputVenta.ordenDeVenta.cliente.localidad}">selected="selected"</c:if>>${inputVenta.ordenDeVenta.cliente.localidad}</option>
 											<%/**
@@ -214,11 +214,11 @@
 							</tr>
 							<tr>
 								<td class="labelForm">Calle:</td>
-								<td><input type="text" style="width: 200px" name="calle" value="${inputVenta.ordenDeVenta.cliente.calle}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td><input type="text" style="width: 200px" name="calle" value="${inputVenta.ordenDeVenta.cliente.calle}" <%= false ? "" : "disabled" %>></input></td>
 								<td class="labelForm">Altura:</td>
-								<td><input type="text" size="10" name="numero" value="${inputVenta.ordenDeVenta.cliente.numeroCalle}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td><input type="text" size="10" name="numero" value="${inputVenta.ordenDeVenta.cliente.numeroCalle}" <%= false ? "" : "disabled" %>></input></td>
 								<td class="labelForm">Dpto:</td>
-								<td><input type="text" size="10" name="numero" value="${inputVenta.ordenDeVenta.cliente.dpto}" <%= enVenta ? "" : "disabled" %>></input></td>
+								<td><input type="text" size="10" name="numero" value="${inputVenta.ordenDeVenta.cliente.dpto}" <%= false ? "" : "disabled" %>></input></td>
 							</tr>
 						</table>
 					</fieldset>
