@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import unlp.info.ingenieriaii.modelo.Errores;
 import unlp.info.ingenieriaii.modelo.Cliente;
+import unlp.info.ingenieriaii.modelo.Localidad;
 
 public class ModificarClienteServlet extends ServletPagina {
 
@@ -37,21 +38,25 @@ public class ModificarClienteServlet extends ServletPagina {
 
 			errores = cliente.recuperar();
 			req.setAttribute("cliente", cliente);
+			req.setAttribute("localidades", Localidad.buscarLocalidad(null));
 			req.setAttribute("errores", errores);
 			super.procesarPost(req, resp);
 		} else if (req.getParameter("btnAceptar") != null) {
+			String localidad = req.getParameter("localidad");
 
 			cliente.setNombre(req.getParameter("nombre"));
-			cliente.setNombre(req.getParameter("apellido"));
+			cliente.setApellido(req.getParameter("apellido"));
 			cliente.setNroDocumento(req.getParameter("nroDocumento"));
-			cliente.setTipoDocumento(req.getParameter("tipoDocumento"));
 			cliente.setTelefono(req.getParameter("telefono"));
+			cliente.setCelular(req.getParameter("celular"));
 			cliente.setEmail(req.getParameter("email"));
-			//cliente.setDireccion(req.getParameter("direccion"));
-			//cliente.setLocalidad(req.getParameter("localidad"));
-			//cliente.setProvincia(req.getParameter("provincia"));
 
-						
+			cliente.setCalle(req.getParameter("calle"));
+			cliente.setNumeroCalle(req.getParameter("numeroCalle"));
+			cliente.setDpto(req.getParameter("dpto"));
+			cliente.setLocalidad(!Utiles.esVacio(localidad) ? localidad : req
+					.getParameter("localidadNueva"));
+
 			errores = cliente.guardar();
 
 			if (errores.esVacio()) {
@@ -60,6 +65,7 @@ public class ModificarClienteServlet extends ServletPagina {
 			} else {
 
 				req.setAttribute("cliente", cliente);
+				req.setAttribute("localidades", Localidad.buscarLocalidad(null));				
 				req.setAttribute("errores", errores);
 				super.procesarPost(req, resp);
 			}
