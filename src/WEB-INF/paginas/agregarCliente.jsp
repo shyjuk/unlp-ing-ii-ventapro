@@ -32,11 +32,11 @@
 				    </td>
 			</tr>
 			<tr>
-				<td class="funcs funcsPrincipales"><a
-					class="funcPrincipal" href="buscarProducto.jsp">Gestión de productos</a> <a 
+				<td class="funcs funcsPrincipales"><a class="funcPrincipal"
+					href="buscarProducto.jsp">Gestión de productos</a> <a
 					class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
-					class="funcPrincipalAct funcPrincipal" href="#">Administración de clientes</a> <a
-					class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> <a
+					class="funcPrincipal funcPrincipalAct" href="#">Administración
+						de clientes</a> <a class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> <a
 					class="funcPrincipal" href="#">Administración de usuarios</a></td>
 
 				<td class="panelPrincipal">
