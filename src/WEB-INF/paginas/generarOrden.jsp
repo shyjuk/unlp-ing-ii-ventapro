@@ -153,13 +153,21 @@
 							</tr>
 							<tr style="height: 10px"></tr>
 							<tr>
-								<td class="labelForm">Nombre y Apellido:</td>
+								<td class="labelForm">Apellido:</td>
+								<td colspan=3><input type="text" style="width: 350px" name="apellidoCliente" value="${inputVenta.ordenDeVenta.cliente.apellido}"  <%= enVenta ? "" : "disabled" %>></input>*
+								<c:if test="${!empty inputVenta.ordenDeVenta.erroresCliente.campo.apellido}">
+									<div class="errorEntrada">${inputVenta.ordenDeVenta.erroresCliente.campo.apellido}</div>
+								</c:if>
+								</td>
+							</tr>
+							<tr>
+								<td class="labelForm">Nombre:</td>
 								<td colspan=3><input type="text" style="width: 350px" name="nombreCliente" value="${inputVenta.ordenDeVenta.cliente.nombre}"  <%= enVenta ? "" : "disabled" %>></input>*
 								<c:if test="${!empty inputVenta.ordenDeVenta.erroresCliente.campo.nombre}">
 									<div class="errorEntrada">${inputVenta.ordenDeVenta.erroresCliente.campo.nombre}</div>
 								</c:if>
 								</td>
-							</tr>
+							</tr>							
 
 							<tr>
 								<td class="labelForm"><%// Fecha nacimiento: %></td>

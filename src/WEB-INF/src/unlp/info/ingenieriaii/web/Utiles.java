@@ -73,6 +73,6 @@ public class Utiles {
 
 	public static String trim(String valor) {
 
-		return valor != null ? valor.trim() : null;
+		return valor != null ? valor.trim().replaceAll("\\s+", " ") : null;
 	}
 }
