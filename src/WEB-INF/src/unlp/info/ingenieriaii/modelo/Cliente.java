@@ -145,10 +145,15 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 	}
 
 	protected void setApellidoNombre(ResultSet rs) throws SQLException {
-		final String nombre[] = this.getColumnaString(rs, "nombre").split(",");
+		final String nombre = this.getColumnaString(rs, "nombre");
 
-		this.setApellido(nombre[0]);
-		this.setNombre(nombre[1]);
+		if (nombre == null)
+			return;
+
+		String[] nombres= nombre.split(",");
+
+		this.setApellido(nombres[0]);
+		this.setNombre(nombres[1]);
 	}
 
 	protected void setNroDocumento(ResultSet rs) throws SQLException {
