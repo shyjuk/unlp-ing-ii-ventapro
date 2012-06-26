@@ -115,9 +115,27 @@ public class Item extends ObjetoPersistente<Item, ParEntero>{
 			errores.setErrorCampo("producto", "El producto no es valido");
 			return errores;
 		}
+		errores = this.getProducto().recuperar(); // Debo obtener el producto actualizado (stock)
+		if (!errores.esVacio()) {
+			errores.setErrorCampo("producto", "El producto no es valido");
+			return  errores;
+		}
+		
+		if (Integer.valueOf(this.getProducto().getStock()) < 1) {
+			errores.setErrorCampo("cantidad", "Este producto no esta en stock.");
+			return errores;
+		}
+		
 		Validador.validarEntero(errores, "cantidad", Utiles.getNotNullValue(this.getCantidad()), 1, Integer.valueOf(this.getProducto().getStock()), false);
+		
+		
 		return errores;
 	}
+	
+	public Errores esValido () {
+		return this.validarCampos();
+	}
+	
 	@Override
 	protected void manejarErrorDuplicado(Errores errores, Item copia) {
 		// TODO Auto-generated method stub

@@ -44,7 +44,21 @@ public class InputVenta {
 				
 				// generar cliente
 				
-				// generar items
+				
+				//ACA VA LO DE HERNAN (AGREGAR ERRORES CONOCIDOS TAMBIEN)
+				
+				
+				// generar items 
+				//ESTO ESTA ASI POR QUE SI UN ITEM ES INVALIDO Y LOS OTROS NO HACE LIO, POR QUE AL HACER EL ROLLBACK NO SE SABE CUAL ITEM DIO ERROR
+				// ES HORRIBLE!!!
+				for (Item item : this.getOrdenDeVenta().getItems()) {
+					errores = item.esValido();
+					if (!errores.esVacio()) {
+						item.setErrores(errores);
+						throw new Exception(errores.toString());
+					}
+					
+				}
 				for (Item item : this.getOrdenDeVenta().getItems()) {
 					errores = item.guardar(); 
 					if (!errores.esVacio()){
@@ -53,6 +67,7 @@ public class InputVenta {
 					}
 				}
 				
+				// generar orden
 				errores = this.getOrdenDeVenta().guardar();
 				if (!errores.esVacio()) {
 					this.getOrdenDeVenta().setErrores(errores);
@@ -62,7 +77,7 @@ public class InputVenta {
 			}catch (Exception e) {
 				e.printStackTrace(); // despues quitar esto, solo lo deje para ver que erroes puede dar
 				this.getOrdenDeVenta().setEstado(String.valueOf(Estados.ARMANDOSE.getId()));
-				this.getOrdenDeVenta().rollbackGeneracion();
+				this.getOrdenDeVenta().rollbackGeneracion(); // NO HAY ROLLBACK DE ITEMS!!!
 				if (!esErrorConocido(errores)) {
 					errores.setGeneral("Ha ocurrido un error inesperado. Por favor intente más tarde.");
 				}
