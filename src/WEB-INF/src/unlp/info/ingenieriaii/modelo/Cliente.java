@@ -103,17 +103,42 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		this.setId(this.getColumnaInt(rs, "idPersona"));
 	}
 
+	private void validarTelefono(Errores errores, String valor, String nombre) {
+
+		if (valor == null)
+			return;
+
+		if (!valor.matches("(\\(\\d+\\)\\s*)?\\d*"))
+			errores.setErrorCampo(nombre,
+					"El número tiene formato válido. Ejemplo: (0221) 4841234");
+	}
+
+	private void validarNombre(Errores errores, String valor, String nombre) {
+
+		if (valor == null)
+			return;
+
+		if (!Utiles.esAlfa(valor))
+			errores.setErrorCampo(nombre, "Debe ingresar letras unicamente.");
+	}
+
 	protected Errores validarCampos() {
 		Errores errores = new Errores();
 
-		Validador.validarLongitud(errores, "nombre", this.getNombre(), 1, 50);
-		Validador.validarLongitud(errores, "apellido", this.getApellido(), 1,
-				50);
+		if (Validador.validarLongitud(errores, "nombre", this.getNombre(), 1,
+				50))
+			validarNombre(errores, this.getNombre(), "nombre");
+		if (Validador.validarLongitud(errores, "apellido", this.getApellido(),
+				1, 50))
+			validarNombre(errores, this.getApellido(), "apellido");
 		Validador.validarEntero(errores, "nroDocumento",
 				this.getNroDocumento(), 1000000, 199999999, false);
-		Validador.validarLongitud(errores, "telefono", this.getTelefono(), 0,
-				20);
-		Validador.validarLongitud(errores, "celular", this.getCelular(), 0, 20);
+		if (Validador.validarLongitud(errores, "telefono", this.getTelefono(),
+				0, 20))
+			validarTelefono(errores, this.getTelefono(), "telefono");
+		if (Validador.validarLongitud(errores, "celular", this.getCelular(), 0,
+				20))
+			validarTelefono(errores, this.getCelular(), "celular");
 		Validador.validarLongitud(errores, "email", this.getEmail(), 0, 50);
 
 		Validador.validarLongitud(errores, "localidad", this.getLocalidad(), 1,
@@ -122,6 +147,7 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		Validador.validarEntero(errores, "numeroCalle", this.getNumeroCalle(),
 				1, 99999, true);
 		Validador.validarLongitud(errores, "dpto", this.getDpto(), 0, 4);
+
 		return errores;
 	}
 
@@ -150,7 +176,7 @@ public class Cliente extends ObjetoPersistente<Cliente, Integer> {
 		if (nombre == null)
 			return;
 
-		String[] nombres= nombre.split(",");
+		String[] nombres = nombre.split(",");
 
 		this.setApellido(nombres[0]);
 		this.setNombre(nombres[1]);
