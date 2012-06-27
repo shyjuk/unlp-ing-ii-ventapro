@@ -132,7 +132,7 @@
 											<option <c:if test="${inputVenta.ordenDeVenta.factura.medioPago == mprow.id}">selected="selected"</c:if> value="${mprow.id}">${mprow.descripcion}
 											</option>
 										</c:forEach>
-									</select>
+									</select>*
 									<c:if test="${!empty inputVenta.ordenDeVenta.factura.errores.campo.medioPago}">
 										<div class="errorEntrada">${inputVenta.ordenDeVenta.factura.errores.campo.medioPago}</div>
 									</c:if> 
