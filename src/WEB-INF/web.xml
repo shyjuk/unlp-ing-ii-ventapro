@@ -86,7 +86,11 @@
 	<servlet>
 		<servlet-name>ModificarClienteServlet</servlet-name>
 		<servlet-class>unlp.info.ingenieriaii.web.ModificarClienteServlet</servlet-class>
-	</servlet>	
+	</servlet>
+	<servlet>
+		<servlet-name>ReporteServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.ReporteServlet</servlet-class>
+	</servlet>		
 	 
 
 
@@ -174,4 +178,9 @@
 		<servlet-name>ProdEnVentaServlet</servlet-name>
 		<url-pattern>/paginas/productosEnVenta.jsp</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReporteServlet</servlet-name>
+		<url-pattern>/paginas/report.jsp</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
