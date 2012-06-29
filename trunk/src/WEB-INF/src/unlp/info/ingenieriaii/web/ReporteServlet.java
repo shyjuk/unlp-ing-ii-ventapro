@@ -2,6 +2,7 @@ package unlp.info.ingenieriaii.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -14,14 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.*;
 
-import com.mysql.jdbc.*;
-
 public class ReporteServlet extends ServletPagina{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7934179792801662812L;
+	
+	private static final String PATH_REPORTES = "/WEB-INF/reportes";
 	
 	
 	@Override
@@ -33,18 +34,13 @@ public class ReporteServlet extends ServletPagina{
 		// REPORTE (*.jasper)
 		
 		try {
-			// la conexion deberia estar en otro lado
-			Connection conexion;
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			// ojo este es mi usuario y pass, cada uno tiene uno diferente, esto habria que tomarlo de MySql.txt
-			//conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/db_ventapro","user","pass");
-			conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/db_ventapro","root","root"); 
+			Connection conexion = AccesoDb.abrirConexion(); 
 			
-			File reportFile = new File("c://TodosLosProductos.jasper"); // el directorio deberia ser dentro del proyecto
-			Map parameters = new HashMap();
+			String pathReportFile = this.getServletContext().getRealPath(PATH_REPORTES) + "/TodosLosProductos.jasper"; // el directorio deberia ser dentro del proyecto
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("nom","valor"); // estos son lo parametros para hacer el query
 			
-			byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
+			byte[] bytes = JasperRunManager.runReportToPdf(pathReportFile, parameters, conexion);
 			
 			resp.setContentType("application/pdf");
 			resp.setContentLength(bytes.length);
