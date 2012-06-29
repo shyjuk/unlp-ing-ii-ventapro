@@ -22,7 +22,7 @@ public class ReporteServlet extends ServletPagina{
 	 */
 	private static final long serialVersionUID = -7934179792801662812L;
 	
-	private static final String PATH_REPORTES = "/WEB-INF/reportes";
+	private static final String PATH_REPORTES = "/WEB-INF/reportes/";
 	
 	
 	@Override
@@ -36,7 +36,7 @@ public class ReporteServlet extends ServletPagina{
 		try {
 			Connection conexion = AccesoDb.abrirConexion(); 
 			
-			String pathReportFile = this.getServletContext().getRealPath(PATH_REPORTES) + "/TodosLosProductos.jasper"; // el directorio deberia ser dentro del proyecto
+			String pathReportFile = this.getServletContext().getRealPath(PATH_REPORTES + "TodosLosProductos.jasper");
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("nom","valor"); // estos son lo parametros para hacer el query
 			
