@@ -1,7 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="/WEB-INF/funciones.tld" prefix="f"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
+<%@ taglib tagdir="/WEB-INF/templates" prefix="t" %>
 <%@ attribute name="nombreFuncionalidad" required="true"%>
 <%@ attribute name="funcPrincipal" required="true" %>
 <%@ attribute name="funcionesSecundarias" required="true" fragment="true" %>
