@@ -11,6 +11,11 @@
     <uri>funciones</uri>        
  
     <function>
+        <name>esPaginaActual</name>
+        <function-class>unlp.info.ingenieriaii.web.funciones.FuncionesEL</function-class>
+        <function-signature>boolean esPaginaActual(javax.servlet.jsp.PageContext,java.lang.String)</function-signature>
+    </function>
+    <function>
         <name>concat</name>
         <function-class>unlp.info.ingenieriaii.web.funciones.FuncionesEL</function-class>
         <function-signature>String concat(java.lang.String, java.lang.String)</function-signature>

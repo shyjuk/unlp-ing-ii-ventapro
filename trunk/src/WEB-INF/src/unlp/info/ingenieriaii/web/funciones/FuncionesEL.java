@@ -5,16 +5,22 @@ import javax.servlet.jsp.PageContext;
 
 public class FuncionesEL {
 	private static final String DIR_BASE = "/VentaPro%20CODE";
-	
-	public static String concat(String pri, String sec)
-	{
-		
+
+	public static boolean esPaginaActual(PageContext context, String path) {
+		final String uri = ((HttpServletRequest) context.getRequest())
+				.getRequestURI();
+
+		return !path.startsWith("/") ? uri.endsWith("/" + path) : uri
+				.equals(path);
+	}
+
+	public static String concat(String pri, String sec) {
+
 		return pri.concat(sec);
 	}
-	
-	public static boolean matches(String input, String regex)
-	{
-		
+
+	public static boolean matches(String input, String regex) {
+
 		return input.matches(regex);
 	}
 

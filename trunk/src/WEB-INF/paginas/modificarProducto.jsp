@@ -1,77 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="unlp.info.ingenieriaii.modelo.SucursalUno"%>
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib tagdir="/WEB-INF/tags/templates" prefix="templates"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>VentaPro - Modificar Producto</title>
+<templates:paginaProductosProducto
+	nombreFuncionalidad="Modificar Producto">
 
-<link rel="stylesheet" type="text/css" href="basico.css" />
-<script src="funciones.js" type="text/javascript"></script>
-</head>
-<body>
-	<form method="post">
-		<div class="header">
-			<div class="nombreSucursal"><%=SucursalUno.getSingleInstance().getNombre()%></div>
-			<div class="nombreUsuario">
-				<%=("Rodolfo Perez")%>
-				<input type="submit" value="Cerrar sesión" name="btnCerrarSesion"></input>
-			</div>
-			<div class="clear"></div>
-		</div>
-
-		<table class="principal">
-			<tr>
-				<td></td>
-				<td class="funcs funcsSecundarias"><a class="func funcAct"
-					href="#">Producto</a> <a class="func" href="buscarMarca.jsp">Marca</a>
-					<a class="func" href="buscarTipoProducto.jsp">Tipo de producto</a></td>
-			</tr>
-			<tr>
-				<td class="funcs funcsPrincipales"><a
-					class="funcPrincipal funcPrincipalAct" href="#">Gestión de
-						productos</a> <a class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
-					class="funcPrincipal" href="buscarCliente.jsp">Administración de clientes</a> <a
-					class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> <a
-					class="funcPrincipal" href="#">Administración de usuarios</a></td>
-
-				<td class="panelPrincipal">
-					<div class="subFuncs">
-						<a class="subFunc" href="buscarProducto.jsp">Buscar</a> <a
-							class="subFunc" href="agregarProducto.jsp">Agregar</a><a
-							class="subFunc subFuncAct" href="#">Modificar</a>
-					</div>
-					<div class="helpText">
-						Si necesita ayuda haga <a
-							href="javascript:abrirPopUp('popupAyudaGenerica.html')">click
-							aquí</a>
-					</div> <input type="hidden" name="id" value="${producto.id}" /> <jsp:include
-						page="formularios/formularioDatosProducto.jsp" flush="true" />
+	<jsp:attribute name="panelPrincipal">
+		<input type="hidden" name="id" value="${producto.id}" />
+		<%@ include file="formularios/formularioDatosProducto.jsp"%>
 					<div>
 						<input name="chkPermitir" type="checkbox" value="true"
-							<c:if test="${producto.enVenta}">checked="checked"</c:if> />Permitir
+				<c:if test="${producto.enVenta}">checked="checked"</c:if> />Permitir
 						la venta de este producto.
-					</div> <c:if test="${!empty errores.general}">
-						<div class="errorEntrada" style="text-align: center; margin: 2em;">
-							<c:out value="${errores.general}"></c:out>
-						</div>
-					</c:if>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" class="separador"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td class="botonera"><input type="submit" value="Aceptar"
-					name="btnAceptar" /> <input type="submit" value="Cancelar"
-					name="btnCancelar" onclick="return confirm('¿Esta seguro que desea cancelar la operación?')" /></td>
-			</tr>
-		</table>
-	</form>
-</body>
-</html>
+					</div> 		<c:if test="${!empty errores.general}">
+			<div class="errorEntrada" style="text-align: center; margin: 2em;">
+				<c:out value="${errores.general}"></c:out>
+			</div>
+		</c:if>
+	</jsp:attribute>
+
+	<jsp:attribute name="botonera">
+		<input type="submit" value="Aceptar" name="btnAceptar" />
+		<input type="submit" value="Cancelar" name="btnCancelar"
+			onclick="return confirm('¿Esta seguro que desea cancelar la operación?')" />
+	</jsp:attribute>
+</templates:paginaProductosProducto>
