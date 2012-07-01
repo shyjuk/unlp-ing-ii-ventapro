@@ -1,73 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="unlp.info.ingenieriaii.modelo.SucursalUno"%>
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib tagdir="/WEB-INF/tags/templates" prefix="templates"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>VentaPro - Modificar Cliente</title>
+<templates:paginaClientes
+	nombreFuncionalidad="Modificar Cliente">
 
-<link rel="stylesheet" type="text/css" href="basico.css" />
-<script src="funciones.js" type="text/javascript"></script>
-</head>
-<body>
-	<form method="post">
-		<div class="header">
-			<div class="nombreSucursal"><%=SucursalUno.getSingleInstance().getNombre()%></div>
-			<div class="nombreUsuario">
-				<%=("Rodolfo Perez")%>
-				<input type="submit" value="Cerrar sesión" name="btnCerrarSesion"></input>
+	<jsp:attribute name="panelPrincipal">
+		<input type="hidden" name="id" value="${cliente.id}" />
+		<%@ include file="formularios/formularioDatosCliente.jsp"%>
+	
+		<c:if test="${!empty errores.general}">
+			<div class="errorEntrada" style="text-align: center; margin: 2em;">
+				<c:out value="${errores.general}"></c:out>
 			</div>
-			<div class="clear"></div>
-		</div>
+		</c:if>
+	</jsp:attribute>
 
-		<table class="principal">
-			<tr>
-				<td></td>
-				<td class="funcs funcsSecundarias">
-				    <a class="func funcAct" href="#">Cliente</a> 
-				</td>
-			</tr>
-			<tr>
-				<td class="funcs funcsPrincipales"><a class="funcPrincipal"
-					href="buscarProducto.jsp">Gestión de productos</a> <a
-					class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
-					class="funcPrincipal funcPrincipalAct" href="#">Administración
-						de clientes</a> <a class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> <a
-					class="funcPrincipal" href="#">Administración de usuarios</a></td>
-
-				<td class="panelPrincipal">
-					<div class="subFuncs">
-						<a class="subFunc" href="buscarCliente.jsp">Buscar</a> <a
-							class="subFunc" href="agregarCliente.jsp">Agregar</a><a
-							class="subFunc subFuncAct" href="#">Modificar</a>
-					</div>
-					<div class="helpText">
-						Si necesita ayuda haga <a
-							href="javascript:abrirPopUp('popupAyudaGenerica.html')">click
-							aquí</a>
-					</div> <input type="hidden" name="id" value="${cliente.id}" /> <jsp:include
-						page="formularios/formularioDatosCliente.jsp" flush="true" /><c:if
-						test="${!empty errores.general}">
-						<div class="errorEntrada" style="text-align: center; margin: 2em;">
-							<c:out value="${errores.general}"></c:out>
-						</div>
-					</c:if>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" class="separador"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td class="botonera"><input type="submit" value="Aceptar"
-					name="btnAceptar" /> <input type="submit" value="Cancelar"
-					name="btnCancelar" onclick="return confirm('¿Esta seguro que desea cancelar la operación?')" /></td>
-			</tr>
-		</table>
-	</form>
-</body>
-</html>
+	<jsp:attribute name="botonera">
+		<input type="submit" value="Aceptar" name="btnAceptar" />
+		<input type="submit" value="Cancelar" name="btnCancelar"
+			onclick="return confirm('¿Esta seguro que desea cancelar la operación?')" />
+	</jsp:attribute>
+</templates:paginaClientes>
