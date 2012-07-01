@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="/WEB-INF/funciones.tld" prefix="f"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
+<%@ taglib tagdir="/WEB-INF/templates" prefix="t"%>
 <%@ attribute name="nombreFuncionalidad" required="true"%>
 <%@ attribute name="panelPrincipal" required="true" fragment="true"%>
 <%@ attribute name="botonera" required="true" fragment="true"%>
