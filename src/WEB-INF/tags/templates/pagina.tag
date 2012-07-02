@@ -50,7 +50,7 @@
 						activa="${funcPriVentasActiva}" /> <t:funcPrincipal
 						pagina="buscarCliente.jsp" nombre="Administración de clientes"
 						activa="${funcPriClientesActiva}" /> <t:funcPrincipal
-						pagina="reporteProducto.jsp" nombre="Reportes"
+						pagina="reporteProductos.jsp" nombre="Reportes"
 						activa="${funcPriReportesActiva}" /> <t:funcPrincipal pagina="#"
 						nombre="Administración de usuarios" /></td>
 				<td class="panelPrincipal">
