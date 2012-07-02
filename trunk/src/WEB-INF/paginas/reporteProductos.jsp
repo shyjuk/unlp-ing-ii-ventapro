@@ -55,7 +55,7 @@
 					</div>
 
 					<div style="padding: 8px">
-						<object data="report.jsp" type="application/pdf" width="100%"
+						<object data="report.jsp#toolbar=1" type="application/pdf" width="100%"
 							height="900px">
 							
 							<a href="report.jsp">Descargar reporte</a>
