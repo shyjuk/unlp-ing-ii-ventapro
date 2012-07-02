@@ -27,31 +27,40 @@
 		<table class="principal">
 			<tr>
 				<td></td>
-				<td class="funcs funcsSecundarias"> 
-				    <a class="func funcAct" href="#">Reportes Productos</a>
-				  </td>
+				<td class="funcs funcsSecundarias"><a class="func funcAct"
+					href="#">Reportes Productos</a></td>
 			</tr>
 			<tr>
-				<td class="funcs funcsPrincipales"><a
-					class="funcPrincipal" href="buscarProducto.jsp">Gestión de productos</a> <a 
+				<td class="funcs funcsPrincipales"><a class="funcPrincipal"
+					href="buscarProducto.jsp">Gestión de productos</a> <a
 					class="funcPrincipal" href="generarOrden.jsp">Ventas</a> <a
-					class="funcPrincipal" href="agregarCliente.jsp">Administración de clientes</a> <a
-					class=" funcPrincipalAct funcPrincipal" href="reporteProductos.jsp">Reportes</a> 
-					<a class="funcPrincipal" href="#">Administración de usuarios</a></td>
+					class="funcPrincipal" href="agregarCliente.jsp">Administración
+						de clientes</a> <a class=" funcPrincipalAct funcPrincipal"
+					href="reporteProductos.jsp">Reportes</a> <a class="funcPrincipal"
+					href="#">Administración de usuarios</a></td>
 
 				<td class="panelPrincipal">
 					<div class="subFuncs">
-						<a class="subFunc" href="reporteBajoStock.jsp">Bajo el Stock Minimo</a> 
-						<a class="subFunc" href="productosInactivos.jsp">Productos Inactivos</a>
-						<a class="subFunc" href="productosEnVenta.jsp">Productos En Venta</a>
-						<a class="subFunc subFuncAct" href="reporteProductos.jsp">Todos</a>
+						<a class="subFunc" href="reporteBajoStock.jsp">Bajo el Stock
+							Minimo</a> <a class="subFunc" href="productosInactivos.jsp">Productos
+							Inactivos</a> <a class="subFunc" href="productosEnVenta.jsp">Productos
+							En Venta</a> <a class="subFunc subFuncAct"
+							href="reporteProductos.jsp">Todos</a>
 					</div>
-					
-					<div class="helpText">Si necesita ayuda haga <a
+
+					<div class="helpText">
+						Si necesita ayuda haga <a
 							href="javascript:abrirPopUp('popupAyudaGenerica.html')">click
 							aquí</a>
-					</div> <jsp:include page="formularios/reporteProducto.jsp"
-						/><c:if test="${!empty errores.general}">
+					</div>
+
+					<div style="padding: 8px">
+						<object data="report.jsp" type="application/pdf" width="100%"
+							height="900px">
+							
+							<a href="report.jsp">Descargar reporte</a>
+						</object>
+					</div> <c:if test="${!empty errores.general}">
 						<div class="errorEntrada" style="text-align: center; margin: 2em;">
 							<c:out value="${errores.general}"></c:out>
 						</div>
