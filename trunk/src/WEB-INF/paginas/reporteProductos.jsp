@@ -54,9 +54,9 @@
 							aquí</a>
 					</div>
 
-					<div style="padding: 8px">
+					<div style="margin: 8px; border: 1px solid #CCC">
 						<object data="report.jsp#toolbar=1" type="application/pdf" width="100%"
-							height="900px">
+							height="500px">
 							
 							<a href="report.jsp">Descargar reporte</a>
 						</object>
