@@ -46,7 +46,7 @@
 					<a class="funcPrincipal" href="buscarProducto.jsp">Gestión de productos</a> 
 					<a class="funcPrincipal funcPrincipalAct" href="#">Ventas</a> 
 					<a class="funcPrincipal" href="buscarCliente.jsp">Administración de clientes</a> 
-					<a class="funcPrincipal" href="reporteProductos.jsp">Reportes</a> 
+					<a class="funcPrincipal" href="reporteBajoStock.jsp">Reportes</a> 
 					<a class="funcPrincipal" href="#">Administración de usuarios</a></td>
 				<td class="panelPrincipal">
 					<div class="helpText">
