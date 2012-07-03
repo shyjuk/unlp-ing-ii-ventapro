@@ -7,7 +7,6 @@
 	<classpathentry exported="true" kind="var" path="TOMCAT_HOME/lib/el-api.jar"/>
 	<classpathentry exported="true" kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
 	<classpathentry kind="src" path="WEB-INF/src"/>
-	<classpathentry kind="src" output="work" path="work"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-beanutils-1.8.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-collections-2.1.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-digester-2.1.jar"/>
