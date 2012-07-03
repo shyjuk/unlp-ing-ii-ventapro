@@ -224,7 +224,7 @@
 					</fieldset>
 					<fieldset>
 						<legend>Productos</legend>
-						<table>
+						<table width="100%">
 							<tr>
 								<td colspan="5" class="separador"></td>
 							</tr>
@@ -276,12 +276,12 @@
 								<td colspan="5" align="right"><input type="submit" value="Buscar" name="btnBuscar"  <%= enVenta ? "" : "disabled" %>></input></td>
 							</tr>
 							<tr>
-								<td colspan="5" class="separador"></td>
+								<td colspan="5" class="separador"><hr/></td>
 							</tr>
 							<tr>
 								<td colspan="5">
 									Codigo de producto:
-									<input type="text" name="codigoAgregar" id="codigoAgregar" value="${inputVenta.codigoAgregar}"  <%= enVenta ? "" : "disabled" %>/>
+									<input type="text" name="codigoAgregar" id="codigoAgregar" value="${inputVenta.codigoAgregar}"  <%= enVenta ? "" : "disabled" %>/> Cantidad:
 									<input type="text" name="cantidadAgregar" id="cantidadAgregar" value="${inputVenta.cantidadAgregar}"  <%= enVenta ? "" : "disabled" %> size="10"/>
 									<input type="submit" value="Agregar" name="btnAgregarProdPorCod" <%= enVenta ? "" : "disabled" %>/>
 								</td>
