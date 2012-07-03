@@ -8,6 +8,11 @@ function abrirPopUpConParam(pagina, paramName, paramValue) {
 	window.open(pagina + '?' + paramName + '=' + paramValue, "", opciones);
 }
 
+function abrirPopUpReporteConParam(pagina, paramName, paramValue) {
+	var opciones = "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, width=1000, height=500, top=85, left=140";
+	window.open(pagina + '?' + paramName + '=' + paramValue, "", opciones);
+}
+
 function changeSelection(element) {
 	if (element == null || element.value == 'FALSE') {
 		element.value = 'TRUE';
