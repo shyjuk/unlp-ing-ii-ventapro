@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteProductos" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df2ade29-6228-424f-bd1d-8e39b92e0343">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteProductos" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df2ade29-6228-424f-bd1d-8e39b92e0343">
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="109"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -24,7 +24,7 @@
 		<groupExpression><![CDATA[$F{TipoProducto_nombre}]]></groupExpression>
 		<groupHeader>
 			<band height="40">
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement uuid="e2d10bfb-9808-4f33-b1bd-3ea924e83b24" style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#000000"/>
 					<textElement>
 						<font isBold="true"/>
@@ -44,7 +44,7 @@
 		<groupExpression><![CDATA[$F{Marca_nombre}]]></groupExpression>
 		<groupHeader>
 			<band height="30">
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement uuid="1b596d1a-fe3a-4c91-babc-8f21f106d0e5" style="SubTitle" x="0" y="4" width="460" height="20"/>
 					<textElement>
 						<font size="16" isBold="true"/>

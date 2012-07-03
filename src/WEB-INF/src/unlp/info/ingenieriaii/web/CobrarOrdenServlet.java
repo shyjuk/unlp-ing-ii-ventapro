@@ -56,7 +56,7 @@ public class CobrarOrdenServlet extends ServletPagina{
 			orden.setId(Utiles.esVacio(id) ? null : Integer.parseInt(id));
 			orden.setEstado(String.valueOf(Estados.PAGADA.getId()));
 			orden.guardar(); // no hay errores
-			resp.sendRedirect("factura.jsp?num_orden=" + id);
+			resp.sendRedirect("facturaGenerada.jsp?num_orden=" + id);
 		}else {
 			// agrgar boton refrescar
 			this.setBuscador(req, req.getParameter("btnAceptar") != null);

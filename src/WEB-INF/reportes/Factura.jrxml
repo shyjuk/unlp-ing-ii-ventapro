@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c84f888-8d85-4224-9a88-feebb1717961">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="208"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="num_orden" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[9999]]></defaultValueExpression>
@@ -49,7 +49,7 @@
 	<title>
 		<band height="132" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="742cf560-9cab-4a7b-8940-95499a926bc0" x="0" y="0" width="555" height="132" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+				<reportElement uuid="742cf560-9cab-4a7b-8940-95499a926bc0" x="0" y="0" width="555" height="132" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
 			</rectangle>
 			<staticText>
 				<reportElement uuid="6d513edb-fada-4ea7-a83b-e10919cee618" x="10" y="67" width="193" height="15"/>
@@ -80,7 +80,7 @@
 				<text><![CDATA[Factura N°:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6f4b89e6-d9c4-4926-a6cd-bb78d8c9a3f2" x="358" y="56" width="91" height="15"/>
+				<reportElement uuid="6f4b89e6-d9c4-4926-a6cd-bb78d8c9a3f2" x="358" y="55" width="91" height="15"/>
 				<textElement>
 					<font fontName="Courier New"/>
 				</textElement>
@@ -108,7 +108,18 @@
 				<textFieldExpression><![CDATA[$F{num_orden}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="c277c42c-6c84-41a1-a84b-d67046836921" x="448" y="56" width="94" height="15"/>
+				<reportElement uuid="c277c42c-6c84-41a1-a84b-d67046836921" x="173" y="46" width="94" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="5cb8fec9-eb1f-424c-8ab4-84a872004b99" x="10" y="0" width="300" height="64"/>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="e57ffb45-aa85-47eb-aaeb-13a81bf6b2e4" x="448" y="55" width="94" height="15"/>
 				<textElement>
 					<font fontName="Courier New"/>
 				</textElement>
