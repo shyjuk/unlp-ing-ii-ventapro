@@ -61,7 +61,7 @@
 		<band height="70" splitType="Stretch">
 			<image>
 				<reportElement uuid="5cb8fec9-eb1f-424c-8ab4-84a872004b99" x="275" y="0" width="300" height="64"/>
-				<imageExpression><![CDATA["leaf_banner_gray.png"]]></imageExpression>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement uuid="e94e347c-c862-4d6e-b485-385885282ceb" style="Title" x="0" y="13" width="263" height="33"/>
