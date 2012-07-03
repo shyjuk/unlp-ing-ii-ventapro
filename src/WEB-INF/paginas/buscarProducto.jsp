@@ -89,8 +89,7 @@
 							<td colspan="4"><input name="chkIncluir" type="checkbox"
 					value="true"
 					<c:if
-									test="${empty buscador.enVenta}">checked="checked"</c:if> />Incluir
-								productos que no es encuentren a la venta.</td>
+									test="${empty buscador.enVenta}">checked="checked"</c:if> />Buscar productos que no se encuentren a la venta.</td>
 							<td align="right"><input type="submit" value="Buscar"
 					name="btnAceptar" /></td>
 						</tr>
