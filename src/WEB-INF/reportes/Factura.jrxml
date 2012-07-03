@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c84f888-8d85-4224-9a88-feebb1717961">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="num_orden" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[9999]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+			o.idOrdenVenta as num_orden,
+	      o.fechaHora as fecha,
+	      c.nombre as cliente,
+        concat('DNI - ', c.nroDocumento) as documento,
+        c.telefono as telefono,
+        c.celular as celular,
+      	u.nombre as vendedor,
+        (CASE f.medioPago
+            WHEN 1 THEN 'EFECTIVO'
+            WHEN 2 THEN 'DEBITO'
+            WHEN 3 THEN 'CREDITO'
+        end) as medio_pago,
+        i.cantidad cant_item,
+        concat(p.codigo, ' - ', p.nombre) as desc_item,
+        i.precioUnitario as precio_unitario,
+        i.precioUnitario * i.cantidad  as precio_item,
+        f.monto as total
+    FROM tbl_ordenes_venta  o left join tbl_personas c on o.idcliente = c.idpersona
+        inner join tbl_factura f on o.idOrdenVenta = f.idOrdenVenta
+        inner join tbl_usuarios u on o.idVendedor = u.idUsuario
+        inner join tbl_items i on o.idOrdenVenta = i.idOrdenVenta
+        inner join tbl_productos p on i.idProducto = p.idProducto
+    WHERE O.estado = 3
+	AND o.idOrdenVenta = $P{num_orden};]]>
+	</queryString>
+	<field name="num_orden" class="java.lang.Integer"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="documento" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="celular" class="java.lang.String"/>
+	<field name="vendedor" class="java.lang.String"/>
+	<field name="medio_pago" class="java.lang.String"/>
+	<field name="cant_item" class="java.lang.Integer"/>
+	<field name="desc_item" class="java.lang.String"/>
+	<field name="precio_unitario" class="java.math.BigDecimal"/>
+	<field name="precio_item" class="java.math.BigDecimal"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<title>
+		<band height="132" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="742cf560-9cab-4a7b-8940-95499a926bc0" x="0" y="0" width="555" height="132" forecolor="#FFFFFF" backcolor="#99B4D1"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="6d513edb-fada-4ea7-a83b-e10919cee618" x="10" y="67" width="193" height="15"/>
+				<textElement>
+					<font fontName="Courier New" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Electrodomesticos La Loma S.A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4592a005-3c8b-4f0f-8cd6-a27ea5ca9004" x="10" y="82" width="193" height="15"/>
+				<textElement>
+					<font fontName="Courier New" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sucursal I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5c31a76f-df24-4c09-89c7-754e53fab8b0" x="358" y="10" width="197" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<text><![CDATA[Original Blanco / Copia color]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c5ace30-3b74-4086-85e8-1c3d9042b326" x="358" y="37" width="90" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<text><![CDATA[Factura N°:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6f4b89e6-d9c4-4926-a6cd-bb78d8c9a3f2" x="358" y="56" width="91" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d64a9570-d73c-404f-bcb3-9aee8ffece47" x="10" y="112" width="193" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<text><![CDATA[CUIT: 20222334455]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="399d7af3-4a37-41ef-842a-f93a91afcb70" x="10" y="97" width="216" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<text><![CDATA[Ariel Sobrado - Av 1 23, La Plata.]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e57ffb45-aa85-47eb-aaeb-13a81bf6b2e4" x="448" y="37" width="94" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{num_orden}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c277c42c-6c84-41a1-a84b-d67046836921" x="448" y="56" width="94" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="dabe688d-0e06-40dd-ae2f-5aba7a810c70" x="0" y="0" width="555" height="50" forecolor="#FFFFFF" backcolor="#E3E3E3"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="9d358159-2643-4ff5-a661-b39e3d2cd50d" x="10" y="6" width="261" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="28754d67-7c30-4d85-8485-2cd084738335" x="80" y="20" width="191" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e430343e-d273-4795-b754-d351c36af710" x="271" y="6" width="201" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{documento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c6cdd6b0-2102-4d47-85fe-516eb39d5c7a" x="10" y="20" width="70" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<text><![CDATA[Tel.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c6cdd6b0-2102-4d47-85fe-516eb39d5c7a" x="10" y="34" width="70" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<text><![CDATA[Cel.]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="28754d67-7c30-4d85-8485-2cd084738335" x="80" y="34" width="191" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c6cdd6b0-2102-4d47-85fe-516eb39d5c7a" x="420" y="21" width="123" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<text><![CDATA[A consumidor final.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="3f379da1-8ab2-4b63-bc9e-fd23740bb603" x="0" y="0" width="555" height="24" forecolor="#FFFFFF" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="4fdacd80-2e3b-4df8-add3-103498056d00" x="10" y="4" width="70" height="15"/>
+				<textElement>
+					<font fontName="Courier New" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5522197-c43e-4634-90bf-32894718d8e8" x="80" y="4" width="266" height="15"/>
+				<textElement>
+					<font fontName="Courier New" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8fd494d2-6e22-4486-91d3-9afba593d260" x="346" y="4" width="102" height="15"/>
+				<textElement>
+					<font fontName="Courier New" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO UNITARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="509b424f-3526-41d5-878d-2f5fbf30fa68" x="449" y="4" width="93" height="15"/>
+				<textElement>
+					<font fontName="Courier New" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="72b93165-8399-446e-a284-b51a09f7a998" x="10" y="4" width="70" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cant_item}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="db0b9d30-039c-4f21-9eb2-9807ab2aaf2e" x="80" y="4" width="266" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{desc_item}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7afdc492-6333-4178-b103-63d9332d6991" x="346" y="4" width="102" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio_unitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cf937143-f364-4b35-9f6a-79cb350d25cc" x="448" y="4" width="94" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio_item}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="9d1dbd73-2f26-4e2e-bd95-33e589e88849" x="0" y="0" width="555" height="54" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="a0965010-a62f-4f02-b447-4e8bdd5e68f6" x="378" y="9" width="70" height="15"/>
+				<textElement>
+					<font fontName="Courier New" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL: $]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="7abaad59-d5f7-4cab-a857-7211afd1e2cf" x="448" y="9" width="94" height="15"/>
+				<textElement>
+					<font fontName="Courier New" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="18bdba0d-8c9b-4341-ab73-7b7c3cf82fd4" x="10" y="32" width="533" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New"/>
+				</textElement>
+				<text><![CDATA[Casa central: Av. 7 456, La Plata, Bs. As. - Tel. 0221345345 - www.electrolaloma.com.ar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4fdacd80-2e3b-4df8-add3-103498056d00" x="156" y="9" width="70" height="15"/>
+				<textElement>
+					<font fontName="Courier New" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medio Pago:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="72b93165-8399-446e-a284-b51a09f7a998" x="226" y="9" width="95" height="15"/>
+				<textElement>
+					<font fontName="Courier New"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{medio_pago}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

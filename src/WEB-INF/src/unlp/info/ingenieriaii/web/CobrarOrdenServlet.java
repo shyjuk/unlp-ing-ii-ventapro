@@ -52,14 +52,17 @@ public class CobrarOrdenServlet extends ServletPagina{
 
 		if ("pagar".equals(req.getParameter("accion"))) {
 			OrdenDeVenta orden = new OrdenDeVenta();
-			orden.setId(Utiles.esVacio(req.getParameter("id")) ? null : Integer.parseInt(req.getParameter("id")));
+			String id = req.getParameter("id");
+			orden.setId(Utiles.esVacio(id) ? null : Integer.parseInt(id));
 			orden.setEstado(String.valueOf(Estados.PAGADA.getId()));
 			orden.guardar(); // no hay errores
-		} 
+			resp.sendRedirect("factura.jsp?num_orden=" + id);
+		}else {
+			// agrgar boton refrescar
+			this.setBuscador(req, req.getParameter("btnAceptar") != null);
+			super.procesarPost(req, resp);
+		}
 		
-		// agrgar boton refrescar
-		this.setBuscador(req, req.getParameter("btnAceptar") != null);
-		super.procesarPost(req, resp);
 	}
 
 }

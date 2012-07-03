@@ -128,6 +128,7 @@
 								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Monto</td>
 								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Estado</td>
 								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Detalles</td>
+								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Factura</td>
 								<td style="width: 15px; text-align: center; border: 1px solid #CCC">Anular</td>
 							</tr>
 							<c:forEach items="${buscador.resultado}" var="row">
@@ -140,6 +141,12 @@
 									<td style="border: 1px solid #CCC">$<c:out value="${row.factura.monto}" /></td>
 									<td style="border: 1px solid #CCC"><c:out value="${row.estadoDescripcion}" /></td>
 									<td style="border: 1px solid #CCC" align="center"><img src="imagenes/iconos/glasses.gif" onclick="javascript:abrirPopUpConParam('popupDetalleOrden.jsp','idOrden','${row.id}')" alt="Ver" /></td>
+									<c:if test="${row.estado == 3}">
+										<td style="border: 1px solid #CCC" align="center"><img src="imagenes/iconos/doc_enable.jpg" onclick="javascript:abrirPopUpReporteConParam('factura.jsp','num_orden','${row.id}')" alt="Factura" /></td>
+									</c:if>
+									<c:if test="${row.estado != 3}">
+										<td style="border: 1px solid #CCC" align="center"><img src="imagenes/iconos/doc_disabled.jpg" alt="Factura" /></td>
+									</c:if>
 									<td style="border: 1px solid #CCC" align="center">
 										<c:if test="${row.estado == 1}">
 											<img src="imagenes/iconos/delete.gif" onclick="javascript:anularObject('${row.id}');" alt="Anular" />

@@ -90,8 +90,12 @@
 	<servlet>
 		<servlet-name>ReporteServlet</servlet-name>
 		<servlet-class>unlp.info.ingenieriaii.web.ReporteServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FacturaServlet</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.FacturaServlet</servlet-class>
 	</servlet>		
-	 
+ 
 
 
 	<servlet-mapping>
@@ -181,6 +185,11 @@
 	<servlet-mapping>
 		<servlet-name>ReporteServlet</servlet-name>
 		<url-pattern>/paginas/report.jsp</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>FacturaServlet</servlet-name>
+		<url-pattern>/paginas/factura.jsp</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
