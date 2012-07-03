@@ -96,7 +96,12 @@
 		<servlet-class>unlp.info.ingenieriaii.web.FacturaServlet</servlet-class>
 	</servlet>		
  
-
+ 	<servlet>
+		<servlet-name>FacturaGeneradaServelt</servlet-name>
+		<servlet-class>unlp.info.ingenieriaii.web.FacturaGeneradaServelt</servlet-class>
+	</servlet>	
+	
+	
 
 	<servlet-mapping>
 		<servlet-name>BuscarTipoProductoServlet</servlet-name>
@@ -187,5 +192,13 @@
 		<servlet-name>FacturaServlet</servlet-name>
 		<url-pattern>/paginas/factura.jsp</url-pattern>
 	</servlet-mapping>
+	
+	
+	
+	<servlet-mapping>
+		<servlet-name>FacturaGeneradaServelt</servlet-name>
+		<url-pattern>/paginas/facturaGenerada.jsp</url-pattern>
+	</servlet-mapping>
+	
 	
 </web-app>

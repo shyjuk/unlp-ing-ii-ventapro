@@ -114,6 +114,14 @@
 						<tr>
 							<td colspan="2" class="separador"></td>
 						</tr>
+						<tr>
+							<td align="center" colspan="2">
+								<input type="submit" value="Buscar" name="btnBuscar" /> 
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="separador"></td>
+						</tr>
 					</table>
 
 					<fieldset>
@@ -176,7 +184,7 @@
 			<tr>
 				<td></td>
 				<td class="botonera">
-					<input type="submit" value="Buscar" name="btnBuscar" /> 
+					 
 				</td>
 			</tr>
 		</table>
