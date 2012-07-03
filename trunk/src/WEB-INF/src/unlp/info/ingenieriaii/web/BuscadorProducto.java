@@ -29,7 +29,8 @@ public class BuscadorProducto extends Buscador<Producto> {
 		if (Utiles.esVacio(this.getNombre())
 				&& Utiles.esVacio(this.getCodigo())
 				&& this.getIdMarca() == null
-				&& this.getIdTipoProducto() == null) {
+				&& this.getIdTipoProducto() == null
+				&& this.getEnVenta() != null) {
 
 			errores.setGeneral("Debe completar al menos uno de los criterios de búsqueda.");
 		} else {
