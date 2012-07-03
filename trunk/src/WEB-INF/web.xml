@@ -175,10 +175,6 @@
 		<url-pattern>/paginas/productosInactivos.jsp</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ProdInactivosServlet</servlet-name>
-		<url-pattern>/paginas/productosInactivos.jsp</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>ProdEnVentaServlet</servlet-name>
 		<url-pattern>/paginas/productosEnVenta.jsp</url-pattern>
 	</servlet-mapping>

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -39,6 +40,7 @@ public class ReporteServlet extends ServletPagina{
 			String pathReportFile = this.getServletContext().getRealPath(PATH_REPORTES + "TodosLosProductos.jasper");
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("nom","valor"); // estos son lo parametros para hacer el query
+			parameters.put(JRParameter.REPORT_LOCALE, new Locale("es", "AR"));
 			
 			byte[] bytes = JasperRunManager.runReportToPdf(pathReportFile, parameters, conexion);
 			
